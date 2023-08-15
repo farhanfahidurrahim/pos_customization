@@ -14,7 +14,7 @@
 
 <!-- Main content -->
 <section class="content">
-{!! Form::open(['url' => action('ProductController@update' , [$product->id] ), 'method' => 'PUT', 'id' => 'product_add_form',
+{!! Form::open(['url' => route('products.update' , [$product->id] ), 'method' => 'PUT', 'id' => 'product_add_form',
         'class' => 'product_form', 'files' => true ]) !!}
     <input type="hidden" id="product_id" value="{{ $product->id }}">
 
@@ -34,7 +34,7 @@
                 <div class="input-group">
                   {!! Form::select('brand_id', $brands, $product->brand_id, ['placeholder' => __('messages.please_select'), 'class' => 'form-control select2']); !!}
                   <span class="input-group-btn">
-                    <button type="button" @if(!auth()->user()->can('brand.create')) disabled @endif class="btn btn-default bg-white btn-flat btn-modal" data-href="{{action('BrandController@create', ['quick_add' => true])}}" title="@lang('brand.add_brand')" data-container=".view_modal"><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
+                    <button type="button" @if(!auth()->user()->can('brand.create')) disabled @endif class="btn btn-default bg-white btn-flat btn-modal" data-href="{{ route('brands.create', ['quick_add' => true]) }}" title="@lang('brand.add_brand')" data-container=".view_modal"><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
                   </span>
                 </div>
               </div>
@@ -46,7 +46,7 @@
                 <div class="input-group">
                   {!! Form::select('unit_id', $units, $product->unit_id, ['placeholder' => __('messages.please_select'), 'class' => 'form-control select2', 'required']); !!}
                   <span class="input-group-btn">
-                    <button type="button" @if(!auth()->user()->can('unit.create')) disabled @endif class="btn btn-default bg-white btn-flat quick_add_unit btn-modal" data-href="{{action('UnitController@create', ['quick_add' => true])}}" title="@lang('unit.add_unit')" data-container=".view_modal"><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
+                    <button type="button" @if(!auth()->user()->can('unit.create')) disabled @endif class="btn btn-default bg-white btn-flat quick_add_unit btn-modal" data-href="{{ route('units.create', ['quick_add' => true]) }}" title="@lang('unit.add_unit')" data-container=".view_modal"><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
                   </span>
                 </div>
               </div>
@@ -173,7 +173,7 @@
               <div class="form-group">
                 {!! Form::label('rack_' . $id,  $location . ':') !!}
 
-                
+
                   @if(!empty($rack_details[$id]))
                     @if(session('business.enable_racks'))
                       {!! Form::text('product_racks_update[' . $id . '][rack]', $rack_details[$id]['rack'], ['class' => 'form-control', 'id' => 'rack_' . $id]); !!}
@@ -207,35 +207,6 @@
           </div>
         </div>
         <div class="clearfix"></div>
-        <!--custom fields-->
-        <div class="col-sm-3">
-          <div class="form-group">
-            {!! Form::label('product_custom_field1',  __('lang_v1.product_custom_field1') . ':') !!}
-            {!! Form::text('product_custom_field1', $product->product_custom_field1, ['class' => 'form-control', 'placeholder' => __('lang_v1.product_custom_field1')]); !!}
-          </div>
-        </div>
-
-        <div class="col-sm-3">
-          <div class="form-group">
-            {!! Form::label('product_custom_field2',  __('lang_v1.product_custom_field2') . ':') !!}
-            {!! Form::text('product_custom_field2', $product->product_custom_field2, ['class' => 'form-control', 'placeholder' => __('lang_v1.product_custom_field2')]); !!}
-          </div>
-        </div>
-
-        <div class="col-sm-3">
-          <div class="form-group">
-            {!! Form::label('product_custom_field3',  __('lang_v1.product_custom_field3') . ':') !!}
-            {!! Form::text('product_custom_field3', $product->product_custom_field3, ['class' => 'form-control', 'placeholder' => __('lang_v1.product_custom_field3')]); !!}
-          </div>
-        </div>
-
-        <div class="col-sm-3">
-          <div class="form-group">
-            {!! Form::label('product_custom_field4',  __('lang_v1.product_custom_field4') . ':') !!}
-            {!! Form::text('product_custom_field4', $product->product_custom_field4, ['class' => 'form-control', 'placeholder' => __('lang_v1.product_custom_field4')]); !!}
-          </div>
-        </div>
-        <!--custom fields-->
         @include('layouts.partials.module_form_part')
         </div>
     @endcomponent

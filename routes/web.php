@@ -289,7 +289,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
         Route::get('stock-transfers/print/{id}', [StockTransferController::class, 'printInvoice'])->name('stock-transfers.printInvoice');
 
         Route::get('/opening-stock/add/{product_id}', [OpeningStockController::class, 'add'])->name('openingStock.add');
-        Route::post('/opening-stock/save', [OpeningStockController::class, 'save']);
+        Route::post('/opening-stock/save', [OpeningStockController::class, 'save'])->name('openingStock.save');
 
         //Import opening stock
         Route::get('/import-opening-stock', [ImportOpeningStockController::class, 'index'])->name('import-opening-stock.index');

@@ -614,18 +614,18 @@ class ProductController extends Controller
         }
 
         if ($request->input('submit_type') == 'update_n_edit_opening_stock') {
-            return redirect()->action(
-                'OpeningStockController@add',
+            return redirect()->route(
+                'openingStock.add',
                 ['product_id' => $product->id]
             );
         } elseif ($request->input('submit_type') == 'submit_n_add_selling_prices') {
-            return redirect()->action(
-                'ProductController@addSellingPrices',
+            return redirect()->route(
+                'products.addSellingPrices',
                 [$product->id]
             );
         } elseif ($request->input('submit_type') == 'save_n_add_another') {
-            return redirect()->action(
-                'ProductController@create'
+            return redirect()->route(
+                'products.create'
             )->with('status', $output);
         }
 
