@@ -33,32 +33,141 @@
                     {!! Form::text('last_name', $user->last_name, ['class' => 'form-control', 'placeholder' => __( 'business.last_name' ) ]); !!}
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="form-group">
                   {!! Form::label('address', __( 'Address' ) . ':') !!}
                     {!! Form::text('address', $user->address, ['class' => 'form-control', 'placeholder' => __( 'Address' ) ]); !!}
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('country', __('Country') . ':*') !!}
                     {!! Form::text('country', $user->country, ['class' => 'form-control', 'required', 'placeholder' => __('Country')]) !!}
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('city', __('City') . ':*') !!}
                     {!! Form::text('city', $user->city, ['class' => 'form-control', 'required', 'placeholder' => __('City')]) !!}
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('national_id', __('National ID') . ':*') !!}
+                    {!! Form::text('national_id', $user->national_id, ['class' => 'form-control', 'required', 'placeholder' => __('National ID')]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('passport_no', __('Passport No') . ':') !!}
+                    {!! Form::text('passport_no', $user->passport_no, ['class' => 'form-control', 'required', 'placeholder' => __('Passport No')]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('father_name', __('Father Name') . ':*') !!}
+                    {!! Form::text('father_name', $user->father_name, ['class' => 'form-control', 'required', 'placeholder' => __('Father Name')]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('mother_name', __('Mother Name') . ':*') !!}
+                    {!! Form::text('mother_name', $user->mother_name, ['class' => 'form-control', 'required', 'placeholder' => __('Mother Name')]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('spouse_name', __('Spouse Name') . ':') !!}
+                    {!! Form::text('spouse_name', $user->spouse_name, ['class' => 'form-control', 'required', 'placeholder' => __('Spouse Name')]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('business_license_number', __('Business License Number') . ':*') !!}
+                    {!! Form::text('business_license_number', $user->business_license_number, [
+                        'class' => 'form-control',
+                        'required',
+                        'placeholder' => __('Business License Number'),
+                    ]) !!}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    {!! Form::label('gender', __('Gender') . ':*') !!}
+                    {!! Form::select('gender', ['' => __('Please Select'), 'male' => 'Male', 'female' => 'Female'], $user->gender,
+                        ['class' => 'form-control select2', 'required']) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('date_of_birth', __('Date Of Birth') . ':*') !!}
+                    {!! Form::date('date_of_birth', $user->date_of_birth, ['class' => 'form-control', 'required', 'placeholder' => __('')]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('joining_date', __('Joining Date') . ':*') !!}
+                    {!! Form::date('joining_date', $user->joining_date, [
+                        'class' => 'form-control',
+                        'required',
+                        'placeholder' => __('Joining Date'),
+                    ]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('blood_group', __('Blood Group') . ':*') !!}
+                    {!! Form::text('blood_group', $user->blood_group, ['class' => 'form-control', 'required', 'placeholder' => __('Blood Group')]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('mobile', __('Mobile') . ':*') !!}
+                    {!! Form::text('mobile', $user->mobile, ['class' => 'form-control', 'required', 'placeholder' => __('Mobile')]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('salary', __('Salary') . ':*') !!}
+                    {!! Form::text('salary', $user->salary, ['class' => 'form-control', 'required', 'placeholder' => __('Salary')]) !!}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    {!! Form::label('religion', __('Religion') . ':*') !!}
+                    {!! Form::select('religion', ['' => __('Please Select'), 'islam' => 'Islam', 'hindu' => 'Hindu', 'christan' => 'Christan', 'buddho' => 'Buddho', 'others' => 'Others'], $user->religion,
+                        ['class' => 'form-control select2', 'required']) !!}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('edu_qualification', __('Education/Qualification') . ':*') !!}
+                    {!! Form::text('edu_qualification', $user->edu_qualification, [
+                        'class' => 'form-control',
+                        'required',
+                        'placeholder' => __('Education/Qualification'),
+                    ]) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('experience_details', __('Experience Details') . ':*') !!}
+                    {!! Form::text('experience_details', $user->experience_details, [
+                        'class' => 'form-control',
+                        'required',
+                        'placeholder' => __('Experience Details'),
+                    ]) !!}
+                </div>
+            </div>
             <div class="clearfix"></div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
                   {!! Form::label('email', __( 'business.email' ) . ':*') !!}
                     {!! Form::text('email', $user->email, ['class' => 'form-control', 'required', 'placeholder' => __( 'business.email' ) ]); !!}
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
                   {!! Form::label('role', __( 'user.role' ) . ':*') !!}
                     {!! Form::select('role', $roles, $user->roles->first()->id, ['class' => 'form-control select2']); !!}

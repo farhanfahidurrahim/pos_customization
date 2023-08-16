@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('address', __('National ID') . ':*') !!}
+                            {!! Form::label('national_id', __('National ID') . ':*') !!}
                             {!! Form::text('national_id', null, ['class' => 'form-control', 'required', 'placeholder' => __('National ID')]) !!}
                         </div>
                     </div>

@@ -43,10 +43,12 @@ class ManageUserController extends Controller
             $user_id = request()->session()->get('user.id');
 
             $users = User::where('business_id', $business_id)
-                        ->where('id', '!=', $user_id)
-                        ->where('is_cmmsn_agnt', 0)
-                        ->select(['id', 'username',
-                            DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'created_at', 'email','mobile', 'status']);
+                ->where('id', '!=', $user_id)
+                ->where('is_cmmsn_agnt', 0)
+                ->select([
+                    'id', 'username',
+                    DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'created_at', 'email', 'mobile', 'status'
+                ]);
 
             return Datatables::of($users)
                 ->addColumn('serial_number', function ($user) {
@@ -60,6 +62,9 @@ class ManageUserController extends Controller
                         return $role_name;
                     }
                 )
+                ->editColumn('create_by_user', function ($row) {
+                    return $row->username;
+                })
                 ->addColumn(
                     'action',
                     '@can("user.update")
@@ -113,7 +118,7 @@ class ManageUserController extends Controller
         $contacts = Contact::contactDropdown($business_id, true, false);
 
         return view('manage_user.create')
-                ->with(compact('roles', 'username_ext', 'contacts'));
+            ->with(compact('roles', 'username_ext', 'contacts'));
     }
 
     /**
@@ -130,9 +135,11 @@ class ManageUserController extends Controller
         }
 
         try {
-            $user_details = $request->only(['surname', 'first_name', 'last_name', 'username', 'address', 'country', 'city',
-            'national_id','passport_no','father_name','mother_name','spouse_name','business_license_number','gender','date_of_birth',
-            'joining_date','blood_group','mobile','salary','religion','edu_qualification','experience_details', 'image','email', 'password', 'selected_contacts']);
+            $user_details = $request->only([
+                'surname', 'first_name', 'last_name', 'username', 'address', 'country', 'city',
+                'national_id', 'passport_no', 'father_name', 'mother_name', 'spouse_name', 'business_license_number', 'gender', 'date_of_birth',
+                'joining_date', 'blood_group', 'mobile', 'salary', 'religion', 'edu_qualification', 'experience_details', 'image', 'email', 'password', 'selected_contacts'
+            ]);
 
             $user_details['status'] = !empty($request->input('is_active')) ? 'active' : 'inactive';
 
@@ -187,15 +194,17 @@ class ManageUserController extends Controller
 
             $this->moduleUtil->getModuleData('after_user_saved', ['user' => $user, 'input' => $request->input()]);
 
-            $output = ['success' => 1,
-                        'msg' => __("user.user_added")
-                    ];
+            $output = [
+                'success' => 1,
+                'msg' => __("user.user_added")
+            ];
         } catch (\Exception $e) {
-            \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
+            \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
 
-            $output = ['success' => 0,
-                        'msg' => __("messages.something_went_wrong")
-                    ];
+            $output = [
+                'success' => 0,
+                'msg' => __("messages.something_went_wrong")
+            ];
         }
 
         return redirect('users')->with('status', $output);
@@ -216,8 +225,8 @@ class ManageUserController extends Controller
         $business_id = request()->session()->get('user.business_id');
 
         $user = User::where('business_id', $business_id)
-                    ->with(['contactAccess'])
-                    ->find($id);
+            ->with(['contactAccess'])
+            ->find($id);
 
         return view('manage_user.show')->with(compact('user'));
     }
@@ -236,8 +245,8 @@ class ManageUserController extends Controller
 
         $business_id = request()->session()->get('user.business_id');
         $user = User::where('business_id', $business_id)
-                    ->with(['contactAccess'])
-                    ->findOrFail($id);
+            ->with(['contactAccess'])
+            ->findOrFail($id);
 
         $roles_array = Role::where('business_id', $business_id)->get()->pluck('name', 'id');
         $roles = [];
@@ -255,7 +264,7 @@ class ManageUserController extends Controller
         }
 
         return view('manage_user.edit')
-                ->with(compact('roles', 'user', 'contact_access', 'contacts', 'is_checked_checkbox'));
+            ->with(compact('roles', 'user', 'contact_access', 'contacts', 'is_checked_checkbox'));
     }
 
     /**
@@ -272,9 +281,11 @@ class ManageUserController extends Controller
         }
 
         try {
-            $user_data = $request->only(['surname', 'first_name', 'address', 'last_name', 'address', 'country', 'city',
-            'national_id','passport_no','father_name','mother_name','spouse_name','business_license_number','gender','date_of_birth',
-            'joining_date','blood_group','mobile','salary','religion','edu_qualification','experience_details', 'image', 'email', 'selected_contacts']);
+            $user_data = $request->only([
+                'surname', 'first_name', 'address', 'last_name', 'address', 'country', 'city',
+                'national_id', 'passport_no', 'father_name', 'mother_name', 'spouse_name', 'business_license_number', 'gender', 'date_of_birth',
+                'joining_date', 'blood_group', 'mobile', 'salary', 'religion', 'edu_qualification', 'experience_details', 'image', 'email', 'selected_contacts'
+            ]);
 
             $user_data['status'] = !empty($request->input('is_active')) ? 'active' : 'inactive';
             $business_id = request()->session()->get('user.business_id');
@@ -294,7 +305,7 @@ class ManageUserController extends Controller
             }
 
             $user = User::where('business_id', $business_id)
-                          ->findOrFail($id);
+                ->findOrFail($id);
 
             $user->update($user_data);
 
@@ -318,15 +329,17 @@ class ManageUserController extends Controller
 
             $this->moduleUtil->getModuleData('after_user_saved', ['user' => $user, 'input' => $request->input()]);
 
-            $output = ['success' => 1,
-                        'msg' => __("user.user_update_success")
-                    ];
+            $output = [
+                'success' => 1,
+                'msg' => __("user.user_update_success")
+            ];
         } catch (\Exception $e) {
-            \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
+            \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
 
-            $output = ['success' => 0,
-                            'msg' => __("messages.something_went_wrong")
-                        ];
+            $output = [
+                'success' => 0,
+                'msg' => __("messages.something_went_wrong")
+            ];
         }
 
         return redirect('users')->with('status', $output);
@@ -351,15 +364,17 @@ class ManageUserController extends Controller
                 User::where('business_id', $business_id)
                     ->where('id', $id)->delete();
 
-                $output = ['success' => true,
-                                'msg' => __("user.user_delete_success")
-                                ];
+                $output = [
+                    'success' => true,
+                    'msg' => __("user.user_delete_success")
+                ];
             } catch (\Exception $e) {
-                \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
+                \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
 
-                $output = ['success' => false,
-                            'msg' => __("messages.something_went_wrong")
-                        ];
+                $output = [
+                    'success' => false,
+                    'msg' => __("messages.something_went_wrong")
+                ];
             }
 
             return $output;
@@ -368,7 +383,7 @@ class ManageUserController extends Controller
 
     private function getUsernameExtension()
     {
-        $extension = !empty(System::getProperty('enable_business_based_username')) ? '-' .str_pad(session()->get('business.id'), 2, 0, STR_PAD_LEFT) : null;
+        $extension = !empty(System::getProperty('enable_business_based_username')) ? '-' . str_pad(session()->get('business.id'), 2, 0, STR_PAD_LEFT) : null;
         return $extension;
     }
 }

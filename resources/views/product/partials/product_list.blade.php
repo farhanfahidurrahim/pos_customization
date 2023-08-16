@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th><input type="checkbox" id="select-all-row"></th>
-                <th></th>
+                <th>Image</th>
                 <th>@lang('sale.product')</th>
                 <th>Unit Purchase Price</th>
                 <th>@lang('lang_v1.selling_price')</th>

@@ -11,7 +11,7 @@ class Product extends Model
      * @var array
      */
     protected $guarded = ['id'];
-    
+
     /**
      * Get the products image.
      *
@@ -20,7 +20,7 @@ class Product extends Model
     public function getImageUrlAttribute()
     {
         if (!empty($this->image)) {
-            $image_url = asset('/uploads/img/' . $this->image);
+            $image_url = asset('/storage/uploads/img/' . $this->image);
         } else {
             $image_url = asset('/img/default.png');
         }
@@ -31,7 +31,7 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariation::class);
     }
-    
+
     /**
      * Get the brand associated with the product.
      */
@@ -39,7 +39,7 @@ class Product extends Model
     {
         return $this->belongsTo(Brands::class);
     }
-    
+
     /**
     * Get the unit associated with the product.
     */
@@ -61,7 +61,7 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'sub_category_id', 'id');
     }
-    
+
     /**
      * Get the brand associated with the product.
      */

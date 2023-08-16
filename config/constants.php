@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
      /*
     |--------------------------------------------------------------------------
     | App Constants
@@ -25,7 +25,7 @@ return [
     ],
     'langs_rtl' => ['ar'],
     'non_utf8_languages' => ['ar', 'hi', 'ps'],
-    
+
     'document_size_limit' => '1000000', //in Bytes,
     'image_size_limit' => '500000', //in Bytes
 
@@ -34,13 +34,13 @@ return [
     'disable_expiry' => false,
 
     'disable_purchase_in_other_currency' => true,
-    
+
     'iraqi_selling_price_adjustment' => false,
 
     'currency_precision' => 2, //Maximum 4
     'quantity_precision' => 2,  //Maximum 4
 
-    'product_img_path' => 'img',
+    'product_img_path' => 'public/uploads/img',
 
     'enable_custom_payment_1' => true,
     'enable_custom_payment_2' => true,
