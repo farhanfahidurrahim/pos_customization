@@ -33,6 +33,24 @@
                     {!! Form::text('last_name', $user->last_name, ['class' => 'form-control', 'placeholder' => __( 'business.last_name' ) ]); !!}
                 </div>
             </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                  {!! Form::label('address', __( 'Address' ) . ':') !!}
+                    {!! Form::text('address', $user->address, ['class' => 'form-control', 'placeholder' => __( 'Address' ) ]); !!}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    {!! Form::label('country', __('Country') . ':*') !!}
+                    {!! Form::text('country', $user->country, ['class' => 'form-control', 'required', 'placeholder' => __('Country')]) !!}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    {!! Form::label('city', __('City') . ':*') !!}
+                    {!! Form::text('city', $user->city, ['class' => 'form-control', 'required', 'placeholder' => __('City')]) !!}
+                </div>
+            </div>
             <div class="clearfix"></div>
             <div class="col-md-12">
                 <div class="form-group">

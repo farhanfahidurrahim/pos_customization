@@ -18,6 +18,14 @@ class CreateBusinessLocationsTable extends Migration
             $table->integer('business_id')->unsigned();
             $table->foreign('business_id')->references('id')->on('business')->onDelete('cascade');
             $table->string('name', 256);
+            $table->string('owner_name', 256);
+            $table->string('vat_number', 256);
+            $table->string('tax_no', 256);
+            $table->string('gst_number', 256);
+            $table->string('igt_number', 256);
+            $table->string('license_number', 256);
+            $table->string('image', 256)->nullable();
+            $table->string('logo', 256)->nullable();
             $table->text('landmark')->nullable();
             $table->string('country', 100);
             $table->string('state', 100);

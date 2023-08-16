@@ -30,6 +30,12 @@
                 <thead>
                     <tr>
                         <th>@lang( 'invoice.name' )</th>
+                        <th>Owner Name</th>
+                        <th>Vat No.</th>
+                        <th>Tax No.</th>
+                        <th>GST No.</th>
+                        <th>IGT Number</th>
+                        <th>License Number</th>
                         <th>@lang( 'lang_v1.location_id' )</th>
                         <th>@lang( 'business.landmark' )</th>
                         <th>@lang( 'business.city' )</th>

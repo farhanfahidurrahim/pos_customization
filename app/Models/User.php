@@ -22,7 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'surname', 'first_name', 'last_name', 'username', 'email', 'password', 'business_id', 'is_cmmsn_agnt', 'contact_no', 'address', 'cmmsn_percent', 'language', 'selected_contacts', 'status','contact_id',
         'user_address', 'country', 'city','national_id','passport_no','father_name','mother_name','spouse_name','business_license_number','address','gender','date_of_birth',
-        'joining_date','blood_group','mobile','salary','religion','edu_qualification','experience_details',
+        'joining_date','blood_group','mobile','salary','religion','edu_qualification','experience_details', 'image',
     ];
 
     /**

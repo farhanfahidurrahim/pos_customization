@@ -14,7 +14,7 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::dropIfExists('accounts');
-        
+
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
 

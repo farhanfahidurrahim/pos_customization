@@ -130,9 +130,9 @@ class ManageUserController extends Controller
         }
 
         try {
-            $user_details = $request->only(['surname', 'first_name', 'last_name', 'username', 'user_address', 'country', 'city',
-            'national_id','passport_no','father_name','mother_name','spouse_name','business_license_number','address','gender','date_of_birth',
-            'joining_date','blood_group','mobile','salary','religion','edu_qualification','experience_details','email', 'password', 'selected_contacts']);
+            $user_details = $request->only(['surname', 'first_name', 'last_name', 'username', 'address', 'country', 'city',
+            'national_id','passport_no','father_name','mother_name','spouse_name','business_license_number','gender','date_of_birth',
+            'joining_date','blood_group','mobile','salary','religion','edu_qualification','experience_details', 'image','email', 'password', 'selected_contacts']);
 
             $user_details['status'] = !empty($request->input('is_active')) ? 'active' : 'inactive';
 
@@ -159,6 +159,11 @@ class ManageUserController extends Controller
                 return $this->moduleUtil->expiredResponse();
             } elseif (!$this->moduleUtil->isQuotaAvailable('users', $business_id)) {
                 return $this->moduleUtil->quotaExpiredResponse('users', $business_id, action('ManageUserController@index'));
+            }
+
+            // Upload document and get the file path
+            if ($request->hasFile('image')) {
+                $user_details['image'] = $this->moduleUtil->uploadFile($request, 'image', config('constants.user_img_path'));
             }
 
             //Sales commission percentage
@@ -267,7 +272,9 @@ class ManageUserController extends Controller
         }
 
         try {
-            $user_data = $request->only(['surname', 'first_name', 'last_name', 'email', 'selected_contacts']);
+            $user_data = $request->only(['surname', 'first_name', 'address', 'last_name', 'address', 'country', 'city',
+            'national_id','passport_no','father_name','mother_name','spouse_name','business_license_number','gender','date_of_birth',
+            'joining_date','blood_group','mobile','salary','religion','edu_qualification','experience_details', 'image', 'email', 'selected_contacts']);
 
             $user_data['status'] = !empty($request->input('is_active')) ? 'active' : 'inactive';
             $business_id = request()->session()->get('user.business_id');

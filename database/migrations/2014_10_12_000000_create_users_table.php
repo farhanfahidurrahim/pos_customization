@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('username')->unique();
-            $table->string('user_address')->nullable();
+            $table->text('address')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('national_id')->nullable();
@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('religion')->nullable();
             $table->string('edu_qualification')->nullable();
             $table->string('experience_details')->nullable();
+            $table->string('image')->nullable();
             $table->string('email')->nullable();
             $table->string('password');
             $table->char('language', 4)->default('en');

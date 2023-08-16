@@ -11,7 +11,7 @@
 
     <!-- Main content -->
     <section class="content">
-        {!! Form::open(['url' => route('users.store'), 'method' => 'post', 'id' => 'user_add_form']) !!}
+        {!! Form::open(['url' => route('users.store'), 'method' => 'post', 'id' => 'user_add_form', 'enctype' => 'multipart/form-data']) !!}
         <div class="row">
             <div class="col-md-12">
                 @component('components.widget')
@@ -42,18 +42,18 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {!! Form::label('address', __('Address') . ':*') !!}
-                            {!! Form::text('user_address', null, ['class' => 'form-control', 'required', 'placeholder' => __('Address')]) !!}
+                            {!! Form::text('address', null, ['class' => 'form-control', 'required', 'placeholder' => __('Address')]) !!}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('address', __('Country') . ':*') !!}
+                            {!! Form::label('country', __('Country') . ':*') !!}
                             {!! Form::text('country', null, ['class' => 'form-control', 'required', 'placeholder' => __('Country')]) !!}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('address', __('City') . ':*') !!}
+                            {!! Form::label('city', __('City') . ':*') !!}
                             {!! Form::text('city', null, ['class' => 'form-control', 'required', 'placeholder' => __('City')]) !!}
                         </div>
                     </div>
@@ -192,6 +192,13 @@
                                 {!! Form::text('username', null, ['class' => 'form-control', 'placeholder' => __('business.username')]) !!}
                             @endif
                             <p class="help-block">@lang('lang_v1.username_help')</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          {!! Form::label('image', __('User Image') . ':') !!}
+                          {!! Form::file('image', ['id' => 'upload_image', 'accept' => 'image/*']); !!}
+                          <small><p class="help-block">@lang('purchase.max_file_size', ['size' => (config('constants.document_size_limit') / 1000000)])  @lang('lang_v1.aspect_ratio_should_be_1_1')</p></small>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -350,5 +357,17 @@
                     }
                 }
             });
+
+            var img_fileinput_setting = {
+                showUpload: false,
+                showPreview: true,
+                browseLabel: LANG.file_browse_label,
+                removeLabel: LANG.remove,
+                previewSettings: {
+                    image: { width: 'auto', height: 'auto', 'max-width': '100%', 'max-height': '100%' },
+                },
+            };
+            $('#upload_image').fileinput(img_fileinput_setting);
+
         </script>
     @endsection

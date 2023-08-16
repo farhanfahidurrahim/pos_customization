@@ -1,7 +1,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
 
-    {!! Form::open(['url' => action('BusinessLocationController@update', [$location->id]), 'method' => 'PUT', 'id' => 'business_location_add_form' ]) !!}
+    {!! Form::open(['url' => route('business-location.update', [$location->id]), 'method' => 'PUT', 'id' => 'business_location_add_form' ]) !!}
 
     {!! Form::hidden('hidden_id', $location->id, ['id' => 'hidden_id']); !!}
     <div class="modal-header">
@@ -104,28 +104,28 @@
       <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('custom_field1', __('lang_v1.custom_field', ['number' => 1]) . ':') !!}
-            {!! Form::text('custom_field1', $location->custom_field1, ['class' => 'form-control', 
+            {!! Form::text('custom_field1', $location->custom_field1, ['class' => 'form-control',
                 'placeholder' => __('lang_v1.custom_field', ['number' => 1])]); !!}
         </div>
       </div>
       <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('custom_field2', __('lang_v1.custom_field', ['number' => 2]) . ':') !!}
-            {!! Form::text('custom_field2', $location->custom_field2, ['class' => 'form-control', 
+            {!! Form::text('custom_field2', $location->custom_field2, ['class' => 'form-control',
                 'placeholder' => __('lang_v1.custom_field', ['number' => 2])]); !!}
         </div>
       </div>
       <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('custom_field3', __('lang_v1.custom_field', ['number' => 3]) . ':') !!}
-            {!! Form::text('custom_field3', $location->custom_field3, ['class' => 'form-control', 
+            {!! Form::text('custom_field3', $location->custom_field3, ['class' => 'form-control',
                 'placeholder' => __('lang_v1.custom_field', ['number' => 3])]); !!}
         </div>
       </div>
       <div class="col-sm-3">
         <div class="form-group">
             {!! Form::label('custom_field4', __('lang_v1.custom_field', ['number' => 4]) . ':') !!}
-            {!! Form::text('custom_field4', $location->custom_field4, ['class' => 'form-control', 
+            {!! Form::text('custom_field4', $location->custom_field4, ['class' => 'form-control',
                 'placeholder' => __('lang_v1.custom_field', ['number' => 4])]); !!}
         </div>
       </div>

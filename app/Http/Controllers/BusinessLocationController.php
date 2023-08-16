@@ -56,7 +56,8 @@ class BusinessLocationController extends Controller
                     '=',
                     'il.id'
                 )
-                ->select(['business_locations.name', 'location_id', 'landmark', 'city', 'zip_code', 'state',
+                ->select(['business_locations.name', 'owner_name', 'vat_number', 'tax_no', 'gst_number', 'igt_number','license_number',
+                    'location_id', 'landmark', 'city', 'zip_code', 'state',
                     'country', 'mobile', 'alternate_number', 'email', 'website',
                     'business_locations.id', 'ic.name as invoice_scheme', 'il.name as invoice_layout']);
 
@@ -74,7 +75,7 @@ class BusinessLocationController extends Controller
                     '
                 )
                 ->removeColumn('id')
-                ->rawColumns([13])
+                ->rawColumns([19])
                 ->make(false);
         }
 
@@ -133,7 +134,7 @@ class BusinessLocationController extends Controller
                 return $this->moduleUtil->quotaExpiredResponse('locations', $business_id);
             }
 
-            $input = $request->only(['name', 'landmark', 'city', 'state', 'country', 'zip_code', 'invoice_scheme_id',
+            $input = $request->only(['name', 'owner_name', 'vat_number', 'tax_no', 'gst_number', 'igt_number','license_number', 'landmark', 'city', 'state', 'country', 'zip_code', 'invoice_scheme_id',
                 'invoice_layout_id', 'mobile', 'alternate_number', 'email', 'website', 'location_id']);
 
             $input['business_id'] = $business_id;

@@ -14,7 +14,7 @@
 
 <!-- Main content -->
 <section class="content">
-{!! Form::open(['url' => action('PrinterController@update', [$printer->id]), 'method' => 'PUT', 
+{!! Form::open(['url' => route('printers.update', [$printer->id]), 'method' => 'PUT',
 'id' => 'add_printer_form' ]) !!}
   <div class="box box-solid">
     <div class="box-body">
@@ -48,7 +48,7 @@
               'placeholder' => __('lang_v1.char_per_line_help')]); !!}
           </div>
         </div>
-        
+
         <div class="col-sm-12" id="ip_address_div">
           <div class="form-group">
             {!! Form::label('ip_address', __('printer.ip_address') . ':*') !!}
