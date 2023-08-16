@@ -49,7 +49,7 @@ class AccountController extends Controller
             })
                 ->where('business_id', $business_id)
                 ->select([
-                    'bank_name', 'name', 'account_number', 'accounts.note', 'accounts.id',
+                    'account_number', 'accounts.note', 'accounts.id',
                     'is_closed', DB::raw("SUM( IF(AT.type='credit', amount, -1*amount) ) as balance")
                 ])
                 ->groupBy('accounts.id');

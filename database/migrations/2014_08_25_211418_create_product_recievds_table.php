@@ -15,8 +15,12 @@ class CreateProductRecievdsTable extends Migration
     {
         Schema::create('product_recievds', function (Blueprint $table) {
             $table->increments('id');
+            $table->bigInteger('transaction_id')->nullable();
+            $table->bigInteger('purchase_line_id');
             $table->bigInteger('sell_line_id');
-            $table->decimal('quantity',4,2)->nullable()->default(0);
+            $table->decimal('quantity',8,2)->nullable()->default(0);
+            $table->string('ref_no')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

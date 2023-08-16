@@ -251,7 +251,7 @@ class Util
                 $format .= ' H:i';
             }
         }
-        
+
         return \Carbon::createFromTimestamp(strtotime($date))->format($format);
     }
 
@@ -427,7 +427,7 @@ class Util
         //             ->with(['sub_units'])
         //             ->findOrFail($unit_id);
 
-                    
+
 
         $sub_units = [];
 
@@ -494,7 +494,7 @@ class Util
         if (config('app.env') == 'demo') {
             return null;
         }
-        
+
         $uploaded_file_name = null;
         if ($request->hasFile($file_name) && $request->file($file_name)->isValid()) {
             if ($request->$file_name->getSize() <= config('constants.document_size_limit')) {
@@ -506,7 +506,7 @@ class Util
         }
         return $uploaded_file_name;
     }
-    
+
     public function serviceStaffDropdown($business_id)
     {
         $waiters = [];
@@ -540,7 +540,7 @@ class Util
                             ->with(['contact', 'payment_lines'])
                             ->findOrFail($transaction);
         }
-        
+
         $business = Business::findOrFail($business_id);
 
         foreach ($data as $key => $value) {

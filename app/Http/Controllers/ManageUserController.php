@@ -16,6 +16,8 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ManageUserController extends Controller
 {
+    private $moduleUtil;
+
     /**
      * Constructor
      *
@@ -47,7 +49,7 @@ class ManageUserController extends Controller
                 ->where('is_cmmsn_agnt', 0)
                 ->select([
                     'id', 'username',
-                    DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'created_at', 'email', 'mobile', 'status'
+                    DB::raw("CONCAT(COALESCE(surname, ''), ' ', COALESCE(first_name, ''), ' ', COALESCE(last_name, '')) as full_name"), 'created_at', 'email', 'mobile', 'status', 'created_by'
                 ]);
 
             return Datatables::of($users)
@@ -62,8 +64,8 @@ class ManageUserController extends Controller
                         return $role_name;
                     }
                 )
-                ->editColumn('create_by_user', function ($row) {
-                    return $row->username;
+                ->editColumn('created_by', function ($row) {
+                    return $row->created_by;
                 })
                 ->addColumn(
                     'action',
@@ -178,6 +180,8 @@ class ManageUserController extends Controller
             if (empty($user_details['cmmsn_percent'])) {
                 $user_details['cmmsn_percent'] = 0;
             }
+
+            $user_details['created_by'] = auth()->user()->username;
 
             //Create the user
             $user = User::create($user_details);

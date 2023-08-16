@@ -38,7 +38,9 @@ class CreateTransactionsTable extends Migration
             $table->decimal('final_total', 8, 2)->default(0);
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->string('sell_status')->nullable();
             $table->timestamps();
+            $table->date('dalivery_note_date')->nullable();
 
             //Indexing
             $table->index('business_id');

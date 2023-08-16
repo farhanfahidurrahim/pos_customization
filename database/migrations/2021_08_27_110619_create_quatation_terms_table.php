@@ -15,7 +15,7 @@ class CreateQuatationTermsTable extends Migration
     {
         Schema::create('quatation_terms', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('quotaion_id');
+            $table->tinyInteger('quotation_id');
             $table->string('term')->nullable();
             $table->timestamps();
         });

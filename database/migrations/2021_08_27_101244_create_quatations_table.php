@@ -16,6 +16,8 @@ class CreateQuatationsTable extends Migration
         Schema::create('quatations', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('client_id')->nullable();
+            $table->string('custom_client_id')->nullable();
+            $table->string('signature')->nullable();
             $table->string('company_name')->nullable();
             $table->string('fromany_activity')->nullable();
             $table->string('fropany_address')->nullable();
@@ -26,7 +28,7 @@ class CreateQuatationsTable extends Migration
             $table->string('created_name_phone')->nullable();
             $table->date('quotation_date')->nullable();
             $table->date('quotation_validity_date')->nullable();
-            
+
             $table->timestamps();
         });
     }

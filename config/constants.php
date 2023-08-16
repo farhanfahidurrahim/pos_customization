@@ -41,6 +41,7 @@ return [
     'quantity_precision' => 2,  //Maximum 4
 
     'product_img_path' => 'public/uploads/img',
+    'user_img_path' => 'public/user/img',
 
     'enable_custom_payment_1' => true,
     'enable_custom_payment_2' => true,

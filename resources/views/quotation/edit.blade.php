@@ -19,7 +19,7 @@
 				<h5>Update Quotation</h5>
 			</div>
 		</div>
-		<form method="POST" action="{{ action('QuatationController@update',[$quotation->id])}}" class="new-added-form " enctype="multipart/form-data">
+		<form method="POST" action="{{ route('quotations.update',[$quotation->id]) }}" class="new-added-form " enctype="multipart/form-data">
 			{{ csrf_field() }}
 			{{ method_field('PATCH') }}
 		<div class="row">
@@ -27,7 +27,7 @@
 				<div class="col-md-7">
 					<div class="row">
 						<div class="col-12 form-group">
-					
+
 							<textarea class="form-control" name="company_name" class="form-control">{{$quotation->company_name}}</textarea>
 						</div>
 						<div class="col-12 form-group">
@@ -136,7 +136,7 @@
 										<td>
 											<input type="number" name="quantity[]" class="form-control" required="" placeholder="Product quantity" value="{{$item->qty}}" />
 										</td>
-										<td>	
+										<td>
 											<input type="text" name="unit[]" class="form-control" required="" placeholder="Product Unit" value="{{$item->unit}}" />
 										</td>
 										<td>
@@ -169,7 +169,7 @@
 										<td>
 											<input type="number" name="quantity[]" class="form-control" required="" placeholder="Product quantity" value="" />
 										</td>
-										<td>	
+										<td>
 											<input type="text" name="unit[]" class="form-control" required="" placeholder="Product Unit" value="" />
 										</td>
 										<td>
@@ -253,7 +253,7 @@
 						<div class="col-md-6">
 							<h6>Upload Photo (150px X 150px):</h6><br><br>
 
-							
+
 							<div class="form-group col-md-6">
 								@if($quotation->signature)
 								<img src="{{ URL::to('/') }}/signature/{{ $quotation->signature}}"  width="150" />
@@ -263,7 +263,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 
 					<div class="col-md-12">
 						<div class="row footer">
@@ -285,7 +285,7 @@
 						</div>
 					</div>
 			</div>
-			
+
 		</div>
 		</form>
 		</div>
@@ -294,7 +294,7 @@
 </section>
 @stop
 @section('javascript')
-	
+
 	<script>
     $(document).ready(function(){
      $(document).on('click', '.add', function(){

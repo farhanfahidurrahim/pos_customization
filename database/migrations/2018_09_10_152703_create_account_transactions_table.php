@@ -15,7 +15,7 @@ class CreateAccountTransactionsTable extends Migration
     {
         Schema::create('account_transactions', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->integer('account_id');
             $table->enum('type', ['debit', 'credit']);
             $table->enum('sub_type', ['opening_balance', 'fund_transfer', 'deposit'])->nullable();

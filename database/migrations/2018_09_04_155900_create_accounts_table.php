@@ -19,6 +19,7 @@ class CreateAccountsTable extends Migration
             $table->increments('id');
 
             $table->integer('business_id');
+            $table->string('bank_name')->nullable();
             $table->string('name');
             $table->string('account_number');
             $table->enum('account_type', ['saving_current', 'capital'])->nullable();

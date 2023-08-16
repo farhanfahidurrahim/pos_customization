@@ -90,7 +90,7 @@
                             }
                     },
                     {
-                        "data": "create_by_user"
+                        "data": "created_by"
                     },
                     {
                         "data": "mobile"

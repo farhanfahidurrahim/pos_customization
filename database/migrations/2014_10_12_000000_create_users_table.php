@@ -40,6 +40,7 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->string('email')->nullable();
             $table->string('password');
+            $table->string('created_by')->nullable();
             $table->char('language', 4)->default('en');
             $table->integer('contact_id')->unsigned();
             $table->rememberToken();

@@ -15,7 +15,7 @@ class CreateQuatationDetailsTable extends Migration
     {
         Schema::create('quatation_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('quotaion_id');
+            $table->tinyInteger('quotation_id');
             $table->string('name');
             $table->string('unit')->nullable();
             $table->string('weight')->nullable();
