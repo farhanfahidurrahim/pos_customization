@@ -808,7 +808,7 @@ class PurchaseController extends Controller
             }
             $suppliers = $query->where(function ($query) use ($term) {
                 $query->where('name', 'like', '%' . $term .'%')
-                                ->orWhere('supplier_business_name', 'like', '%' . $term .'%')
+                                // ->orWhere('supplier_business_name', 'like', '%' . $term .'%')
                                 ->orWhere('contacts.contact_id', 'like', '%' . $term .'%');
             })
                         ->select('contacts.id', 'name as text', 'supplier_business_name as business_name', 'contact_id')

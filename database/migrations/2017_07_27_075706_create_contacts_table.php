@@ -35,7 +35,7 @@ class CreateContactsTable extends Migration
             $table->string('igt_number')->nullable();
             $table->string('national_id')->nullable();
             $table->string('business_license_number')->nullable();
-            $table->string('file')->nullable();
+            $table->string('image')->nullable();
             $table->integer('created_by')->unsigned();
             $table->boolean('is_default')->default(0);
             $table->decimal('balance', 12, 2)->nullable()->default(0.00);

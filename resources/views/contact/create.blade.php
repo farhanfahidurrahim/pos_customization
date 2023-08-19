@@ -6,7 +6,7 @@
     $form_id = 'quick_add_contact';
     }
   @endphp
-    {!! Form::open(['url' => route('contacts.store'), 'method' => 'post', 'id' => $form_id ]) !!}
+    {!! Form::open(['url' => route('contacts.store'), 'method' => 'post', 'enctype' => 'multipart/form-data', 'id' => $form_id]) !!}
 
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -122,21 +122,21 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 {!! Form::label('vat', 'VAT Number:') !!}
                 {!! Form::text('vat_number', null, ['class' => 'form-control', 'placeholder' => 'Enter VAT Number']) !!}
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 {!! Form::label('vat', 'GST Number:') !!}
                 {!! Form::text('gst_number', null, ['class' => 'form-control', 'placeholder' => 'Enter GST Number']) !!}
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 {!! Form::label('vat', 'IGT Number:') !!}
                 {!! Form::text('igt_number', null, ['class' => 'form-control', 'placeholder' => 'Enter IGT Number']) !!}
@@ -150,19 +150,26 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 {!! Form::label('vat', 'Business License Number:') !!}
                 {!! Form::text('business_license_number', null, ['class' => 'form-control', 'placeholder' => 'Enter Business License']) !!}
             </div>
         </div>
 
-        {{-- <div class="col-md-3">
+        {{-- <div class="col-md-4">
             <div class="form-group">
-                {!! Form::label('image', 'Upload Image:') !!}
-                {!! Form::file('image', ['class' => 'form-control-file']) !!}
+                <label for="image">Upload Image:</label>
+                <input type="file" name="image" class="form-control">
             </div>
         </div> --}}
+
+        <div class="col-md-4">
+            <div class="form-group">
+                {!! Form::label('image', 'Upload Image:') !!}
+                {!! Form::file('image', ['class' => 'form-control']) !!}
+            </div>
+        </div>
 
         <div class="col-md-12">
             <hr/>

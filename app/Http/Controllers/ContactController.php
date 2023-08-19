@@ -323,6 +323,7 @@ class ContactController extends Controller
                 'igt_number',
                 'national_id',
                 'business_license_number',
+                'image',
                 'mobile',
                 'landline',
                 'alternate_number',
@@ -364,6 +365,8 @@ class ContactController extends Controller
                     $input['contact_id'] = $this->commonUtil->generateReferenceNumber('contacts', $ref_count);
                 }
 
+                //upload document
+                $input['image'] = $this->commonUtil->uploadFile($request, 'image', config('constants.contact_img_path'));
 
                 $contact = Contact::create($input);
 

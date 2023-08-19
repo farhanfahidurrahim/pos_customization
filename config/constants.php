@@ -42,6 +42,7 @@ return [
 
     'product_img_path' => 'public/uploads/img',
     'user_img_path' => 'public/user/img',
+    'contact_img_path' => 'public/contact/img',
 
     'enable_custom_payment_1' => true,
     'enable_custom_payment_2' => true,

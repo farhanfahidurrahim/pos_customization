@@ -66,7 +66,7 @@ class Contact extends Authenticatable
                 DB::raw("IF (supplier_business_name IS not null, CONCAT(name, ' (', supplier_business_name, ')'), name) as supplier")
             );
         }
-        
+
         $contacts = $query->pluck('supplier', 'id');
 
         //Prepend none
