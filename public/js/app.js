@@ -404,6 +404,13 @@ $(document).ready(function() {
             },
         ],
         fnDrawCallback: function(oSettings) {
+            // var api = this.api();
+
+            // // Add serial numbers
+            // api.column(11, { search: 'applied' }).nodes().each(function(cell, i) {
+            //     cell.innerHTML = i + 1;
+            // });
+
             var total_due = sum_table_col($('#contact_table'), 'contact_due');
             $('#footer_contact_due').text(total_due);
 

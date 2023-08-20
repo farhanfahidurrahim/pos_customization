@@ -49,8 +49,8 @@ class AccountController extends Controller
             })
                 ->where('business_id', $business_id)
                 ->select([
-                    'account_number', 'accounts.note', 'accounts.id',
-                    'is_closed', DB::raw("SUM( IF(AT.type='credit', amount, -1*amount) ) as balance")
+                    'account_number', 'accounts.note', 'accounts.id', 'name', 'branch_name', 'account_type', 'accounts.created_by',
+                    'is_closed','bank_name', DB::raw("SUM( IF(AT.type='credit', amount, -1*amount) ) as balance")
                 ])
                 ->groupBy('accounts.id');
 
@@ -69,7 +69,7 @@ class AccountController extends Controller
                 ->addColumn(
                     'action',
                         '<button data-href="{{ route(\'account.edit\',[$id]) }}" data-container=".account_model" class="btn btn-xs btn-primary btn-modal"><i class="glyphicon glyphicon-edit"></i> @lang("messages.edit")</button>
-                        <a href="{{ route(\'account.show\',[$id]) }}" class="btn btn-warning btn-xs"><i class="fa fa-book"></i> @lang("account.account_book")</a>&nbsp;
+                        <a href="{{ route(\'account.show\',[$id]) }}" class="btn btn-warning btn-xs"><i class="fa fa-book"></i> @lang("account.account_book")</a>
                         @if($is_closed == 0)
                         <button data-href="{{ route(\'account.getFundTransfer\',[$id]) }}" class="btn btn-xs btn-info btn-modal" data-container=".view_modal"><i class="fa fa-exchange"></i> @lang("account.fund_transfer")</button>
 
@@ -80,6 +80,8 @@ class AccountController extends Controller
                         <button data-url="{{ route(\'account.open\',[$id]) }}" class="btn btn-xs btn-success close_account"><i class="fa fa-check"></i> Open</button>
                         @endif'
                 )
+                // <a href="{{ route(\'account.show\',[$id]) }}" class="btn btn-warning btn-xs"><i class="fa fa-book"></i> @lang("account.account_book")</a>;
+
                 ->editColumn('name', function ($row) {
                     if ($row->is_closed == 1) {
                         return $row->name . ' <small class="label pull-right bg-red no-print">' . __("account.closed") . '</small><span class="print_section">(' . __("account.closed") . ')</span>';
@@ -145,11 +147,12 @@ class AccountController extends Controller
 
         if (request()->ajax()) {
             try {
-                $input = $request->only(['bank_name', 'name', 'account_number', 'note']);
+                $input = $request->only(['bank_name', 'branch_name', 'account_type', 'name', 'account_number', 'note']);
                 $business_id = $request->session()->get('user.business_id');
                 $user_id = $request->session()->get('user.id');
                 $input['business_id'] = $business_id;
-                $input['created_by'] = $user_id;
+                $input['created_by'] = auth()->user()->username;
+                // $input['created_by'] = $user_id;
                 $input['account_type'] = 'saving_current';
 
                 $account = Account::create($input);
@@ -164,7 +167,8 @@ class AccountController extends Controller
                         'type' => 'credit',
                         'sub_type' => 'opening_balance',
                         'operation_date' => \Carbon::now(),
-                        'created_by' => $user_id
+                        // 'created_by' => $user_id
+                        'created_by' => auth()->user()->username
                     ];
 
                     AccountTransaction::createAccountTransaction($ob_transaction_data);
@@ -210,8 +214,8 @@ class AccountController extends Controller
                 ->where('A.id', $id)
                 ->with(['transaction', 'transaction.contact', 'transfer_transaction'])
                 ->select([
-                    'type', 'amount', 'operation_date',
-                    'sub_type', 'transfer_transaction_id',
+                    'type', 'amount', 'operation_date', 'account_transactions.note', 'account_transactions.created_by',
+                    'sub_type', 'transfer_transaction_id', 'A.name',
                     DB::raw('(SELECT SUM(IF(AT.type="credit", AT.amount, -1 * AT.amount)) from account_transactions as AT WHERE AT.operation_date <= account_transactions.operation_date AND AT.account_id  =account_transactions.account_id AND AT.deleted_at IS NULL) as balance'),
                     'transaction_id',
                     'account_transactions.id'
@@ -282,7 +286,7 @@ class AccountController extends Controller
                 ->editColumn('action', function ($row) {
                     $action = '';
                     if ($row->sub_type == 'fund_transfer' || $row->sub_type == 'deposit') {
-                        $action = '<button type="button" class="btn btn-danger btn-xs delete_account_transaction" data-href="' . action('AccountController@destroyAccountTransaction', [$row->id]) . '"><i class="fa fa-trash"></i> ' . __('messages.delete') . '</button>';
+                        $action = '<button type="button" class="btn btn-danger btn-xs delete_account_transaction" data-href="' . route('account.destroyAccountTransaction', [$row->id]) . '"><i class="fa fa-trash"></i> ' . __('messages.delete') . '</button>';
                     }
                     return $action;
                 })

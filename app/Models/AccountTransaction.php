@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AccountTransaction extends Model
 {
     use SoftDeletes;
-    
+
     protected $guarded = ['id'];
 
     /**
@@ -26,7 +26,7 @@ class AccountTransaction extends Model
 
     public function transaction()
     {
-        return $this->belongsTo(\App\Transaction::class, 'transaction_id');
+        return $this->belongsTo(Transaction::class, 'transaction_id');
     }
 
     /**
@@ -36,7 +36,7 @@ class AccountTransaction extends Model
      */
     public static function getAccountTransactionType($tansaction_type)
     {
-       
+
         $account_transaction_types = [
             'income' => 'credit',
             'sell' => 'credit',
@@ -55,8 +55,8 @@ class AccountTransaction extends Model
      */
     public static function createAccountTransaction($data)
     {
-        
-    
+
+
         $transaction_data = [
             'amount' => $data['amount'],
             'account_id' => $data['account_id'],

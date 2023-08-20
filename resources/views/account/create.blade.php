@@ -15,6 +15,15 @@
                 {!! Form::text('bank_name', null, ['class' => 'form-control', 'required','placeholder' => __( 'Bank Name' ) ]); !!}
             </div>
 
+            <div class="form-group">
+                {!! Form::label('branch_name', __( 'Branch Name' ) .":*") !!}
+                {!! Form::text('branch_name', null, ['class' => 'form-control', 'required','placeholder' => __( 'Branch Name' ) ]); !!}
+            </div>
+
+            {{-- <div class="form-group">
+                {!! Form::label('account_type', __( 'Account Type' ) .":*") !!}
+                {!! Form::text('account_type', null, ['class' => 'form-control', 'required','placeholder' => __( 'Account Type' ) ]); !!}
+            </div> --}}
 
             <div class="form-group">
                 {!! Form::label('name', __( 'lang_v1.name' ) .":*") !!}
@@ -26,12 +35,12 @@
                 {!! Form::text('account_number', null, ['class' => 'form-control', 'required','placeholder' => __( 'account.account_number' ) ]); !!}
             </div>
 
-            {{--
+
             <div class="form-group">
                 {!! Form::label('account_type', __( 'account.account_type' ) .":") !!}
                 {!! Form::select('account_type', $account_types, null, ['class' => 'form-control']); !!}
             </div>
-            --}}
+
 
             <div class="form-group">
                 {!! Form::label('opening_balance', __( 'account.opening_balance' ) .":") !!}

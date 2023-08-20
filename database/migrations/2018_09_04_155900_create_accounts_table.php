@@ -20,11 +20,12 @@ class CreateAccountsTable extends Migration
 
             $table->integer('business_id');
             $table->string('bank_name')->nullable();
+            $table->string('branch_name')->nullable();
             $table->string('name');
             $table->string('account_number');
             $table->enum('account_type', ['saving_current', 'capital'])->nullable();
             $table->text('note')->nullable();
-            $table->integer('created_by');
+            $table->string('created_by');
             $table->boolean('is_closed')->default(0);
             $table->softDeletes();
             $table->timestamps();

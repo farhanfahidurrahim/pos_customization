@@ -12,6 +12,49 @@ $(document).ready(function() {
     });
 
     //get suppliers
+    // $('#supplier_id').select2({
+    //     ajax: {
+    //         url: '/purchases/get_suppliers',
+    //         dataType: 'json',
+    //         delay: 250,
+    //         data: function(params) {
+    //             return {
+    //                 q: params.term, // search term
+    //                 page: params.page,
+    //             };
+    //         },
+    //         processResults: function(data) {
+    //             return {
+    //                 results: data,
+    //             };
+    //         },
+    //     },
+    //     minimumInputLength: 1,
+    //     escapeMarkup: function(m) {
+    //         return m;
+    //     },
+    //     templateResult: function(data) {
+    //         if (!data.id) {
+    //             return data.text;
+    //         }
+    //         var html = data.text + ' - ' + data.business_name + ' (' + data.contact_id + ')';
+    //         return html;
+    //     },
+    //     language: {
+    //         noResults: function() {
+    //             var name = $('#supplier_id')
+    //                 .data('select2')
+    //                 .dropdown.$search.val();
+    //             return (
+    //                 '<button type="button" data-name="' +
+    //                 name +
+    //                 '" class="btn btn-link add_new_supplier"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>&nbsp; ' +
+    //                 __translate('add_name_as_new_supplier', { name: name }) +
+    //                 '</button>'
+    //             );
+    //         },
+    //     },
+    // });
     $('#supplier_id').select2({
         ajax: {
             url: '/purchases/get_suppliers',

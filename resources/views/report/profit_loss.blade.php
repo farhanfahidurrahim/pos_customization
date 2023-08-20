@@ -12,7 +12,7 @@
 <!-- Main content -->
 <section class="content">
     <div class="print_section"><h2>{{session()->get('business.name')}} - @lang( 'report.profit_loss' )</h2></div>
-    
+
     <div class="row no-print">
         <div class="col-md-3 col-md-offset-7 col-xs-6">
             <div class="input-group">
@@ -50,7 +50,7 @@
                             </span>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th>{{ __('report.opening_stock') }} (By Sell Price):</th>
                         <td>
@@ -59,8 +59,8 @@
                             </span>
                         </td>
                     </tr>
-                    
-                    
+
+
                     <tr>
                         <th>{{ __('home.total_purchase') }}:</th>
                         <td>
@@ -69,7 +69,7 @@
                             </span>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th>{{ __('home.total_sell') }}:</th>
                         <td>
@@ -78,8 +78,8 @@
                             </span>
                         </td>
                     </tr>
-                    
-                    
+
+
                     <tr>
                         <th>Total Income:</th>
                         <td>
@@ -88,7 +88,7 @@
                             </span>
                         </td>
                     </tr>
-                    
+
                      <tr>
                         <th>{{ __('report.total_expense') }}:</th>
                         <td>
@@ -97,7 +97,7 @@
                             </span>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th>Total Purchase Shipping Charge:</th>
                         <td>
@@ -106,7 +106,7 @@
                             </span>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th>Total Transfer Shipping Charge:</th>
                         <td>
@@ -115,7 +115,7 @@
                             </span>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th>{{ __('lang_v1.total_sell_discount') }}:</th>
                         <td>
@@ -128,6 +128,24 @@
                         <th>{{ __('lang_v1.total_sell_return') }}:</th>
                         <td>
                              <span class="total_sell_return">
+                                <i class="fa fa-refresh fa-spin fa-fw"></i>
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>{{ __('Product Damage Amount') }}:</th>
+                        <td>
+                             <span class="">
+                                <i class="fa fa-refresh fa-spin fa-fw"></i>
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>{{ __('Salary Expense Report') }}:</th>
+                        <td>
+                             <span class="">
                                 <i class="fa fa-refresh fa-spin fa-fw"></i>
                             </span>
                         </td>
@@ -147,7 +165,7 @@
                             </span>
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th>{{ __('report.closing_stock') }} (By Sell Price):</th>
                         <td>
@@ -156,8 +174,8 @@
                             </span>
                         </td>
                     </tr>
-                    
-                    
+
+
                     <tr>
                         <th>{{ __('report.total_stock_adjustment') }}:</th>
                         <td>
@@ -165,8 +183,8 @@
                                 <i class="fa fa-refresh fa-spin fa-fw"></i>
                             </span>
                         </td>
-                    </tr> 
-                    
+                    </tr>
+
                     <tr>
                         <th>Total sell Shipping Charge:</th>
                         <td>
@@ -175,8 +193,8 @@
                             </span>
                         </td>
                     </tr>
-                    
-                    
+
+
                     <tr>
                         <th>{{ __('report.total_stock_recovered') }}:</th>
                         <td>
@@ -220,7 +238,7 @@
         <div class="col-xs-12">
             @component('components.widget')
                 <h3 class="text-muted mb-0">
-                    {{ __('lang_v1.gross_profit') }}: 
+                    {{ __('lang_v1.gross_profit') }}:
                     <span class="gross_profit">
                         <i class="fa fa-refresh fa-spin fa-fw"></i>
                     </span>
@@ -228,7 +246,7 @@
                 <small class="help-block">(@lang('lang_v1.total_sell_price') - @lang('lang_v1.total_purchase_price'))</small>
 
                 <h3 class="text-muted mb-0">
-                    {{ __('report.net_profit') }}: 
+                    {{ __('report.net_profit') }}:
                     <span class="net_profit">
                         <i class="fa fa-refresh fa-spin fa-fw"></i>
                     </span>
@@ -240,7 +258,7 @@
 
     <div class="row no-print">
         <div class="col-sm-12">
-            <button type="button" class="btn btn-primary pull-right" 
+            <button type="button" class="btn btn-primary pull-right"
             aria-label="Print" onclick="window.print();"
             ><i class="fa fa-print"></i> @lang( 'messages.print' )</button>
         </div>
@@ -297,7 +315,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="profit_by_products"> 
+                    <div class="tab-pane active" id="profit_by_products">
                         @include('report.partials.profit_by_products')
                     </div>
 
@@ -326,13 +344,13 @@
                     </div>
 
                     <div class="tab-pane" id="profit_by_day">
-                        
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-	
+
 
 </section>
 <!-- /.content -->
@@ -574,7 +592,7 @@
                         url: url,
                         dataType: 'html',
                         success: function(result) {
-                           $('#profit_by_day').html(result); 
+                           $('#profit_by_day').html(result);
                             profit_by_days_table = $('#profit_by_day_table').DataTable({
                                     "searching": false,
                                     'paging': false,

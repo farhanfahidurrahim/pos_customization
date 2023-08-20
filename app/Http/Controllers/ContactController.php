@@ -94,11 +94,16 @@ class ContactController extends Controller
                 DB::raw("SUM(IF(t.type = 'purchase_return', final_total, 0)) as total_purchase_return"),
                 DB::raw("SUM(IF(t.type = 'purchase_return', (SELECT SUM(amount) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as purchase_return_paid"),
                 DB::raw("SUM(IF(t.type = 'opening_balance', final_total, 0)) as opening_balance"),
-                DB::raw("SUM(IF(t.type = 'opening_balance', (SELECT SUM(IF(is_return = 1,-1*amount,amount)) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as opening_balance_paid")
+                DB::raw("SUM(IF(t.type = 'opening_balance', (SELECT SUM(IF(is_return = 1,-1*amount,amount)) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as opening_balance_paid"),
+                'contacts.created_by',
             ])
             ->groupBy('contacts.id');
 
         return Datatables::of($contact)
+            // ->addColumn('serial_number', function ($contact) {
+            //     static $index = 0;
+            //     return ++$index;
+            // })
             ->addColumn(
                 'due',
                 '<span class="display_currency contact_due" data-orig-value="{{$total_purchase - $purchase_paid}}" data-currency_symbol=true data-highlight=false>{{$total_purchase - $purchase_paid }}</span>'
@@ -152,7 +157,7 @@ class ContactController extends Controller
             ->removeColumn('total_purchase_return')
             ->removeColumn('purchase_return_paid')
             ->removeColumn('balance')
-            ->rawColumns([4, 5, 6, 7, 8, 9, 10])
+            ->rawColumns([4,5, 6, 7, 8, 9, 10,11])
             ->make(false);
     }
 
@@ -335,7 +340,8 @@ class ContactController extends Controller
                 'contact_id', 'email'
             ]);
             $input['business_id'] = $business_id;
-            $input['created_by'] = $request->session()->get('user.id');
+            //$input['created_by'] = $request->session()->get('user.id');
+            $input['created_by'] = auth()->user()->username;
 
             $input['credit_limit'] = $request->input('credit_limit') != '' ? $this->commonUtil->num_uf($request->input('credit_limit')) : null;
 

@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\VariationTemplate;
 use App\Models\VariationValueTemplate;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 
 class InstallUtil extends Util

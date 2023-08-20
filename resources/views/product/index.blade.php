@@ -148,6 +148,7 @@
                         { data: 'brand', name: 'brands.name'},
                         { data: 'tax', name: 'tax_rates.name', searchable: false},
                         { data: 'sku', name: 'products.sku'},
+                        { data: 'barcode_type', name: 'products.barcode_type'},
                         { data: 'action', name: 'action'}
                     ],
                     createdRow: function( row, data, dataIndex ) {

@@ -215,11 +215,11 @@ class AccountReportsController extends Controller
                         return $this->transactionUtil->format_date($row->paid_on, true);
                     })
                     ->addColumn('action', function ($row) {
-                        $action = '<button type="button" class="btn btn-info 
+                        $action = '<button type="button" class="btn btn-info
                         btn-xs btn-modal"
-                        data-container=".view_modal" 
+                        data-container=".view_modal"
                         data-href="' . action('AccountReportsController@getLinkAccount', [$row->payment_id]). '">' . __('account.link_account') .'</button>';
-                        
+
                         return $action;
                     })
                     ->addColumn('account', function ($row) {
@@ -305,8 +305,8 @@ class AccountReportsController extends Controller
             $business_id = session()->get('user.business_id');
             if (request()->ajax()) {
                 $payment_id = $request->input('transaction_payment_id');
-                
-                
+
+
                 $account_id = $request->input('account_id');
 
                 $payment = TransactionPayment::where('business_id', $business_id)->findOrFail($payment_id);
@@ -314,8 +314,8 @@ class AccountReportsController extends Controller
                 $payment->save();
 
                 $payment_type = !empty($payment->transaction->type) ? $payment->transaction->type : null;
-                
-                
+
+
                 if (empty($payment_type)) {
                     $child_payment = TransactionPayment::where('parent_id', $payment->id)->first();
                     $payment_type = !empty($child_payment->transaction->type) ? $child_payment->transaction->type : null;
@@ -328,7 +328,7 @@ class AccountReportsController extends Controller
                         ];
         } catch (\Exception $e) {
             \Log::emergency("File:" . $e->getFile(). "Line:" . $e->getLine(). "Message:" . $e->getMessage());
-                
+
             $output = ['success' => false,
                         'msg' => __("messages.something_went_wrong")
                         ];

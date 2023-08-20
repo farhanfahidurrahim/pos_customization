@@ -1,7 +1,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
 
-    {!! Form::open(['url' => action('AccountController@postDeposit'), 'method' => 'post', 'id' => 'deposit_form' ]) !!}
+    {!! Form::open(['url' => route('account.postDeposit'), 'method' => 'post', 'id' => 'deposit_form' ]) !!}
 
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -10,7 +10,7 @@
 
     <div class="modal-body">
             <div class="form-group">
-                <strong>@lang('account.selected_account')</strong>: 
+                <strong>@lang('account.selected_account')</strong>:
                 {{$account->name}}
                 {!! Form::hidden('account_id', $account->id) !!}
             </div>

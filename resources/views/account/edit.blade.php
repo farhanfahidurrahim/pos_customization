@@ -1,7 +1,7 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
 
-    {!! Form::open(['url' => action('AccountController@update',$account->id), 'method' => 'PUT', 'id' => 'edit_payment_account_form' ]) !!}
+    {!! Form::open(['url' => route('account.update',$account->id), 'method' => 'PUT', 'id' => 'edit_payment_account_form' ]) !!}
 
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -13,7 +13,7 @@
                 {!! Form::label('bank_name', __( 'Bank Name' ) .":*") !!}
                 {!! Form::text('bank_name', $account->bank_name, ['class' => 'form-control', 'required','placeholder' => __( 'Bank Name' ) ]); !!}
             </div>
-            
+
             <div class="form-group">
                 {!! Form::label('name', __( 'lang_v1.name' ) .":*") !!}
                 {!! Form::text('name', $account->name, ['class' => 'form-control', 'required','placeholder' => __( 'lang_v1.name' ) ]); !!}

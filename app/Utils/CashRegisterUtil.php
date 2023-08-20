@@ -5,8 +5,7 @@ namespace App\Utils;
 use App\Models\CashRegister;
 use App\Models\CashRegisterTransaction;
 use App\Models\Transaction;
-
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class CashRegisterUtil extends Util
 {
@@ -220,7 +219,7 @@ class CashRegisterUtil extends Util
         } else {
             $query->where('cash_registers.id', $register_id);
         }
-                              
+
         $register_details = $query->select(
             'cash_registers.created_at as open_time',
             'cash_registers.user_id',

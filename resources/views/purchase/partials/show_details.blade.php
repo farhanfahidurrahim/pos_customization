@@ -141,7 +141,7 @@ table td {
         </defs>
     </svg>
     <div class="invoice-name" style="margin-top: 50px; text-align: center; font-size: 34px; font-weight: 600; margin-bottom: 30px;">PURCHASE DETAILS</div>
-    
+
     <div class="info-table table-responsive" id="toprint">
         <div class="order-addresses" style="">
             <div class="billing-address" style="width: 60%;">
@@ -299,7 +299,7 @@ table td {
         </table>
         @endif
         <br />
-        
+
         <table class="order-items" style="border: none;">
             <thead>
                 <tr style="background: #002A53; color: #fff;">
@@ -319,14 +319,14 @@ table td {
                     <td class="price" style="text-align: left;">{{$pr->quantity}}</td>
                     <td class="total">
                         ৳ {{ number_format($pr->line->purchase_price_inc_tax,2)}}
-                       
+
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        
-        
+
+
         <table class="order-items" style="border: none;">
             <thead>
                 <tr style="background: #002A53; color: #fff;">
@@ -403,7 +403,7 @@ table td {
 </div>
 
 
-// <script type="text/javascript">   
+// <script type="text/javascript">
 //     window.onload = function() { window.print(); }
 // </script>
 

@@ -8,7 +8,7 @@ use App\Models\Transaction;
 use App\Models\Unit;
 use App\Models\User;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 
 use GuzzleHttp\Client;
 

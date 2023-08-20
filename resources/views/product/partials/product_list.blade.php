@@ -14,6 +14,7 @@
                 <th>@lang('product.brand')</th>
                 <th>@lang('product.tax')</th>
                 <th>@lang('product.sku')</th>
+                <th>Barcode Number</th>
                 <th>@lang('messages.action')</th>
             </tr>
         </thead>

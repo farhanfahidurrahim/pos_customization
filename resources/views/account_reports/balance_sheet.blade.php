@@ -100,7 +100,7 @@
                             <table class="table bg-gray mb-0 no-border">
                                 <tr>
                                     <th>
-                                        @lang('account.total_liability'): 
+                                        @lang('account.total_liability'):
                                     </th>
                                     <td>
                                         <span id="total_liabilty"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
@@ -112,7 +112,7 @@
                             <table class="table bg-gray mb-0 no-border">
                                 <tr>
                                     <th>
-                                        @lang('account.total_assets'): 
+                                        @lang('account.total_assets'):
                                     </th>
                                     <td>
                                         <span id="total_assets"><i class="fa fa-refresh fa-spin fa-fw"></i></span>
@@ -161,7 +161,7 @@
 
         var end_date = $('input#end_date').val();
         $.ajax({
-            url: "{{action('AccountReportsController@balanceSheet')}}?end_date=" + end_date,
+            url: "{{ route('accountreport.balanceSheet') }}?end_date=" + end_date,
             dataType: "json",
             success: function(result){
                 $('span#supplier_due').text(__currency_trans_from_en(result.supplier_due, true));
@@ -201,7 +201,7 @@
 
                 $('span#total_liabilty').text(__currency_trans_from_en(total_liabilty, true));
                 $('span#total_assets').text(__currency_trans_from_en(total_assets, true));
-                
+
             }
         });
     }

@@ -71,6 +71,8 @@
                     			<tr>
                                     <th>@lang( 'messages.date' )</th>
                                     <th>@lang( 'lang_v1.description' )</th>
+                                    <th>Create Username</th>
+                                    <th>Note</th>
                     				<th>@lang('account.credit')</th>
                                     <th>@lang('account.debit')</th>
                     				<th>@lang( 'lang_v1.balance' )</th>
@@ -84,9 +86,9 @@
             </div>
         </div>
     </div>
-    
 
-    <div class="modal fade account_model" tabindex="-1" role="dialog" 
+
+    <div class="modal fade account_model" tabindex="-1" role="dialog"
     	aria-labelledby="gridSystemModalLabel">
     </div>
 
@@ -99,17 +101,19 @@
 <script>
     $(document).ready(function(){
         update_account_balance();
-        
+
         // Account Book
         account_book = $('#account_book').DataTable({
                         processing: true,
                         serverSide: true,
-                        ajax: '{{action("AccountController@show",[$account->id])}}',
+                        ajax: '{{ route("account.show",[$account->id]) }}',
                         "ordering": false,
                         "searching": false,
                         columns: [
                             {data: 'operation_date', name: 'operation_date'},
                             {data: 'sub_type', name: 'sub_type'},
+                            {data: 'created_by', name: 'created_by'},
+                            {data: 'note', name: 'note'},
                             {data: 'credit', name: 'amount'},
                             {data: 'debit', name: 'amount'},
                             {data: 'balance', name: 'balance'},
@@ -131,7 +135,7 @@
                     end = $('input#transaction_date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
                 }
                 var transaction_type = $('select#transaction_type').val();
-                account_book.ajax.url( '{{action("AccountController@show",[$account->id])}}?start_date=' + start + '&end_date=' + end + '&type=' + transaction_type ).load();
+                account_book.ajax.url( '{{ route("account.show",[$account->id]) }}?start_date=' + start + '&end_date=' + end + '&type=' + transaction_type ).load();
             }
         );
         $('#transaction_type').change( function(){
@@ -142,11 +146,11 @@
                 end = $('input#transaction_date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
             }
             var transaction_type = $('select#transaction_type').val();
-            account_book.ajax.url( '{{action("AccountController@show",[$account->id])}}?start_date=' + start + '&end_date=' + end + '&type=' + transaction_type ).load();
+            account_book.ajax.url( '{{ route("account.show",[$account->id]) }}?start_date=' + start + '&end_date=' + end + '&type=' + transaction_type ).load();
         });
         $('#transaction_date_range').on('cancel.daterangepicker', function(ev, picker) {
             $('#transaction_date_range').val('');
-            account_book.ajax.url( '{{action("AccountController@show",[$account->id])}}?start_date=' + start + '&end_date=' + end + '&type=' + transaction_type ).load();
+            account_book.ajax.url( '{{ route("account.show",[$account->id]) }}?start_date=' + start + '&end_date=' + end + '&type=' + transaction_type ).load();
         });
 
     });
@@ -181,7 +185,7 @@
     function update_account_balance(argument) {
         $('span#account_balance').html('<i class="fa fa-refresh fa-spin"></i>');
         $.ajax({
-            url: '{{action("AccountController@getAccountBalance", [$account->id])}}',
+            url: '{{ route("account.getAccountBalance", [$account->id]) }}',
             dataType: "json",
             success: function(data){
                 $('span#account_balance').text(__currency_trans_from_en(data.balance, true));

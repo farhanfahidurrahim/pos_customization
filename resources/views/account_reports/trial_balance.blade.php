@@ -131,7 +131,7 @@
 
         var end_date = $('input#end_date').val();
         $.ajax({
-            url: "{{action('AccountReportsController@trialBalance')}}?end_date=" + end_date,
+            url: "{{ route('accountreport.trialBalance') }}?end_date=" + end_date,
             dataType: "json",
             success: function(result){
                 $('span#supplier_due').text(__currency_trans_from_en(result.supplier_due, true));

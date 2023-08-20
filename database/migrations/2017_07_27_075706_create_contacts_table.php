@@ -36,11 +36,10 @@ class CreateContactsTable extends Migration
             $table->string('national_id')->nullable();
             $table->string('business_license_number')->nullable();
             $table->string('image')->nullable();
-            $table->integer('created_by')->unsigned();
+            $table->string('created_by');
             $table->boolean('is_default')->default(0);
             $table->decimal('balance', 12, 2)->nullable()->default(0.00);
             $table->softDeletes();
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -67,7 +67,7 @@
 @endsection
 
 @section('javascript')
-    
+
     <script type="text/javascript">
         $(document).ready(function(){
             if($('#date_filter').length == 1){
@@ -93,7 +93,7 @@
                             processing: true,
                             serverSide: true,
                             "ajax": {
-                                "url": "{{action('AccountReportsController@paymentAccountReport')}}",
+                                "url": "{{ route('accountreport.paymentAccountReport') }}",
                                 "data": function ( d ) {
                                     d.account_id = $('#account_id').val();
                                     var start_date = '';
@@ -123,7 +123,7 @@
                                 __currency_convert_recursively($('#payment_account_report'));
                             }
                         });
-            
+
             $('select#account_id, #date_filter').change( function(){
                 payment_account_report.ajax.reload();
             });

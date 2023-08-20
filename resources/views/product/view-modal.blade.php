@@ -46,8 +46,8 @@
 						<b>@lang('product.category'): </b>
 						{{$product->category->name or '--' }}<br>
 						<b>@lang('product.sub_category'): </b>
-						{{$product->sub_category->name or '--' }}<br>	
-						
+						{{$product->sub_category->name or '--' }}<br>
+
 						<b>@lang('product.manage_stock'): </b>
 						@if($product->enable_stock)
 							@lang('messages.yes')
@@ -60,7 +60,7 @@
 							{{$product->alert_quantity or '--' }}
 						@endif
 	      			</div>
-					
+
 	      			<div class="col-sm-4 invoice-col">
 	      				<b>@lang('product.expires_in'): </b>
 	      				@php
@@ -85,7 +85,7 @@
 						{{$tax_type[$product->tax_type]  }}<br>
 						<b>@lang('product.product_type'): </b>
 						@lang('lang_v1.' . $product->type)
-						
+
 	      			</div>
 	      			<div class="clearfix"></div>
 	      			<br>
@@ -147,8 +147,8 @@
       		@endif
       	</div>
       	<div class="modal-footer">
-      		<button type="button" class="btn btn-primary no-print" 
-	        aria-label="Print" 
+      		<button type="button" class="btn btn-primary no-print"
+	        aria-label="Print"
 	          onclick="$(this).closest('div.modal').printThis();">
 	        <i class="fa fa-print"></i> @lang( 'messages.print' )
 	      </button>

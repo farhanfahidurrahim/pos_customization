@@ -108,7 +108,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'variation-templates' => VariationTemplateController::class,
             'products' => ProductController::class,
             'quotations' => QuatationController::class,
-            'purchases' => PurchaseController::class,
+            // 'purchases' => PurchaseController::class,
             'sells' => SellController::class,
             'pos' => SellPosController::class,
             'roles' => RoleController::class,
@@ -133,8 +133,15 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'notification-templates' => NotificationTemplateController::class,
             'purchase-return' => PurchaseReturnController::class,
             'discount' => DiscountController::class,
-            'account' => AccountController::class,
+            // 'account' => AccountController::class,
 
+        ]);
+        Route::resource('account', AccountController::class, [
+            'only' => ['index', 'create', 'edit', 'update', 'store', 'show']
+        ]);
+
+        Route::resource('purchases', PurchaseController::class, [
+            'only' => ['index', 'create', 'store','edit']
         ]);
 
         //Route::resource('backup', [BackUpController::class], ['only' => ['index', 'create', 'store']]);
@@ -155,7 +162,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
         Route::post('create_combo', [ComboController::class, 'store']);
 
         Route::post('/products/mass-deactivate', [ProductController::class, 'massDeactivate'])->name('products.massDeactivate');
-        Route::get('/products/activate/{id}', [ProductController::class, 'activate']);
+        Route::get('/products/activate/{id}', [ProductController::class, 'activate'])->name('products.activate');
         Route::get('/products/view-product-group-price/{id}', [ProductController::class, 'viewGroupPrice']);
         Route::get('/products/add-selling-prices/{id}', [ProductController::class, 'addSellingPrices'])->name('products.addSellingPrices');
         Route::post('/products/save-selling-prices', [ProductController::class, 'saveSellingPrices']);
@@ -179,7 +186,9 @@ Route::middleware(['BusinessSetting'])->group(function () {
 
         Route::get('/purchases/get_products', [PurchaseController::class, 'getProducts']);
 
-        Route::get('/purchases/get_suppliers', [PurchaseController::class, 'getSuppliers']);
+        Route::get('/purchases/get_suppliers', [PurchaseController::class, 'getSuppliers'])->name('purchases.get_suppliers');
+        // Route::get('/purchases/get_suppliers', 'PurchaseController@getSuppliers')->name('purchases.get_suppliers');
+
         Route::post('/purchases/get_purchase_entry_row', [PurchaseController::class, 'getPurchaseEntryRow']);
         Route::post('/purchases/check_ref_number', [PurchaseController::class, 'checkRefNumber']);
 
@@ -325,14 +334,14 @@ Route::middleware(['BusinessSetting'])->group(function () {
             Route::post('/deposit', [AccountController::class, 'postDeposit'])->name('account.postDeposit');
             Route::get('/close/{id}', [AccountController::class, 'close'])->name('account.close');
             Route::get('/open/{id}', [AccountController::class, 'open'])->name('account.open');
-            Route::get('/delete-account-transaction/{id}', [AccountController::class, 'destroyAccountTransaction']);
-            Route::get('/get-account-balance/{id}', [AccountController::class, 'getAccountBalance']);
+            Route::get('/delete-account-transaction/{id}', [AccountController::class, 'destroyAccountTransaction'])->name('account.destroyAccountTransaction');
+            Route::get('/get-account-balance/{id}', [AccountController::class, 'getAccountBalance'])->name('account.getAccountBalance');
 
             Route::get('/balance-sheet', [AccountReportsController::class, 'balanceSheet'])->name('accountreport.balanceSheet');
             Route::get('/trial-balance', [AccountReportsController::class, 'trialBalance'])->name('accountreport.trialBalance');
             Route::get('/payment-account-report', [AccountReportsController::class, 'paymentAccountReport'])->name('accountreport.paymentAccountReport');
             Route::get('/link-account/{id}', [AccountReportsController::class, 'getLinkAccount']);
-            Route::post('/link-account', [AccountReportsController::class, 'postLinkAccount']);
+            Route::post('/link-account', [AccountReportsController::class, 'postLinkAccount'])->name('accountreport.postLinkAccount');
             Route::get('/cash-flow', [AccountController::class, 'cashFlow'])->name('accountreport.cashFlow');
         });
     });

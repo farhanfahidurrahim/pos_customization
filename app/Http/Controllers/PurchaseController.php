@@ -18,11 +18,13 @@ use App\Utils\ModuleUtil;
 use App\Utils\ProductUtil;
 use App\Utils\TransactionUtil;
 
-use App\Variation;
+use App\Models\Variation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Spatie\Permission\Models\Role;
+
+use Illuminate\Support\Str;
 
 class PurchaseController extends Controller
 {
@@ -187,11 +189,11 @@ class PurchaseController extends Controller
 
                     if (auth()->user()->can("send_notification")) {
                         if ($row->status == 'ordered') {
-                            $html .= '<li><a href="#" data-href="' . action('NotificationController@getTemplate', ["transaction_id" => $row->id,"template_for" => "new_order"]) . '" class="btn-modal" data-container=".view_modal"><i class="fa fa-envelope" aria-hidden="true"></i> ' . __("lang_v1.new_order_notification") . '</a></li>';
+                            $html .= '<li><a href="#" data-href="' . route('notification.getTemplate', ["transaction_id" => $row->id,"template_for" => "new_order"]) . '" class="btn-modal" data-container=".view_modal"><i class="fa fa-envelope" aria-hidden="true"></i> ' . __("lang_v1.new_order_notification") . '</a></li>';
                         } elseif ($row->status == 'received') {
-                            $html .= '<li><a href="#" data-href="' . action('NotificationController@getTemplate', ["transaction_id" => $row->id,"template_for" => "items_received"]) . '" class="btn-modal" data-container=".view_modal"><i class="fa fa-envelope" aria-hidden="true"></i> ' . __("lang_v1.item_received_notification") . '</a></li>';
+                            $html .= '<li><a href="#" data-href="' . route('notification.getTemplate', ["transaction_id" => $row->id,"template_for" => "items_received"]) . '" class="btn-modal" data-container=".view_modal"><i class="fa fa-envelope" aria-hidden="true"></i> ' . __("lang_v1.item_received_notification") . '</a></li>';
                         } elseif ($row->status == 'pending') {
-                            $html .= '<li><a href="#" data-href="' . action('NotificationController@getTemplate', ["transaction_id" => $row->id,"template_for" => "items_pending"]) . '" class="btn-modal" data-container=".view_modal"><i class="fa fa-envelope" aria-hidden="true"></i> ' . __("lang_v1.item_pending_notification") . '</a></li>';
+                            $html .= '<li><a href="#" data-href="' . route('notification.getTemplate', ["transaction_id" => $row->id,"template_for" => "items_pending"]) . '" class="btn-modal" data-container=".view_modal"><i class="fa fa-envelope" aria-hidden="true"></i> ' . __("lang_v1.item_pending_notification") . '</a></li>';
                         }
                     }
 
@@ -325,7 +327,7 @@ class PurchaseController extends Controller
 
             //Check if subscribed or not
             if (!$this->moduleUtil->isSubscribed($business_id)) {
-                return $this->moduleUtil->expiredResponse(action('PurchaseController@index'));
+                return $this->moduleUtil->expiredResponse(route('purchases.index'));
             }
 
             $transaction_data = $request->only([ 'ref_no', 'status', 'contact_id', 'transaction_date', 'total_before_tax', 'location_id','discount_type', 'discount_amount','tax_id', 'tax_amount', 'shipping_details', 'shipping_charges', 'final_total', 'additional_notes', 'exchange_rate']);
@@ -375,7 +377,7 @@ class PurchaseController extends Controller
             $transaction_data['created_by'] = $user_id;
             $transaction_data['type'] = 'purchase';
             $transaction_data['payment_status'] = 'due';
-            $transaction_data['invoice_no'] = str_random(5);
+            $transaction_data['invoice_no'] = Str::random(5);
             $transaction_data['transaction_date'] = $this->productUtil->uf_date($transaction_data['transaction_date'], true);
 
             //upload document
@@ -454,33 +456,33 @@ class PurchaseController extends Controller
      */
     public function show($id)
     {
-        if (!auth()->user()->can('purchase.view')) {
-            abort(403, 'Unauthorized action.');
-        }
+        // if (!auth()->user()->can('purchase.view')) {
+        //     abort(403, 'Unauthorized action.');
+        // }
 
-        $business_id = request()->session()->get('user.business_id');
-        $taxes = TaxRate::where('business_id', $business_id)
-                            ->pluck('name', 'id');
-        $purchase = Transaction::where('business_id', $business_id)
-                                ->where('id', $id)
-                                ->with(
-                                    'contact',
-                                    'purchase_lines',
-                                    'purchase_lines.product',
-                                    'purchase_lines.product.unit',
-                                    'purchase_lines.variations',
-                                    'purchase_lines.variations.product_variation',
-                                    'purchase_lines.sub_unit',
-                                    'location',
-                                    'payment_lines',
-                                    'tax'
-                                )
-                                ->firstOrFail();
+        // $business_id = request()->session()->get('user.business_id');
+        // $taxes = TaxRate::where('business_id', $business_id)
+        //                     ->pluck('name', 'id');
+        // $purchase = Transaction::where('business_id', $business_id)
+        //                         ->where('id', $id)
+        //                         ->with(
+        //                             'contact',
+        //                             'purchase_lines',
+        //                             'purchase_lines.product',
+        //                             'purchase_lines.product.unit',
+        //                             'purchase_lines.variations',
+        //                             'purchase_lines.variations.product_variation',
+        //                             'purchase_lines.sub_unit',
+        //                             'location',
+        //                             'payment_lines',
+        //                             'tax'
+        //                         )
+        //                         ->firstOrFail();
 
 
 
-        return view('purchase.show')
-                ->with(compact('purchase'));
+        // return view('purchase.show')
+        //         ->with(compact('purchase'));
     }
 
     /**
@@ -499,7 +501,7 @@ class PurchaseController extends Controller
 
         //Check if subscribed or not
         if (!$this->moduleUtil->isSubscribed($business_id)) {
-            return $this->moduleUtil->expiredResponse(action('PurchaseController@index'));
+            return $this->moduleUtil->expiredResponse(route('purchases.index'));
         }
 
         //Check if the transaction can be edited or not.
@@ -808,7 +810,7 @@ class PurchaseController extends Controller
             }
             $suppliers = $query->where(function ($query) use ($term) {
                 $query->where('name', 'like', '%' . $term .'%')
-                                // ->orWhere('supplier_business_name', 'like', '%' . $term .'%')
+                                ->orWhere('supplier_business_name', 'like', '%' . $term .'%')
                                 ->orWhere('contacts.contact_id', 'like', '%' . $term .'%');
             })
                         ->select('contacts.id', 'name as text', 'supplier_business_name as business_name', 'contact_id')

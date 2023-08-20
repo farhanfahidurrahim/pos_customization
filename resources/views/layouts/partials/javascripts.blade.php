@@ -91,12 +91,12 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         @if(config('app.debug') == false)
             $.fn.dataTable.ext.errMode = 'throw';
         @endif
     });
-    
+
     var financial_year = {
     	start: moment('{{ Session::get("financial_year.start") }}'),
     	end: moment('{{ Session::get("financial_year.end") }}'),

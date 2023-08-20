@@ -70,9 +70,9 @@
             </div>
         </div>
     </div>
-    
 
-    <div class="modal fade account_model" tabindex="-1" role="dialog" 
+
+    <div class="modal fade account_model" tabindex="-1" role="dialog"
     	aria-labelledby="gridSystemModalLabel">
     </div>
 
@@ -99,13 +99,13 @@
                 cash_flow_table.ajax.reload();
             }
         );
-        
+
         // Cash Flow Table
         cash_flow_table = $('#cash_flow_table').DataTable({
             processing: true,
             serverSide: true,
             "ajax": {
-                    "url": "{{action("AccountController@cashFlow")}}",
+                    "url": "{{ route("accountreport.cashFlow") }}",
                     "data": function ( d ) {
                         var start = '';
                         var end = '';
@@ -113,7 +113,7 @@
                             start = $('#transaction_date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
                             end = $('#transaction_date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
                         }
-                        
+
                         d.account_id = $('#account_id').val();
                         d.type = $('#transaction_type').val();
                         d.start_date = start,

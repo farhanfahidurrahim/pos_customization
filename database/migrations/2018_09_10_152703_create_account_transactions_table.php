@@ -22,7 +22,8 @@ class CreateAccountTransactionsTable extends Migration
             $table->decimal('amount', 22, 4);
             $table->string('reff_no')->nullable();
             $table->dateTime('operation_date');
-            $table->integer('created_by');
+            // $table->integer('created_by');
+            $table->string('created_by');
             $table->integer('transaction_id')->nullable();
             $table->integer('transaction_payment_id')->nullable();
             $table->integer('transfer_transaction_id')->nullable();

@@ -2,29 +2,30 @@
 
 namespace App\Utils;
 
-use App\Models\Business;
-
-use App\Models\BusinessLocation;
-
 use App\Models\Contact;
-use App\Models\Currency;
-use App\Events\TransactionPaymentAdded;
-use App\Events\TransactionPaymentDeleted;
-use App\Events\TransactionPaymentUpdated;
-use App\Exceptions\PurchaseSellMismatch;
-use App\Models\InvoiceScheme;
+
 use App\Models\Product;
+
+use App\Models\TaxRate;
+use App\Models\Business;
+use App\Models\Currency;
+use App\Models\Variation;
+use App\Models\Transaction;
+use Illuminate\Support\Str;
 use App\Models\PurchaseLine;
 use App\Restaurant\ResTable;
-use App\Models\TaxRate;
-use App\Models\Transaction;
+use App\Models\InvoiceScheme;
+use App\Models\BusinessLocation;
+use App\Models\AccountTransaction;
 use App\Models\TransactionPayment;
-use App\Models\TransactionSellLine;
-use App\Models\TransactionSellLinesPurchaseLines;
-
-use App\Variation;
-use App\VariationLocationDetails;
 use Illuminate\Support\Facades\DB;
+use App\Models\TransactionSellLine;
+use App\Events\TransactionPaymentAdded;
+use App\Exceptions\PurchaseSellMismatch;
+use App\Models\VariationLocationDetails;
+use App\Events\TransactionPaymentDeleted;
+use App\Events\TransactionPaymentUpdated;
+use App\Models\TransactionSellLinesPurchaseLines;
 
 class TransactionUtil extends Util
 {
@@ -1399,7 +1400,7 @@ class TransactionUtil extends Util
 
             return $invoice_no;
         } else {
-            return str_random(5);
+            return Str::random(5);
         }
     }
 
@@ -3602,17 +3603,17 @@ class TransactionUtil extends Util
 
     public function accountLink($payment_id,$account_id){
         $business_id=request()->session()->get('user.business_id');
-        $payment = \App\TransactionPayment::where('business_id', $business_id)->findOrFail($payment_id);
+        $payment = TransactionPayment::where('business_id', $business_id)->findOrFail($payment_id);
         $payment->account_id = $account_id;
         $payment->save();
 
         $payment_type = !empty($payment->transaction->type) ? $payment->transaction->type : null;
         if (empty($payment_type)) {
-            $child_payment = \App\TransactionPayment::where('parent_id', $payment->id)->first();
+            $child_payment = TransactionPayment::where('parent_id', $payment->id)->first();
             $payment_type = !empty($child_payment->transaction->type) ? $child_payment->transaction->type : null;
         }
 
-        \App\AccountTransaction::updateAccountTransaction($payment, $payment_type);
+        AccountTransaction::updateAccountTransaction($payment, $payment_type);
 
         return true;
 

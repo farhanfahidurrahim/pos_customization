@@ -60,10 +60,12 @@
                             <thead>
                                 <tr>
                                     <th>Bank Name</th>
+                                    <th>Branch Name</th>
                                     <th>Account Name</th>
                                     <th>@lang('account.account_number')</th>
                                     <th>@lang( 'brand.note' )</th>
                                     <th>@lang('lang_v1.balance')</th>
+                                    <th>Created By</th>
                                     <th>@lang( 'messages.action' )</th>
                                 </tr>
                             </thead>
@@ -180,7 +182,7 @@
         capital_account_table = $('#capital_account_table').DataTable({
                         processing: true,
                         serverSide: true,
-                        ajax: '/account/account?account_type=capital',
+                        ajax: "{{ route('account.index', ['account_type' => 'capital']) }}",
                         columnDefs:[{
                                 "targets": 4,
                                 "orderable": false,
@@ -188,10 +190,12 @@
                             }],
                         columns: [
                             {data: 'bank_name', name: 'bank_name'},
+                            {data: 'branch_name', name: 'branch_name'},
                             {data: 'name', name: 'name'},
                             {data: 'account_number', name: 'account_number'},
                             {data: 'note', name: 'note'},
                             {data: 'balance', name: 'balance', searchable: false},
+                            {data: 'created_by', name: 'created_by'},
                             {data: 'action', name: 'action'}
                         ],
                         "fnDrawCallback": function (oSettings) {
@@ -202,7 +206,7 @@
         other_account_table = $('#other_account_table').DataTable({
                         processing: true,
                         serverSide: true,
-                        ajax: '/account/account?account_type=other',
+                        ajax: "{{ route('account.index', ['account_type' => 'other']) }}",
                         columnDefs:[{
                                 "targets": 4,
                                 "orderable": false,
@@ -210,10 +214,12 @@
                             }],
                         columns: [
                             {data: 'bank_name', name: 'bank_name'},
+                            {data: 'branch_name', name: 'branch_name'},
                             {data: 'name', name: 'name'},
                             {data: 'account_number', name: 'account_number'},
                             {data: 'note', name: 'note'},
                             {data: 'balance', name: 'balance', searchable: false},
+                            {data: 'created_by', name: 'created_by'},
                             {data: 'action', name: 'action'}
                         ],
                         "fnDrawCallback": function (oSettings) {

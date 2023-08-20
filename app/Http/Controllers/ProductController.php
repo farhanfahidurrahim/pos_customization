@@ -85,6 +85,7 @@ class ProductController extends Controller
                     'brands.name as brand',
                     'tax_rates.name as tax',
                     'products.sku',
+                    'products.barcode_type',
                     'products.image',
                     'products.enable_stock',
                     'products.is_inactive',
@@ -148,7 +149,7 @@ class ProductController extends Controller
                         }
 
                         if ($row->is_inactive == 1) {
-                            $html .='<li><a href="' . action('ProductController@activate', [$row->id]) . '" class="activate-product"><i class="fa fa-circle-o"></i> ' . __("lang_v1.reactivate") . '</a></li>';
+                            $html .='<li><a href="' . route('products.activate', [$row->id]) . '" class="activate-product"><i class="fa fa-circle-o"></i> ' . __("lang_v1.reactivate") . '</a></li>';
 
                         }
 

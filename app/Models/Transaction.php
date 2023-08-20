@@ -12,13 +12,13 @@ class Transaction extends Model
      * @var array
      */
     protected $guarded = ['id'];
-    
+
     public function product_recieves()
     {
         return $this->hasmany(ProductRecievd::class,'transaction_id');
     }
-    
-    
+
+
     public function purchase_lines()
     {
         return $this->hasMany(PurchaseLine::class);
@@ -95,7 +95,7 @@ class Transaction extends Model
     public function getDocumentPathAttribute()
     {
         $path = !empty($this->document) ? asset('/uploads/documents/' . $this->document) : null;
-        
+
         return $path;
     }
 
