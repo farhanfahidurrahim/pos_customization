@@ -571,12 +571,17 @@ $(document).ready(function() {
             { data: 'transaction_date', name: 'transaction_date' },
             { data: 'username', name: 'users.username' },
             { data: 'ref_no', name: 'ref_no' },
+            { data: 'invoice_no', name: 'invoice_no' },
             { data: 'location_name', name: 'BS.name' },
             { data: 'name', name: 'contacts.name' },
             { data: 'status', name: 'status' },
             { data: 'payment_status', name: 'payment_status' },
+            { data: 'tax_amount', name: 'tax_amount' },
+            { data: 'discount_amount', name: 'discount_amount' },
             { data: 'final_total', name: 'final_total' },
+            { data: 'amount_paid', name: 'amount_paid' },
             { data: 'payment_due', name: 'payment_due' },
+            { data: 'amount_return', name: 'amount_return' },
             { data: 'action', name: 'action' },
         ],
         fnDrawCallback: function(oSettings) {
@@ -1011,6 +1016,7 @@ $(document).on('click', 'button#submit_purchase_form', function(e) {
             },
         },
     });
+
 
     if ($('form#add_purchase_form').valid()) {
         $('form#add_purchase_form').submit();

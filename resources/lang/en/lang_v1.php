@@ -181,7 +181,7 @@ return [
     'show_time_with_date' => 'Show time with date',
     'show_sale_description' => 'Show sale description',
     'product_imei_or_sn' => '(Product IMEI or Serial Number)',
-    'purchase_already_exist' => "Product can't be deleted because purchases related to 
+    'purchase_already_exist' => "Product can't be deleted because purchases related to
 								this product exist",
     'opening_stock_sold' => "Product can't be deleted because some stocks are sold",
     'stock_adjusted' => "Product can't be deleted because some stocks are adjusted",
@@ -693,4 +693,6 @@ return [
     'created' => 'Created',
     'updated' => 'Updated',
     'deleted' => 'Deleted',
+    'paid_amount' => 'Paid Amount',
+
 ];

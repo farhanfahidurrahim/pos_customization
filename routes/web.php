@@ -141,7 +141,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
         ]);
 
         Route::resource('purchases', PurchaseController::class, [
-            'only' => ['index', 'create', 'store','edit']
+            'only' => ['index', 'create', 'store','edit', 'destroy','update']
         ]);
 
         //Route::resource('backup', [BackUpController::class], ['only' => ['index', 'create', 'store']]);
@@ -187,7 +187,6 @@ Route::middleware(['BusinessSetting'])->group(function () {
         Route::get('/purchases/get_products', [PurchaseController::class, 'getProducts']);
 
         Route::get('/purchases/get_suppliers', [PurchaseController::class, 'getSuppliers'])->name('purchases.get_suppliers');
-        // Route::get('/purchases/get_suppliers', 'PurchaseController@getSuppliers')->name('purchases.get_suppliers');
 
         Route::post('/purchases/get_purchase_entry_row', [PurchaseController::class, 'getPurchaseEntryRow']);
         Route::post('/purchases/check_ref_number', [PurchaseController::class, 'checkRefNumber']);

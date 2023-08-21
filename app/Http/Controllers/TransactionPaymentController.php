@@ -197,7 +197,7 @@ class TransactionPaymentController extends Controller
             $payments = $payments_query->get();
 
             $payment_types = $this->transactionUtil->payment_types();
-            $accounts = \App\Models\Account::forDropdown(request()->session()->get('user.business_id'), true);
+            $accounts = Account::forDropdown(request()->session()->get('user.business_id'), true);
             return view('transaction_payment.show_payments')
                     ->with(compact('transaction', 'payments', 'payment_types', 'accounts_enabled','accounts'));
         }
@@ -406,7 +406,7 @@ class TransactionPaymentController extends Controller
                 $payment_line->paid_on = \Carbon::now()->toDateString();
 
                 //Accounts
-                $accounts = \App\Account::forDropdown(request()->session()->get('user.business_id'), true);
+                $accounts = Account::forDropdown(request()->session()->get('user.business_id'), true);
 
                 $view = view('transaction_payment.payment_row')
                 ->with(compact('transaction', 'payment_types', 'payment_line', 'amount_formated', 'accounts'))->render();

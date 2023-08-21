@@ -19,7 +19,7 @@
 
   @include('layouts.partials.error')
 
-  {!! Form::open(['url' =>  action('PurchaseController@update' , [$purchase->id] ), 'method' => 'PUT', 'id' => 'add_purchase_form', 'files' => true ]) !!}
+  {!! Form::open(['url' =>  route('purchases.update' , [$purchase->id] ), 'method' => 'PUT', 'id' => 'add_purchase_form', 'files' => true ]) !!}
 
   @php
     $currency_precision = config('constants.currency_precision', 2);
@@ -50,7 +50,7 @@
                 {!! Form::text('ref_no', $purchase->ref_no, ['class' => 'form-control', 'required']); !!}
               </div>
             </div>
-            
+
             <div class="@if(!empty($default_purchase_status)) col-sm-4 @else col-sm-3 @endif">
               <div class="form-group">
                 {!! Form::label('transaction_date', __('purchase.purchase_date') . ':*') !!}
@@ -62,7 +62,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="col-sm-3 @if(!empty($default_purchase_status)) hide @endif">
               <div class="form-group">
                 {!! Form::label('status', __('purchase.purchase_status') . ':*') !!}
@@ -122,7 +122,7 @@
             </div>
             <div class="col-sm-2">
               <div class="form-group">
-                <button tabindex="-1" type="button" class="btn btn-link btn-modal"data-href="{{action('ProductController@quickAdd')}}" 
+                <button tabindex="-1" type="button" class="btn btn-link btn-modal"data-href="{{ route('products.quickAdd') }}"
                       data-container=".quick_add_product_modal"><i class="fa fa-plus"></i> @lang( 'product.add_new_product' ) </button>
               </div>
             </div>
@@ -171,9 +171,9 @@
                     <td class="col-md-3">
                       <div class="form-group">
                       {!! Form::label('discount_amount', __( 'purchase.discount_amount' ) . ':') !!}
-                      {!! Form::text('discount_amount', 
+                      {!! Form::text('discount_amount',
 
-                      ($purchase->discount_type == 'fixed' ? 
+                      ($purchase->discount_type == 'fixed' ?
                         number_format($purchase->discount_amount/$purchase->exchange_rate, $currency_precision, $currency_details->decimal_separator, $currency_details->thousand_separator)
                       :
                         number_format($purchase->discount_amount, $currency_precision, $currency_details->decimal_separator, $currency_details->thousand_separator)
@@ -185,7 +185,7 @@
                       &nbsp;
                     </td>
                     <td class="col-md-3">
-                      <b>Discount:</b>(-) 
+                      <b>Discount:</b>(-)
                       <span id="discount_calculated_amount" class="display_currency">0</span>
                     </td>
                   </tr>
@@ -199,7 +199,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>
-                      <b>@lang( 'purchase.purchase_tax' ):</b>(+) 
+                      <b>@lang( 'purchase.purchase_tax' ):</b>(+)
                       <span id="tax_calculated_amount" class="display_currency">0</span>
                     </td>
                   </tr>
@@ -243,7 +243,7 @@
             </div>
         </div>
     @endcomponent
-  
+
     <div class="row">
         <div class="col-sm-12">
           <button type="button" id="submit_purchase_form" class="btn btn-primary pull-right btn-flat">@lang('messages.update')</button>

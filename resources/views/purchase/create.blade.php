@@ -53,12 +53,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-3 @if(!empty($default_purchase_status)) hide @endif">
+			{{-- <div class="col-sm-3 @if(!empty($default_purchase_status)) hide @endif">
 				<div class="form-group">
 					{!! Form::label('status', __('purchase.purchase_status') . ':*') !!} @show_tooltip(__('tooltip.order_status'))
 					{!! Form::select('status', $orderStatuses, $default_purchase_status, ['class' => 'form-control select2', 'placeholder' => __('messages.please_select'), 'required']); !!}
 				</div>
-			</div>
+			</div> --}}
+            <div class="col-sm-3 @if(!empty($default_purchase_status)) hide @endif">
+                <div class="form-group">
+                    {!! Form::label('status', __('purchase.purchase_status') . ':*') !!} @show_tooltip(__('tooltip.order_status'))
+                    {!! Form::select('status', $orderStatuses, 'Received', ['class' => 'form-control select2', 'required']); !!}
+                </div>
+            </div>
+
 
 			<div class="clearfix"></div>
 
