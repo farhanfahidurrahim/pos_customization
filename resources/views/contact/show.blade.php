@@ -109,6 +109,9 @@ $(document).ready( function(){
             { data: 'name', name: 'contacts.name'},
             { data: 'status', name: 'status'},
             { data: 'payment_status', name: 'payment_status'},
+            { data: 'total_before_tax', name: 'total_before_tax'},
+            { data: 'amount_return', name: 'amount_return'},
+            { data: 'amount_paid', name: 'amount_paid'},
             { data: 'final_total', name: 'final_total'},
             { data: 'payment_due', name: 'payment_due'},
             { data: 'action', name: 'action'}
@@ -210,6 +213,7 @@ $(document).ready( function(){
             { data: 'amount', name: 'transaction_payments.amount'  },
             { data: 'method', name: 'method' },
             { data: 'type', name: 'type' },
+            { data: 'created_by', name: 'created_by' },
             { data: 'action', "orderable": false, "searchable": false },
         ],
         "fnDrawCallback": function (oSettings) {

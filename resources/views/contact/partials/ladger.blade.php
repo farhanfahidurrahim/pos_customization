@@ -142,6 +142,10 @@
                     <span class="display_currency" data-currency_symbol="true">
                         {{ $contact->total_purchase - $contact->purchase_paid }}</span>
                 </p>
+                <strong>@lang('Return Amount')</strong>
+                <p class="text-muted">
+                    <span class="display_currency" data-currency_symbol="true">
+                </p>
             @endif
             @if ($contact->type == 'customer' || $contact->type == 'both')
                 <strong>@lang('report.total_sell')</strong>

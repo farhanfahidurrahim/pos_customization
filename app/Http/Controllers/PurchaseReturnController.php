@@ -108,25 +108,6 @@ class PurchaseReturnController extends Controller
                             ->whereDate('transactions.transaction_date', '<=', $end);
             }
             return Datatables::of($purchases_returns)
-                ->addColumn('action', function ($row) {
-                    $html = '';
-                    if (!empty($row->return_parent_id)) {
-                        $html .= '<a href="' . route('purchase.return.add', $row->return_parent_id) . '" class="btn btn-info btn-xs" ><i class="glyphicon glyphicon-edit"></i>' .
-                                __("messages.edit") .
-                                '</a>';
-                    } else {
-                        $html .= '<a href="' . route('combinedPurchaseReturn.edit', $row->id) . '" class="btn btn-info btn-xs" ><i class="glyphicon glyphicon-edit"></i>' .
-                                __("messages.edit") .
-                                '</a>';
-                    }
-
-                    $html .= '<a href="' . route('purchase-return.destroy', $row->id) . '" class="btn btn-danger btn-xs delete_purchase_return" ><i class="fa fa-trash"></i>' .
-                                __("messages.delete") .
-                                '</a>';
-
-
-                    return $html;
-                })
                 ->removeColumn('id')
                 ->removeColumn('return_parent_id')
                 ->editColumn(
@@ -151,6 +132,25 @@ class PurchaseReturnController extends Controller
                     $due = $row->final_total - $row->amount_paid;
                     return '<span class="display_currency payment_due" data-currency_symbol="true" data-orig-value="' . $due . '">' . $due . '</sapn>';
                 })
+                ->addColumn('action', function ($row) {
+                    $html = '';
+                    if (!empty($row->return_parent_id)) {
+                        $html .= '<a href="' . route('purchase.return.add', $row->return_parent_id) . '" class="btn btn-info btn-xs" ><i class="glyphicon glyphicon-edit"></i>' .
+                                __("messages.edit") .
+                                '</a>';
+                    } else {
+                        $html .= '<a href="' . route('combinedPurchaseReturn.edit', $row->id) . '" class="btn btn-info btn-xs" ><i class="glyphicon glyphicon-edit"></i>' .
+                                __("messages.edit") .
+                                '</a>';
+                    }
+
+                    $html .= '<a href="' . route('purchase-return.destroy', $row->id) . '" class="btn btn-danger btn-xs delete_purchase_return" ><i class="fa fa-trash"></i>' .
+                                __("messages.delete") .
+                                '</a>';
+
+
+                    return $html;
+                })
                 ->setRowAttr([
                     'data-href' => function ($row) {
                         if (auth()->user()->can("purchase.view")) {
@@ -160,7 +160,7 @@ class PurchaseReturnController extends Controller
                             return '';
                         }
                     }])
-                ->rawColumns(['final_total', 'action', 'payment_status', 'parent_purchase', 'payment_due', 'amount_paid'])
+                ->rawColumns(['final_total',  'payment_status', 'parent_purchase', 'payment_due', 'amount_paid', 'action',])
                 ->make(true);
         }
         return view('purchase_return.index');
@@ -271,6 +271,8 @@ class PurchaseReturnController extends Controller
                                             ->where('return_parent_id', $purchase->id)
                                             ->first();
 
+            $invoice_number = 'INV-' . date('Ymd') . '-' . sprintf('%04d', $this->transactionUtil->setAndGetReferenceCount('invoice'));
+
             if (!empty($return_transaction)) {
                 $return_transaction->update($return_transaction_data);
             } else {
@@ -278,10 +280,12 @@ class PurchaseReturnController extends Controller
                 $return_transaction_data['location_id'] = $purchase->location_id;
                 $return_transaction_data['type'] = 'purchase_return';
                 $return_transaction_data['status'] = 'final';
+                $return_transaction_data['additional_notes'] = 'additional_notes';
                 $return_transaction_data['contact_id'] = $purchase->contact_id;
                 $return_transaction_data['transaction_date'] = \Carbon::now();
                 $return_transaction_data['created_by'] = request()->session()->get('user.id');
                 $return_transaction_data['return_parent_id'] = $purchase->id;
+                $return_transaction_data['invoice_no'] = $invoice_number;
 
                 $return_transaction = Transaction::create($return_transaction_data);
             }

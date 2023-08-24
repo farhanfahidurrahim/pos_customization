@@ -28,10 +28,16 @@
 
 	@component('components.widget', ['class' => 'box-primary'])
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="form-group">
 					{!! Form::label('ref_no', __('purchase.ref_no').':') !!}
 					{!! Form::text('ref_no', !empty($purchase->return_parent->ref_no) ? $purchase->return_parent->ref_no : null, ['class' => 'form-control']); !!}
+				</div>
+			</div>
+            <div class="col-sm-3">
+                <div class="form-group">
+					{!! Form::label('additional_notes', __('Return Note').':') !!}
+					{!! Form::textarea('additional_notes', null, ['class' => 'form-control']); !!}
 				</div>
 			</div>
 			<div class="clearfix"></div>

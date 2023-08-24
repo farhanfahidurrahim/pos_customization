@@ -91,12 +91,16 @@ class ContactController extends Controller
                 'contacts.contact_id', 'supplier_business_name', 'name', 'mobile', 'vat_number', 'gst_number', 'business_license_number',
                 'contacts.type', 'contacts.id', 'contacts.balance',
 
-
                 DB::raw("SUM(IF(t.type = 'purchase_return', final_total, 0)) as total_purchase_return"),
                 DB::raw("SUM(IF(t.type = 'purchase_return', (SELECT SUM(amount) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as purchase_return_paid"),
                 DB::raw("SUM(IF(t.type = 'opening_balance', final_total, 0)) as opening_balance"),
                 DB::raw("SUM(IF(t.type = 'opening_balance', (SELECT SUM(IF(is_return = 1,-1*amount,amount)) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as opening_balance_paid"),
                 'contacts.created_by','contacts.created_at',
+
+                DB::raw("SUM(IF(t.type = 'purchase', total_before_tax, 0)) as total_before_tax"),
+                DB::raw("SUM(IF(t.type = 'purchase', discount_amount, 0)) as discount_amount"),
+
+                DB::raw("SUM(IF(t.type = 'purchase', tax_amount, 0)) as tax_amount"),
                 DB::raw("SUM(IF(t.type = 'purchase', final_total, 0)) as total_purchase"),
                 DB::raw("SUM(IF(t.type = 'purchase', (SELECT SUM(amount) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as purchase_paid"),
             ])
@@ -111,8 +115,8 @@ class ContactController extends Controller
                 return $contact->created_at->format('Y-m-d'); // Format the date as desired
             })
             // ->addColumn(
-            //     'total_purchase',
-            //     '<span class="display_currency contact_due" data-orig-value="{{$total_purchase}}" data-currency_symbol=true data-highlight=false>{{$total_purchase}}</span>'
+            //     'purchase_amount',
+            //     '<span class="display_currency parchase_amount" data-orig-value="{{$total_before_tax - $discount_amount}}" data-currency_symbol=true data-highlight=false>{{$total_before_tax - $discount_amount }}</span>'
             // )
             ->addColumn(
                 'due',
@@ -164,10 +168,12 @@ class ContactController extends Controller
             ->removeColumn('id')
             // ->removeColumn('total_purchase')
             // ->removeColumn('purchase_paid')
+            // ->removeColumn('total_before_tax')
+            ->removeColumn('discount_amount')
             ->removeColumn('total_purchase_return')
             ->removeColumn('purchase_return_paid')
             ->removeColumn('balance')
-            ->rawColumns([5, 6, 7, 8, 9, 10, 11, 12,13,14,15])
+            ->rawColumns([5, 6, 7, 8, 9, 10, 11, 12,13,14,15,16,17,18])
             ->make(false);
     }
 

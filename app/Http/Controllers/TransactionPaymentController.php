@@ -714,7 +714,8 @@ class TransactionPaymentController extends Controller
                     'card_transaction_number',
                     'bank_account_number',
                     't.invoice_no',
-                    't.ref_no'
+                    't.ref_no',
+                    't.created_by'
                 )
                 ->groupBy('transaction_payments.id');
 

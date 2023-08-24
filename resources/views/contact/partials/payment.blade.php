@@ -14,6 +14,7 @@
                     <th>@lang('sale.amount')</th>
                     <th>@lang('lang_v1.payment_method')</th>
                     <th>Payment For</th>
+                    <th>Sell by Username</th>
                     <th>@lang('messages.action')</th>
                 </tr>
             </thead>

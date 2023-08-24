@@ -50,6 +50,9 @@
                                     <th>Date Created</th>
 
                                     <th>Purchase Amount</th>
+                                    <th>Vat Amount</th>
+                                    <th>Grant Amount</th>
+
                                     <th>Paid Amount</th>
 
                                     <th>@lang('contact.total_purchase_due')</th>

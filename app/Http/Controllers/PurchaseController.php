@@ -103,6 +103,7 @@ class PurchaseController extends Controller
                     'transactions.payment_status',
                     'transactions.tax_amount',
                     'transactions.discount_amount',
+                    'transactions.total_before_tax',
                     'transactions.final_total',
                     'BS.name as location_name',
                     'PR.id as return_transaction_id',
@@ -110,7 +111,8 @@ class PurchaseController extends Controller
                     DB::raw('(SELECT SUM(TP2.amount) FROM transaction_payments AS TP2 WHERE
                         TP2.transaction_id=PR.id ) as return_paid'),
                     DB::raw('COUNT(PR.id) as return_exists'),
-                    DB::raw('COALESCE(PR.final_total, 0) as amount_return')
+                    DB::raw('COALESCE(PR.final_total, 0) as amount_return'),
+                    // DB::raw("SUM(IF(PR.type = 'purchase', (SELECT SUM(amount) FROM transaction_payments WHERE transaction_payments.transaction_id=PR.id), 0)) as purchase_paid"),
                 )
                 ->groupBy('transactions.id');
 
