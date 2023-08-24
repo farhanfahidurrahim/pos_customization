@@ -2,6 +2,8 @@
     <table class="table table-bordered table-striped ajax_view" id="sell_return_table" style="width:100%">
         <thead>
             <tr>
+                <th><input type="checkbox" id="select-all-row"></th>
+                <th>SN</th>
                 <th>@lang('messages.date')</th>
                 <th>@lang('sale.invoice_no')</th>
                 <th>@lang('lang_v1.parent_sale')</th>
@@ -10,6 +12,11 @@
                 <th>@lang('purchase.payment_status')</th>
                 <th>@lang('sale.total_amount')</th>
                 <th>@lang('purchase.payment_due')</th>
+                <th>Create By</th>
+                <th>Vat Amount</th>
+                <th>Granty Amount</th>
+                <th>Paid Amount</th>
+                <th>Due Amount</th>
                 <th>@lang('messages.action')</th>
             </tr>
         </thead>

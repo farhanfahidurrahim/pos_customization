@@ -52,7 +52,6 @@
                                     <th>Purchase Amount</th>
                                     <th>Vat Amount</th>
                                     <th>Grant Amount</th>
-
                                     <th>Paid Amount</th>
 
                                     <th>@lang('contact.total_purchase_due')</th>
@@ -66,18 +65,25 @@
                                     <th>@lang('lang_v1.customer_group')</th>
                                     <th>@lang('business.address')</th>
                                     <th>@lang('contact.contact')</th>
+                                    <th>Created By</th>
+                                    <th>Date Created</th>
+                                    <th>Sales Amount</th>
+                                    <th>Vat Amount</th>
+                                    <th>Return Amount</th>
+                                    <th>Discount Amount</th>
+                                    <th>Grant Amount</th>
+                                    <th>Paid Amount</th>
                                     <th>@lang('contact.total_sale_due')</th>
                                     <th>@lang('lang_v1.total_sell_return_due')</th>
                                     <th>Advance Balance</th>
                                     <th>@lang('messages.action')</th>
                                 @endif
-                                    {{-- <th>Serial Number</th> --}}
                             </tr>
                         </thead>
                         <tfoot>
                             <tr class="bg-gray font-17 text-center footer-total">
                                 <td
-                                    @if ($type == 'supplier') colspan="11" @elseif($type == 'customer') colspan="7" @endif>
+                                    @if ($type == 'supplier') colspan="11" @elseif($type == 'customer') colspan="15" @endif>
                                     <strong>@lang('sale.total'):</strong></td>
                                 <td><span class="display_currency" id="footer_contact_due" data-currency_symbol="true"></span>
                                 </td>

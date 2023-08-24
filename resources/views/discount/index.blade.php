@@ -39,6 +39,8 @@
                             <th>@lang( 'product.brand' )</th>
                             <th>@lang( 'product.category' )</th>
                             <th>@lang( 'sale.location' )</th>
+                            <th>Create by Username</th>
+                            <th>Create Date & Time</th>
                             <th>@lang( 'messages.action' )</th>
             			</tr>
             		</thead>

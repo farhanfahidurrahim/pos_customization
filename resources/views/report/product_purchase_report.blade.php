@@ -67,6 +67,7 @@
                     id="product_purchase_report_table">
                         <thead>
                             <tr>
+                                <th>SN</th>
                                 <th>@lang('sale.product')</th>
                                 <th>@lang('purchase.supplier')</th>
                                 <th>@lang('purchase.ref_no')</th>
@@ -75,11 +76,21 @@
                                 <th>@lang('lang_v1.total_unit_adjusted')</th>
                                 <th>@lang('lang_v1.unit_perchase_price')</th>
                                 <th>@lang('sale.subtotal')</th>
+                                <th>Auto Invoice No.</th>
+                                <th>Barcode</th>
+                                <th>Vat/Tax%</th>
+                                <th>Total Amount</th>
+                                <th>Price inc Vat</th>
+                                <th>Total Vat</th>
+                                <th>Discount Amount with %</th>
+                                <th>By User</th>
+                                <th>Purchase After Stock</th>
+                                <th>Pay Status</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr class="bg-gray font-17 footer-total text-center">
-                                <td colspan="4"><strong>@lang('sale.total'):</strong></td>
+                                <td colspan="5"><strong>@lang('sale.total'):</strong></td>
                                 <td id="footer_total_purchase"></td>
                                 <td id="footer_total_adjusted"></td>
                                 <td></td>

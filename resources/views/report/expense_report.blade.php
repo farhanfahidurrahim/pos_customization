@@ -53,13 +53,21 @@
                 <table class="table table-bordered table-striped" id="expense_category_report_table">
                     <thead>
                         <tr>
+                            <th>SN</th>
                             <th>Expense Category</th>
                             <th>Total Amount</th>
+                            <th>Pdf/Doc/Image</th>
+                            <th>Expenses by User</th>
+                            <th>Reference No</th>
+                            <th>Date & Time</th>
+                            <th>Note/Description</th>
+                            <th>Pay Type</th>
                         </tr>
                     </thead>
 
                     <tfoot>
                         <tr class="bg-gray font-17 text-center footer-total">
+                            <td></td>
                             <td><strong>@lang('sale.total'):</strong></td>
                             <td><span class="display_currency" id="footer_total_amount" data-currency_symbol ="true"></span></td>
                         </tr>

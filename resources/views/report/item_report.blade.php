@@ -66,6 +66,7 @@
                 <table class="table table-bordered table-striped" id="item_report_table">
                     <thead>
                         <tr>
+                            <th>SN</th>
                             <th>Product</th>
                             <th>Sku</th>
                             <th>Purchase Date</th>
@@ -78,6 +79,10 @@
                             <th>Quantity</th>
                             <th>Selling Price</th>
                             <th>@lang('report.total_sell')</th>
+                            <th>Sell by User</th>
+                            <th>Vat %</th>
+                            <th>Return Invoice Report</th>
+                            <th>Damage Report</th>
                         </tr>
                     </thead>
                 </table>
@@ -151,6 +156,7 @@
                                 }
                             },
                             columns: [
+                                {data: '', name: ''},
                                 {data: 'name', name: 'p.name'},
                                 {data: 'sku', name: 'p.sku'},
                                 {data: 'purchase_date', name: 'purchase.transaction_date'},
@@ -163,7 +169,10 @@
                                 {data: 'quantity', name: 'TSLPl.quantity'},
                                 {data: 'unit_price_inc_tax', name: 'TSL.unit_price_inc_tax'},
                                 {data: 'sub_total', name: 'sub_total',"searchable": false}
-
+                                {data: '', name: ''},
+                                {data: '', name: ''},
+                                {data: '', name: ''},
+                                {data: '', name: ''},
                             ],
                             "fnDrawCallback": function (oSettings) {
                                 __currency_convert_recursively($('#item_report_table'));

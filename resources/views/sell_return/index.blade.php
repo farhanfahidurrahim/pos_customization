@@ -26,11 +26,11 @@
             @include('sell_return.partials.sell_return_list')
         @endcan
     @endcomponent
-    <div class="modal fade payment_modal" tabindex="-1" role="dialog" 
+    <div class="modal fade payment_modal" tabindex="-1" role="dialog"
         aria-labelledby="gridSystemModalLabel">
     </div>
 
-    <div class="modal fade edit_payment_modal" tabindex="-1" role="dialog" 
+    <div class="modal fade edit_payment_modal" tabindex="-1" role="dialog"
         aria-labelledby="gridSystemModalLabel">
     </div>
 </section>
@@ -73,6 +73,8 @@
                 "searchable": false
             } ],
             columns: [
+                { data: 'mass_delete'  },
+                { data: '', name: '' },
                 { data: 'transaction_date', name: 'transaction_date'  },
                 { data: 'invoice_no', name: 'invoice_no'},
                 { data: 'parent_sale', name: 'T1.invoice_no'},
@@ -81,12 +83,18 @@
                 { data: 'payment_status', name: 'payment_status'},
                 { data: 'final_total', name: 'final_total'},
                 { data: 'payment_due', name: 'payment_due'},
+                { data: 'payment_due', name: 'payment_due'},
+                { data: '', name: '' },
+                { data: '', name: '' },
+                { data: '', name: '' },
+                { data: '', name: '' },
+                { data: '', name: '' },
                 { data: 'action', name: 'action'}
             ],
             "fnDrawCallback": function (oSettings) {
                 var total_sell = sum_table_col($('#sell_return_table'), 'final_total');
                 $('#footer_sell_return_total').text(total_sell);
-                
+
                 $('#footer_payment_status_count_sr').html(__sum_status_html($('#sell_return_table'), 'payment-status-label'));
 
                 var total_due = sum_table_col($('#sell_return_table'), 'payment_due');
@@ -100,5 +108,5 @@
         });
     })
 </script>
-	
+
 @endsection

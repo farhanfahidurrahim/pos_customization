@@ -68,12 +68,12 @@ $(document).ready(function() {
             __currency_convert_recursively($('#supplier_report_tbl'));
         },
     });
-    
+
     $('#customer_supplier_report_filter_form #customer_group_id, #customer_supplier_report_filter_form #type').change(function() {
         supplier_report_tbl.ajax.reload();
     });
-    
-    
+
+
     //Exepense category wise report table
     $('#expense_category_report_table').DataTable({
         processing: true,
@@ -87,8 +87,15 @@ $(document).ready(function() {
             },
         },
         columns: [
+            { data: '', name: '' },
             { data: 'category', name: 'expense_categories.name' },
             { data: 'amount_paid', name: 'amount_paid', searchable: false },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
         ],
         fnDrawCallback: function(oSettings) {
             $('#footer_total_amount').html(__sum_stock($('#expense_category_report_table'), 'amount_paid'));
@@ -96,9 +103,9 @@ $(document).ready(function() {
         },
     });
 
-   
-    
-    
+
+
+
 
     //Stock report table
     stock_report_table = $('#stock_report_table').DataTable({
@@ -125,14 +132,14 @@ $(document).ready(function() {
             { data: 'total_sold', name: 'total_sold', searchable: false },
             { data: 'total_transfered', name: 'total_transfered', searchable: false },
             { data: 'total_adjusted', name: 'total_adjusted', searchable: false },
-            
+
         ],
         fnDrawCallback: function(oSettings) {
             $('#footer_total_stock').html(__sum_stock($('#stock_report_table'), 'current_stock'));
             $('#footer_total_purchase_stock').html(__sum_stock($('#stock_report_table'), 'stock_purchase_price'));
             $('#footer_total_sell_stock').html(__sum_stock($('#stock_report_table'), 'stock_sell_price'));
             $('#footer_total_potential_price').html(__sum_stock($('#stock_report_table'), 'potential_price'));
-            
+
             $('#footer_total_sold').html(__sum_stock($('#stock_report_table'), 'total_sold'));
             $('#footer_total_transfer').html(__sum_stock($('#stock_report_table'), 'total_transfered'));
             $('#footer_total_adjusted').html(__sum_stock($('#stock_report_table'), 'total_adjusted'));
@@ -215,7 +222,7 @@ $(document).ready(function() {
     });
 
     //Register report
-    
+
     if ($('#register_report_date_filter').length == 1) {
         $('#register_report_date_filter').daterangepicker(dateRangeSettings, function(start, end) {
             $('#register_report_date_filter').val(
@@ -234,7 +241,7 @@ $(document).ready(function() {
             .data('daterangepicker')
             .setEndDate(moment());
     }
-    
+
     // ajax  request
     register_report_table = $('#register_report_table').DataTable({
         processing: true,
@@ -581,12 +588,12 @@ $(document).ready(function() {
             .data('daterangepicker')
             .setEndDate(moment());
     }
-    
+
     $('#product_purchase_report_form #variation_id, #product_purchase_report_form #location_id, #product_purchase_report_form #supplier_id, #product_purchase_report_form #product_pr_date_filter'
     ).change(function() {
         product_purchase_report.ajax.reload();
     });
-    
+
     product_purchase_report = $('table#product_purchase_report_table').DataTable({
         processing: true,
         serverSide: true,
@@ -612,6 +619,7 @@ $(document).ready(function() {
             },
         },
         columns: [
+            { data: '', name: '' },
             { data: 'product_name', name: 'p.name' },
             { data: 'supplier', name: 'c.name' },
             { data: 'ref_no', name: 't.ref_no' },
@@ -619,6 +627,14 @@ $(document).ready(function() {
             { data: 'purchase_qty', name: 'purchase_lines.quantity' },
             { data: 'quantity_adjusted', name: 'purchase_lines.quantity_adjusted' },
             { data: 'unit_purchase_price', name: 'purchase_lines.purchase_price_inc_tax' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
             { data: 'subtotal', name: 'subtotal', searchable: false },
         ],
         fnDrawCallback: function(oSettings) {
@@ -719,6 +735,7 @@ $(document).ready(function() {
         },
         columns: [
             { data: 'product_name', name: 'p.name' },
+            { data: '', name: '' },
             { data: 'customer', name: 'c.name' },
             { data: 'invoice_no', name: 't.invoice_no' },
             { data: 'transaction_date', name: 't.transaction_date' },
@@ -728,6 +745,12 @@ $(document).ready(function() {
             { data: 'tax', name: 'tax_rates.name' },
             { data: 'unit_sale_price', name: 'transaction_sell_lines.unit_price_inc_tax' },
             { data: 'subtotal', name: 'subtotal', searchable: false },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
         ],
         fnDrawCallback: function(oSettings) {
             $('#footer_subtotal').text(
@@ -900,11 +923,16 @@ $(document).ready(function() {
                 defaultContent: '',
             },
             { data: 'payment_ref_no', name: 'payment_ref_no' },
+            { data: '', name: '' },
             { data: 'paid_on', name: 'paid_on' },
             { data: 'amount', name: 'transaction_payments.amount' },
             { data: 'supplier', orderable: false, searchable: false },
             { data: 'method', name: 'method' },
             { data: 'ref_no', name: 't.ref_no' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
             { data: 'action', orderable: false, searchable: false },
         ],
         fnDrawCallback: function(oSettings) {
@@ -1005,12 +1033,16 @@ $(document).ready(function() {
                 data: null,
                 defaultContent: '',
             },
+            { data: '', name: '' },
             { data: 'payment_ref_no', name: 'payment_ref_no' },
             { data: 'paid_on', name: 'paid_on' },
             { data: 'amount', name: 'transaction_payments.amount' },
             { data: 'customer', orderable: false, searchable: false },
             { data: 'method', name: 'method' },
             { data: 'invoice_no', name: 't.invoice_no' },
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
             { data: 'action', orderable: false, searchable: false },
         ],
         fnDrawCallback: function(oSettings) {
@@ -1395,7 +1427,7 @@ function updateProfitLoss() {
         success: function(data) {
             $('.opening_stock_by_sell').html(__currency_trans_from_en(data.opening_stock_by_sell, true));
             $('.closing_stock_by_sell').html(__currency_trans_from_en(data.closing_stock_by_sell, true));
-            
+
             $('.opening_stock').html(__currency_trans_from_en(data.opening_stock, true));
             $('.closing_stock').html(__currency_trans_from_en(data.closing_stock, true));
             $('.total_sell').html(__currency_trans_from_en(data.total_sell, true));
@@ -1409,11 +1441,11 @@ function updateProfitLoss() {
             $('.total_purchase_return').html(
                 __currency_trans_from_en(data.total_purchase_return, true)
             );
-            
+
             $('.total_purchase_shipping_charges').html( __currency_trans_from_en(data.total_purchase_shipping_charges, true));
             $('.total_transfer_shipping_charges').html( __currency_trans_from_en(data.total_transfer_shipping_charges, true));
             $('.total_sell_shipping_charges').html( __currency_trans_from_en(data.total_sell_shipping_charges, true));
-            
+
             $('.total_purchase_discount').html(
                 __currency_trans_from_en(data.total_purchase_discount, true)
             );

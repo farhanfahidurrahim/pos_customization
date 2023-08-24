@@ -100,6 +100,12 @@
                                 <th>@lang('stock_adjustment.total_amount')</th>
                                 <th>@lang('stock_adjustment.total_amount_recovered')</th>
                                 <th>@lang('stock_adjustment.reason_for_stock_adjustment')</th>
+                                <th>Qty</th>
+                                <th>Purchase Price</th>
+                                <th>Vat%</th>
+                                <th>Auto Invoice Number</th>
+                                <th>Supplier</th>
+                                <th>By User</th>
                                 <th>@lang('messages.action')</th>
                             </tr>
                         </thead>
@@ -108,7 +114,7 @@
             @endcomponent
         </div>
     </div>
-	
+
 
 </section>
 <!-- /.content -->

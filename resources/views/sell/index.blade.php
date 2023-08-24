@@ -41,6 +41,8 @@
                 <table class="table table-bordered table-striped ajax_view" id="sell_table">
                     <thead>
                         <tr>
+                            <th><input type="checkbox" id="select-all-row"></th>
+                            <th>SN</th>
                             <th>@lang('messages.date')</th>
                             <th>User</th>
                             <th>@lang('sale.invoice_no')</th>
@@ -53,6 +55,9 @@
                             <th>Sell Due</th>
                             <th>Return Due</th>
                             <th>Total Item</th>
+                            <th>Reference No</th>
+                            <th>Discount Amount</th>
+                            <th>Vat Amount</th>
                             <th>@lang('messages.action')</th>
                         </tr>
                     </thead>
@@ -136,8 +141,10 @@ $(document).ready( function(){
             "searchable": false
         } ],
         columns: [
+            { data: 'mass_delete'  },
+            { data: '', name: '' },
             { data: 'transaction_date', name: 'transaction_date'  },
-             { data: 'username', name: 'users.username' },
+            { data: 'username', name: 'users.username' },
             { data: 'invoice_no', name: 'invoice_no'},
 
             { data: 'name', name: 'contacts.name'},
@@ -149,6 +156,9 @@ $(document).ready( function(){
             { data: 'total_remaining', name: 'total_remaining',"searchable": false},
             { data: 'amount_return', name: 'amount_return',"searchable": false},
             { data: 'total_item', name: 'total_item',"searchable": false},
+            { data: '', name: '' },
+            { data: '', name: '' },
+            { data: '', name: '' },
             { data: 'action', name: 'action'}
         ],
         "fnDrawCallback": function (oSettings) {

@@ -48,6 +48,9 @@
                     <thead>
                         <tr>
                             <th>@lang('lang_v1.customer_group')</th>
+                            <th>Total Return</th>
+                            <th>Total Damage</th>
+                            <th>SubTotal</th>
                             <th>@lang('report.total_sell')</th>
                         </tr>
                     </thead>
@@ -98,6 +101,9 @@
                             },
                             columns: [
                                 {data: 'name', name: 'CG.name'},
+                                {data: '', name: 'CG.'},
+                                {data: '', name: ''},
+                                {data: '', name: ''},
                                 {data: 'total_sell', name: 'total_sell', searchable: false}
                             ],
                             "fnDrawCallback": function (oSettings) {

@@ -78,6 +78,7 @@
                             id="product_sell_report_table">
                                 <thead>
                                     <tr>
+                                        <th>SN</th>
                                         <th>@lang('sale.product')</th>
                                         <th>@lang('sale.customer_name')</th>
                                         <th>@lang('sale.invoice_no')</th>
@@ -88,6 +89,12 @@
                                         <th>@lang('sale.tax')</th>
                                         <th>@lang('sale.price_inc_tax')</th>
                                         <th>@lang('sale.total')</th>
+                                        <th>Barcode</th>
+                                        <th>By User</th>
+                                        <th>Discount Amount with %</th>
+                                        <th>Reference No</th>
+                                        <th>Pay Status</th>
+                                        <th>Sell After Stock</th>
                                     </tr>
                                 </thead>
                                 <tfoot>

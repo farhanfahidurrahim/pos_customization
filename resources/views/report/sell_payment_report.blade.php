@@ -51,17 +51,20 @@
         <div class="col-md-12">
             @component('components.widget', ['class' => 'box-primary'])
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped" 
+                    <table class="table table-bordered table-striped"
                     id="sell_payment_report_table">
                         <thead>
                             <tr>
-                                <th>&nbsp;</th>
+                                <th>SN</th>
                                 <th>@lang('purchase.ref_no')</th>
                                 <th>@lang('lang_v1.paid_on')</th>
                                 <th>@lang('sale.amount')</th>
                                 <th>@lang('contact.customer')</th>
                                 <th>@lang('lang_v1.payment_method')</th>
                                 <th>@lang('sale.sale')</th>
+                                <th>Received By User</th>
+                                <th>Sales Reference</th>
+                                <th>Pay/Doc Details/Pdf/Image</th>
                                 <th>@lang('messages.action')</th>
                             </tr>
                         </thead>
@@ -79,7 +82,7 @@
     </div>
 </section>
 <!-- /.content -->
-<div class="modal fade view_register" tabindex="-1" role="dialog" 
+<div class="modal fade view_register" tabindex="-1" role="dialog"
     aria-labelledby="gridSystemModalLabel">
 </div>
 
