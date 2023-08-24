@@ -62,6 +62,7 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'sub_category_id', 'id');
     }
 
+
     /**
      * Get the brand associated with the product.
      */
@@ -77,6 +78,12 @@ class Product extends Model
     {
         return $this->hasMany(Variation::class);
     }
+
+    // public function variation_location_details()
+    // {
+    //     return $this->hasOne(VariationLocationDetails::class, 'variation_id');
+    // }
+
     public function combo()
     {
         return $this->belongsToMany(Combo::class);

@@ -10,7 +10,7 @@
 
 <!-- Main content -->
 <section class="content">
-	{!! Form::open(['url' => action('PurchaseReturnController@store'), 'method' => 'post', 'id' => 'purchase_return_form' ]) !!}
+	{!! Form::open(['url' => route('purchase-return.store'), 'method' => 'post', 'id' => 'purchase_return_form' ]) !!}
 	{!! Form::hidden('transaction_id', $purchase->id); !!}
 
 	@component('components.widget', ['class' => 'box-primary', 'title' => __('lang_v1.parent_purchase')])
@@ -92,18 +92,18 @@
 					            @endphp
 					            <input type="text" name="returns[{{$purchase_line->id}}]" value="{{@format_quantity($purchase_line->quantity_returned)}}"
 					            class="form-control input-sm input_number return_qty input_quantity"
-					            data-rule-abs_digit="{{$check_decimal}}" 
+					            data-rule-abs_digit="{{$check_decimal}}"
 					            data-msg-abs_digit="@lang('lang_v1.decimal_value_not_allowed')"
-					            @if($purchase_line->product->enable_stock) 
+					            @if($purchase_line->product->enable_stock)
 			              			data-rule-max-value="{{$qty_available}}"
-			              			data-msg-max-value="@lang('validation.custom-messages.quantity_not_available', ['qty' => $purchase_line->formatted_qty_available, 'unit' => $unit_name ])" 
+			              			data-msg-max-value="@lang('validation.custom-messages.quantity_not_available', ['qty' => $purchase_line->formatted_qty_available, 'unit' => $unit_name ])"
 			              		@endif
 					            >
 					            <input type="hidden" class="unit_price" value="{{@num_format($purchase_line->purchase_price_inc_tax)}}">
 			              	</td>
 			              	<td>
 			              		<div class="return_subtotal"></div>
-			              		
+
 			              	</td>
 			            </tr>
 			          	@endforeach
@@ -129,7 +129,7 @@
 		<div class="row">
 			<div class="col-sm-12 text-right">
 				<strong>@lang('lang_v1.return_total'): </strong>&nbsp;
-				<span id="net_return">0</span> 
+				<span id="net_return">0</span>
 			</div>
 		</div>
 		<br>

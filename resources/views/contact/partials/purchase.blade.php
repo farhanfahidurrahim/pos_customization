@@ -24,8 +24,10 @@
                     <table class="table table-bordered table-striped ajax_view" id="purchase_table" style="width:100%">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Date</th>
                                 <th>Ref No.</th>
+                                <th>Invoice No.</th>
                                 <th>Supplier</th>
                                 <th>Purchase Status</th>
                                 <th>Payment Status</th>

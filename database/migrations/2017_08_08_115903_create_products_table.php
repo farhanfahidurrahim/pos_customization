@@ -34,6 +34,7 @@ class CreateProductsTable extends Migration
             $table->integer('alert_quantity');
             $table->string('sku');
             $table->enum('barcode_type', ['C39', 'C128', 'EAN-13', 'EAN-8', 'UPC-A', 'UPC-E', 'ITF-14']);
+            $table->string('barcode_number')->nullable();
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

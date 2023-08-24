@@ -329,7 +329,7 @@ class ReportController extends Controller
                     if (!empty($row->supplier_business_name)) {
                         $name .= ', ' . $row->supplier_business_name;
                     }
-                    return '<a href="' . action('ContactController@show', [$row->id]) . '" target="_blank" class="no-print">' .
+                    return '<a href="' . route('contacts.show', [$row->id]) . '" target="_blank" class="no-print">' .
                             $name .
                         '</a><span class="print_section">' . $name . '</span>';
                 })
@@ -362,7 +362,7 @@ class ReportController extends Controller
                 ->make(true);
         }
 
-        $customer_groups = \App\Models\CustomerGroup::forDropdown($business_id);
+        $customer_groups = CustomerGroup::forDropdown($business_id);
 
         $types = [];
         $types['']='Select One';

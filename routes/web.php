@@ -122,7 +122,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'expenses' => ExpenseController::class,
             'payments' => TransactionPaymentController::class,
             'printers' => PrinterController::class,
-            'stock-adjustments' => StockAdjustmentController::class,
+            // 'stock-adjustments' => StockAdjustmentController::class,
             'cash-register' => CashRegisterController::class,
             'sales-commission-agents' => SalesCommissionAgentController::class,
             'stock-transfers' => StockTransferController::class,
@@ -141,6 +141,14 @@ Route::middleware(['BusinessSetting'])->group(function () {
         ]);
 
         Route::resource('purchases', PurchaseController::class, [
+            'only' => ['index', 'create', 'store','edit', 'destroy','update']
+        ]);
+
+        // Route::resource('stock-transfers', StockTransferController::class, [
+        //     'only' => ['index', 'create', 'store','edit', 'destroy','update']
+        // ]);
+
+        Route::resource('stock-adjustments', StockAdjustmentController::class, [
             'only' => ['index', 'create', 'store','edit', 'destroy','update']
         ]);
 

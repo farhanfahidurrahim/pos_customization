@@ -73,6 +73,7 @@ class PurchaseReturnController extends Controller
                     ->select(
                         'transactions.id',
                         'transactions.transaction_date',
+                        'transactions.invoice_no',
                         'transactions.ref_no',
                         'contacts.name',
                         'transactions.status',
@@ -81,6 +82,7 @@ class PurchaseReturnController extends Controller
                         'transactions.return_parent_id',
                         'BS.name as location_name',
                         'T.ref_no as parent_purchase',
+                        'transactions.created_by',
                         DB::raw('SUM(TP.amount) as amount_paid')
                     )
                     ->groupBy('transactions.id');
@@ -140,9 +142,9 @@ class PurchaseReturnController extends Controller
                 )
                 ->editColumn('parent_purchase', function ($row) {
                     $html = '';
-                    if (!empty($row->parent_purchase)) {
-                        $html = '<a href="#" data-href="' . route('purchases.show', [$row->return_parent_id]) . '" class="btn-modal" data-container=".view_modal">' . $row->parent_purchase . '</a>';
-                    }
+                    // if (!empty($row->parent_purchase)) {
+                    //     $html = '<a href="#" data-href="' . route('purchases.show', [$row->return_parent_id]) . '" class="btn-modal" data-container=".view_modal">' . $row->parent_purchase . '</a>';
+                    // }
                     return $html;
                 })
                 ->addColumn('payment_due', function ($row) {
@@ -158,7 +160,7 @@ class PurchaseReturnController extends Controller
                             return '';
                         }
                     }])
-                ->rawColumns(['final_total', 'action', 'payment_status', 'parent_purchase', 'payment_due'])
+                ->rawColumns(['final_total', 'action', 'payment_status', 'parent_purchase', 'payment_due', 'amount_paid'])
                 ->make(true);
         }
         return view('purchase_return.index');

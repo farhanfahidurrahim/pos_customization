@@ -41,7 +41,7 @@
 
 				<div class="col-sm-3">
 					<div class="form-group">
-						{!! Form::label('transfer_location_id', __('Customer').':*') !!}
+						{!! Form::label('transfer_location_id', __('To Location').':*') !!}
 						{!! Form::select('transfer_location_id', $business_locations, null, ['class' => 'form-control select2', 'placeholder' => __('messages.please_select'), 'required', 'id' => 'transfer_location_id']); !!}
 					</div>
 				</div>

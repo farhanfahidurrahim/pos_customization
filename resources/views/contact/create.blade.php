@@ -167,7 +167,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 {!! Form::label('image', 'Upload Image:') !!}
-                {!! Form::file('image', ['class' => 'form-control']) !!}
+                {!! Form::file('image', [ 'class' => 'form-control', 'accept' => 'image/*']); !!}
+
             </div>
         </div>
 

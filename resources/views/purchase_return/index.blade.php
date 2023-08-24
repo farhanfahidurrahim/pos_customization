@@ -68,13 +68,16 @@
             } ],
             columns: [
                 { data: 'transaction_date', name: 'transaction_date'  },
+                { data: 'invoice_no', name: 'invoice_no'},
                 { data: 'ref_no', name: 'ref_no'},
                 { data: 'parent_purchase', name: 'T.ref_no'},
                 { data: 'location_name', name: 'BS.name'},
                 { data: 'name', name: 'contacts.name'},
                 { data: 'payment_status', name: 'payment_status'},
                 { data: 'final_total', name: 'final_total'},
+                { data: 'amount_paid', name: 'amount_paid'},
                 { data: 'payment_due', name: 'payment_due'},
+                { data: 'created_by', name: 'created_by'},
                 { data: 'action', name: 'action'}
             ],
             "fnDrawCallback": function (oSettings) {

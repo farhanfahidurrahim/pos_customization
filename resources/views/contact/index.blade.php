@@ -37,7 +37,7 @@
                     <table class="table table-bordered table-striped" id="contact_table">
                         <thead>
                             <tr>
-                                {{-- <th>Serial Number</th> --}}
+                                <th>Serial Number</th>
                                 <th>@lang('lang_v1.contact_id')</th>
                                 @if ($type == 'supplier')
                                     <th>@lang('business.business_name')</th>
@@ -47,6 +47,10 @@
                                     <th>GST Number</th>
                                     <th>License No.</th>
                                     <th>Created By</th>
+                                    <th>Date Created</th>
+
+                                    <th>Purchase Amount</th>
+                                    <th>Paid Amount</th>
 
                                     <th>@lang('contact.total_purchase_due')</th>
                                     <th>@lang('lang_v1.total_purchase_return_due')</th>
@@ -70,7 +74,7 @@
                         <tfoot>
                             <tr class="bg-gray font-17 text-center footer-total">
                                 <td
-                                    @if ($type == 'supplier') colspan="8" @elseif($type == 'customer') colspan="7" @endif>
+                                    @if ($type == 'supplier') colspan="11" @elseif($type == 'customer') colspan="7" @endif>
                                     <strong>@lang('sale.total'):</strong></td>
                                 <td><span class="display_currency" id="footer_contact_due" data-currency_symbol="true"></span>
                                 </td>

@@ -5,7 +5,9 @@
 			<table class="table bg-gray">
 				<tr class="bg-green">
 					@can('view_purchase_price')
+                        <th>Current Stock</th>
 						<th>@lang('product.default_purchase_price') (@lang('product.exc_of_tax'))</th>
+                        <th>Vat/Tax</th>
 						<th>@lang('product.default_purchase_price') (@lang('product.inc_of_tax'))</th>
 					@endcan
 					@can('access_default_selling_price')
@@ -22,8 +24,16 @@
 				@foreach($product->variations as $variation)
 				<tr>
 					@can('view_purchase_price')
+                    <td>
+                        {{-- <span>{{ $product->variations_loc_detls->qty_available }}</span> --}}
+                        {{-- <span>{{ $variation->variations_loc_detls->qty_available }}</span> --}}
+                        {{-- <span>{{ $variation->variation_location_details->qty_available ?? 'N/A' }}</span> --}}
+                    </td>
 					<td>
 						<span class="display_currency" data-currency_symbol="true">{{ $variation->default_purchase_price }}</span>
+					</td>
+                    <td>
+						<span class="display_currency" data-currency_symbol="true"> {{ $product->product_tax->name }}</span>
 					</td>
 					<td>
 						<span class="display_currency" data-currency_symbol="true">{{ $variation->dpp_inc_tax }}</span>

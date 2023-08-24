@@ -5,8 +5,11 @@
                 <th><input type="checkbox" id="select-all-row"></th>
                 <th>Image</th>
                 <th>@lang('sale.product')</th>
-                <th>Unit Purchase Price</th>
-                <th>@lang('lang_v1.selling_price')</th>
+                {{-- <th>Variations</th> --}}
+                <th>Product Price</th>
+                <th>Price Including Vat/Tax</th>
+                <th>Margin(%)</th>
+                <th>Selling Price with Margin</th>
                 <th>@lang('report.current_stock')</th>
                 <th>@lang('product.product_type')</th>
                 <th>@lang('product.category')</th>

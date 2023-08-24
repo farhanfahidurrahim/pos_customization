@@ -53,10 +53,10 @@ class ManageUserController extends Controller
                 ]);
 
             return Datatables::of($users)
-                // ->addColumn('serial_number', function ($user) {
-                //     static $index = 0;
-                //     return ++$index;
-                // })
+                ->addColumn('serial_number', function ($user) {
+                    static $index = 0;
+                    return ++$index;
+                })
                 ->addColumn(
                     'role',
                     function ($row) {

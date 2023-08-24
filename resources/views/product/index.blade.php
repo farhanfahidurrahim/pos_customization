@@ -139,7 +139,15 @@
                         { data: 'mass_delete'  },
                         { data: 'image', name: 'products.image'  },
                         { data: 'product', name: 'products.name'  },
+                        // {
+                        //     data: null,
+                        //     render: function (data, type, row) {
+                        //         return row.product_variation_id + ' - ' + row.name;
+                        //     }
+                        // },
+                        { data: 'default_product_price', name: 'default_product_price', searchable: false},
                         { data: 'purchase_price', name: 'max_purchase_price', searchable: false},
+                        { data: 'profitOrMargin_percent', name: 'profitOrMargin_percent', searchable: false},
                         { data: 'price', name: 'max_price', searchable: false},
                         { data: 'current_stock', searchable: false},
                         { data: 'type', name: 'products.type'},
@@ -148,7 +156,7 @@
                         { data: 'brand', name: 'brands.name'},
                         { data: 'tax', name: 'tax_rates.name', searchable: false},
                         { data: 'sku', name: 'products.sku'},
-                        { data: 'barcode_type', name: 'products.barcode_type'},
+                        { data: 'barcode_number', name: 'barcode_number'},
                         { data: 'action', name: 'action'}
                     ],
                     createdRow: function( row, data, dataIndex ) {

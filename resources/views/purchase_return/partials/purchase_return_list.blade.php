@@ -3,13 +3,16 @@
         <thead>
             <tr>
                 <th>@lang('messages.date')</th>
+                <th>Invoice No</th>
                 <th>@lang('purchase.ref_no')</th>
                 <th>@lang('lang_v1.parent_purchase')</th>
                 <th>@lang('purchase.location')</th>
                 <th>@lang('purchase.supplier')</th>
                 <th>@lang('purchase.payment_status')</th>
                 <th>@lang('purchase.grand_total')</th>
+                <th>Amount Paid</th>
                 <th>@lang('purchase.payment_due') &nbsp;&nbsp;<i class="fa fa-info-circle text-info" data-toggle="tooltip" data-placement="bottom" data-html="true" data-original-title="{{ __('messages.purchase_due_tooltip')}}" aria-hidden="true"></i></th>
+                <th>User</th>
                 <th>@lang('messages.action')</th>
             </tr>
         </thead>

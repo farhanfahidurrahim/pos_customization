@@ -102,8 +102,10 @@ $(document).ready( function(){
             "searchable": false
         } ],
         columns: [
+            { data: 'serial_number', name: 'serial_number'  },
             { data: 'transaction_date', name: 'transaction_date'  },
             { data: 'ref_no', name: 'ref_no'},
+            { data: 'invoice_no', name: 'invoice_no'},
             { data: 'name', name: 'contacts.name'},
             { data: 'status', name: 'status'},
             { data: 'payment_status', name: 'payment_status'},
@@ -202,7 +204,7 @@ $(document).ready( function(){
         aaSorting: [[0, 'desc']],
         ajax: '{{ route("payments.getOpeningBalancePayments", $contact->id) }}',
         columns: [
-            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'serial_number', name: 'serial_number', orderable: false, searchable: false },
             { data: 'payment_ref_no', name: 'payment_ref_no'  },
             { data: 'paid_on', name: 'paid_on'  },
             { data: 'amount', name: 'transaction_payments.amount'  },

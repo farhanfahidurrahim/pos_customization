@@ -87,23 +87,33 @@ class ContactController extends Controller
             ->where('contacts.business_id', $business_id)
             ->onlySuppliers()
             ->select([
+                DB::raw('(@serial_number := @serial_number + 1) AS serial_number'),
                 'contacts.contact_id', 'supplier_business_name', 'name', 'mobile', 'vat_number', 'gst_number', 'business_license_number',
                 'contacts.type', 'contacts.id', 'contacts.balance',
-                DB::raw("SUM(IF(t.type = 'purchase', final_total, 0)) as total_purchase"),
-                DB::raw("SUM(IF(t.type = 'purchase', (SELECT SUM(amount) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as purchase_paid"),
+
+
                 DB::raw("SUM(IF(t.type = 'purchase_return', final_total, 0)) as total_purchase_return"),
                 DB::raw("SUM(IF(t.type = 'purchase_return', (SELECT SUM(amount) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as purchase_return_paid"),
                 DB::raw("SUM(IF(t.type = 'opening_balance', final_total, 0)) as opening_balance"),
                 DB::raw("SUM(IF(t.type = 'opening_balance', (SELECT SUM(IF(is_return = 1,-1*amount,amount)) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as opening_balance_paid"),
-                'contacts.created_by',
+                'contacts.created_by','contacts.created_at',
+                DB::raw("SUM(IF(t.type = 'purchase', final_total, 0)) as total_purchase"),
+                DB::raw("SUM(IF(t.type = 'purchase', (SELECT SUM(amount) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as purchase_paid"),
             ])
+            ->crossJoin(DB::raw('(SELECT @serial_number := 0) AS serial_number_counter'))
             ->groupBy('contacts.id');
 
         return Datatables::of($contact)
-            // ->addColumn('serial_number', function ($contact) {
-            //     static $index = 0;
-            //     return ++$index;
-            // })
+            ->addColumn('serial_number', function ($contact) {
+                return $contact->serial_number;
+            })
+            ->editColumn('created_at', function ($contact) {
+                return $contact->created_at->format('Y-m-d'); // Format the date as desired
+            })
+            // ->addColumn(
+            //     'total_purchase',
+            //     '<span class="display_currency contact_due" data-orig-value="{{$total_purchase}}" data-currency_symbol=true data-highlight=false>{{$total_purchase}}</span>'
+            // )
             ->addColumn(
                 'due',
                 '<span class="display_currency contact_due" data-orig-value="{{$total_purchase - $purchase_paid}}" data-currency_symbol=true data-highlight=false>{{$total_purchase - $purchase_paid }}</span>'
@@ -152,12 +162,12 @@ class ContactController extends Controller
             ->removeColumn('opening_balance_paid')
             ->removeColumn('type')
             ->removeColumn('id')
-            ->removeColumn('total_purchase')
-            ->removeColumn('purchase_paid')
+            // ->removeColumn('total_purchase')
+            // ->removeColumn('purchase_paid')
             ->removeColumn('total_purchase_return')
             ->removeColumn('purchase_return_paid')
             ->removeColumn('balance')
-            ->rawColumns([4,5, 6, 7, 8, 9, 10,11])
+            ->rawColumns([5, 6, 7, 8, 9, 10, 11, 12,13,14,15])
             ->make(false);
     }
 
@@ -312,107 +322,110 @@ class ContactController extends Controller
         }
 
         // try {
-            $business_id = $request->session()->get('user.business_id');
+        $business_id = $request->session()->get('user.business_id');
 
-            if (!$this->moduleUtil->isSubscribed($business_id)) {
-                return $this->moduleUtil->expiredResponse();
+        if (!$this->moduleUtil->isSubscribed($business_id)) {
+            return $this->moduleUtil->expiredResponse();
+        }
+
+        $input = $request->only([
+            'type', 'supplier_business_name',
+            'name', 'tax_number',
+            'pay_term_number',
+            'pay_term_type',
+            'vat_number',
+            'gst_number',
+            'igt_number',
+            'national_id',
+            'business_license_number',
+            'image',
+            'mobile',
+            'landline',
+            'alternate_number',
+            'city',
+            'state',
+            'country',
+            'landmark',
+            'customer_group_id',
+            'contact_id', 'email'
+        ]);
+        $input['business_id'] = $business_id;
+        //$input['created_by'] = $request->session()->get('user.id');
+        $input['created_by'] = auth()->user()->username;
+
+        $input['credit_limit'] = $request->input('credit_limit') != '' ? $this->commonUtil->num_uf($request->input('credit_limit')) : null;
+
+        $user_details = $request->only(['first_name', 'last_name', 'username', 'email', 'password']);
+
+        $user_details['contact_no'] = $input['mobile'];
+        $user_details['status'] = 'active';
+        $user_details['business_id'] = $business_id;
+        $user_details['password'] = bcrypt($user_details['password']);
+
+        DB::beginTransaction();
+
+        //Check Contact id
+        $count = 0;
+        if (!empty($input['contact_id'])) {
+            $count = Contact::where('business_id', $input['business_id'])
+                ->where('contact_id', $input['contact_id'])
+                ->count();
+        }
+
+        if ($count == 0) {
+            //Update reference count
+            $ref_count = $this->commonUtil->setAndGetReferenceCount('contacts');
+
+            if (empty($input['contact_id'])) {
+                //Generate reference number
+                $input['contact_id'] = $this->commonUtil->generateReferenceNumber('contacts', $ref_count);
             }
 
-            $input = $request->only([
-                'type', 'supplier_business_name',
-                'name', 'tax_number',
-                'pay_term_number',
-                'pay_term_type',
-                'vat_number',
-                'gst_number',
-                'igt_number',
-                'national_id',
-                'business_license_number',
-                'image',
-                'mobile',
-                'landline',
-                'alternate_number',
-                'city',
-                'state',
-                'country',
-                'landmark',
-                'customer_group_id',
-                'contact_id', 'email'
-            ]);
-            $input['business_id'] = $business_id;
-            //$input['created_by'] = $request->session()->get('user.id');
-            $input['created_by'] = auth()->user()->username;
-
-            $input['credit_limit'] = $request->input('credit_limit') != '' ? $this->commonUtil->num_uf($request->input('credit_limit')) : null;
-
-            $user_details = $request->only(['first_name', 'last_name', 'username', 'email', 'password']);
-
-            $user_details['contact_no'] = $input['mobile'];
-            $user_details['status'] = 'active';
-            $user_details['business_id'] = $business_id;
-            $user_details['password'] = bcrypt($user_details['password']);
-
-            DB::beginTransaction();
-
-            //Check Contact id
-            $count = 0;
-            if (!empty($input['contact_id'])) {
-                $count = Contact::where('business_id', $input['business_id'])
-                    ->where('contact_id', $input['contact_id'])
-                    ->count();
-            }
-
-            if ($count == 0) {
-                //Update reference count
-                $ref_count = $this->commonUtil->setAndGetReferenceCount('contacts');
-
-                if (empty($input['contact_id'])) {
-                    //Generate reference number
-                    $input['contact_id'] = $this->commonUtil->generateReferenceNumber('contacts', $ref_count);
-                }
-
-                //upload document
+            //upload document
+            if ($request->hasFile('image')) {
                 $input['image'] = $this->commonUtil->uploadFile($request, 'image', config('constants.contact_img_path'));
-
-                $contact = Contact::create($input);
-
-                //Add opening balance
-                if (!empty($request->input('opening_balance'))) {
-                    $this->transactionUtil->createOpeningBalanceTransaction($business_id, $contact->id, $request->input('opening_balance'));
-                }
-
-                $user_details['contact_id'] = $contact->id;
-
-                $check_user = User::where('username', $user_details['username'])->first();
-
-                if ($check_user) {
-                    throw new \Exception("User Already Have", 1);
-                }
-                $user = User::create($user_details);
-
-                $role_id = $request->input('role');
-                $role = Role::findOrFail($role_id);
-                $user->assignRole($role->name);
-
-
-                DB::commit();
-
-                $output = [
-                    'success' => true,
-                    'data' => $contact,
-                    'msg' => __("contact.added_success")
-                ];
-            } else {
-                throw new \Exception("Error Processing Request", 1);
             }
-        // } catch (\Exception $e) {
-            \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
-            DB::rollBack();
+            // $input['image'] = $this->commonUtil->uploadFile($request, 'image', config('constants.contact_img_path'));
+
+            $contact = Contact::create($input);
+
+            //Add opening balance
+            if (!empty($request->input('opening_balance'))) {
+                $this->transactionUtil->createOpeningBalanceTransaction($business_id, $contact->id, $request->input('opening_balance'));
+            }
+
+            $user_details['contact_id'] = $contact->id;
+
+            $check_user = User::where('username', $user_details['username'])->first();
+
+            if ($check_user) {
+                throw new \Exception("User Already Have", 1);
+            }
+            $user = User::create($user_details);
+
+            $role_id = $request->input('role');
+            $role = Role::findOrFail($role_id);
+            $user->assignRole($role->name);
+
+
+            DB::commit();
 
             $output = [
-                'success' => false,
-                'msg' => __("messages.something_went_wrong")
+                'success' => true,
+                'data' => $contact,
+                'msg' => __("contact.added_success")
             ];
+        } else {
+            throw new \Exception("Error Processing Request", 1);
+        }
+        // } catch (\Exception $e) {
+        \Log::emergency("File:" . $e->getFile() . "Line:" . $e->getLine() . "Message:" . $e->getMessage());
+        DB::rollBack();
+
+        $output = [
+            'success' => false,
+            'msg' => __("messages.something_went_wrong")
+        ];
         // }
 
         return $output;

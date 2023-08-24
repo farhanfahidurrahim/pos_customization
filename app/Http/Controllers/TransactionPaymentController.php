@@ -725,6 +725,10 @@ class TransactionPaymentController extends Controller
             }
 
             return Datatables::of($query)
+                ->addColumn('serial_number', function ($user) {
+                    static $index = 0;
+                    return ++$index;
+                })
                 ->editColumn('paid_on', '{{@format_date($paid_on)}}')
                 ->editColumn('method', function ($row) {
                     $method = __('lang_v1.' . $row->method);

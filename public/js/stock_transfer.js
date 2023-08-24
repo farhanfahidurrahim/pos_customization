@@ -15,7 +15,7 @@ $(document).ready(function() {
                 response: function(event, ui) {
                     if (ui.content.length == 1) {
                         ui.item = ui.content[0];
-                
+
                             $(this)
                                 .data('ui-autocomplete')
                                 ._trigger('select', 'autocompleteselect', ui);
@@ -31,15 +31,15 @@ $(document).ready(function() {
                     }
                 },
                 select: function(event, ui) {
-    
+
                         $(this).val(null);
                         stock_transfer_product_row(ui.item.variation_id);
                 },
             })
             .autocomplete('instance')._renderItem = function(ul, item) {
-       
+
                 var string = '<div>';
-               
+
                 string += ' (' + item.sub_sku + ') </div>';
                 return $('<li>')
                     .append(string)

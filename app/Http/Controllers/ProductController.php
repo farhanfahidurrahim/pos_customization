@@ -73,11 +73,14 @@ class ProductController extends Controller
                 ->leftJoin('tax_rates', 'products.tax', '=', 'tax_rates.id')
                 ->leftJoin('variation_location_details as vld', 'vld.product_id', '=', 'products.id')
                 ->join('variations as v', 'v.product_id', '=', 'products.id')
+                // ->join('variation_templates as vt', 'v.product_variation_id', '=', 'vt.id')
                 ->where('products.business_id', $business_id)
                 ->where('products.type', '!=', 'modifier')
                 ->select(
                     'products.id',
                     'products.name as product',
+                    // 'vt.name as product_variation_id',
+                    // 'v.name',
                     'products.type',
                     'c1.name as category',
                     'c2.name as sub_category',
@@ -85,13 +88,15 @@ class ProductController extends Controller
                     'brands.name as brand',
                     'tax_rates.name as tax',
                     'products.sku',
-                    'products.barcode_type',
+                    'products.barcode_number',
                     'products.image',
                     'products.enable_stock',
                     'products.is_inactive',
                     DB::raw('SUM(vld.qty_available) as current_stock'),
+                    DB::raw('MAX(v.default_purchase_price) as default_product_price'),
                     DB::raw('MAX(v.dpp_inc_tax) as max_purchase_price'),
                     DB::raw('MAX(v.dpp_inc_tax) as min_purchase_price'),
+                    DB::raw('MAX(v.profit_percent) as profitOrMargin_percent'),
                     DB::raw('MAX(v.sell_price_inc_tax) as max_price'),
                     DB::raw('MIN(v.sell_price_inc_tax) as min_price')
                 )->groupBy('products.id');
@@ -318,7 +323,7 @@ class ProductController extends Controller
 
         try {
             $business_id = $request->session()->get('user.business_id');
-            $form_fields = ['name', 'brand_id', 'unit_id', 'category_id', 'tax', 'type', 'barcode_type', 'sku', 'alert_quantity', 'tax_type', 'weight', 'product_description'];
+            $form_fields = ['name', 'brand_id', 'unit_id', 'category_id', 'tax', 'type', 'barcode_type', 'barcode_number', 'sku', 'alert_quantity', 'tax_type', 'weight', 'product_description'];
 
             $module_form_fields = $this->moduleUtil->getModuleFormField('product_form_fields');
             if (!empty($module_form_fields)) {
@@ -1380,8 +1385,8 @@ class ProductController extends Controller
         }
 
         if ($request->input('submit_type') == 'submit_n_add_opening_stock') {
-            return redirect()->action(
-                'OpeningStockController@add',
+            return redirect()->route(
+                'openingStock.add',
                 ['product_id' => $product->id]
             );
         } elseif ($request->input('submit_type') == 'save_n_add_another') {

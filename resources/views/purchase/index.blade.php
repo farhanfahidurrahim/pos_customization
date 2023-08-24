@@ -72,7 +72,7 @@
                             <th>@lang('purchase.supplier')</th>
                             <th>@lang('purchase.purchase_status')</th>
                             <th>@lang('purchase.payment_status')</th>
-                            <th>Vat</th>
+                            <th>Vat/Tax</th>
                             <th>Discount Amount</th>
                             <th>@lang('purchase.grand_total')</th>
                             <th>Paid Amount</th>
@@ -90,10 +90,8 @@
                             <td></td>
                             <td><span class="display_currency" id="footer_purchase_total" data-currency_symbol ="true"></span></td>
                             <td></td>
-                            <td class="text-left"><small>@lang('report.purchase_due') - <span class="display_currency" id="footer_total_due" data-currency_symbol ="true"></span><br>
-                            @lang('lang_v1.purchase_return') - <span class="display_currency" id="footer_total_purchase_return_due" data-currency_symbol ="true"></span>
-                            </small></td>
-                            <td></td>
+                            <td class="text-left"><small>@lang('report.purchase_due')-<span class="display_currency" id="footer_total_due" data-currency_symbol="true"></span></td>
+                            <td class="text-left"><small>@lang('lang_v1.purchase_return')-<span class="display_currency" id="footer_total_purchase_return_due" data-currency_symbol="true"></span></td>
                             <td></td>
                         </tr>
                     </tfoot>
