@@ -37,6 +37,7 @@
                     <table class="table table-bordered table-striped" id="contact_table">
                         <thead>
                             <tr>
+                                {{-- <th><input type="checkbox" id="select-all-row"></th> --}}
                                 <th>Serial Number</th>
                                 <th>@lang('lang_v1.contact_id')</th>
                                 @if ($type == 'supplier')
@@ -83,7 +84,7 @@
                         <tfoot>
                             <tr class="bg-gray font-17 text-center footer-total">
                                 <td
-                                    @if ($type == 'supplier') colspan="11" @elseif($type == 'customer') colspan="15" @endif>
+                                    @if ($type == 'supplier') colspan="14" @elseif($type == 'customer') colspan="15" @endif>
                                     <strong>@lang('sale.total'):</strong></td>
                                 <td><span class="display_currency" id="footer_contact_due" data-currency_symbol="true"></span>
                                 </td>

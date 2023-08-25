@@ -78,6 +78,7 @@
                 { data: 'amount_paid', name: 'amount_paid'},
                 { data: 'payment_due', name: 'payment_due'},
                 { data: 'created_by', name: 'created_by'},
+                { data: '', name: ''},
                 { data: 'action', name: 'action'}
             ],
             "fnDrawCallback": function (oSettings) {

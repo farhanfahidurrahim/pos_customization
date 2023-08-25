@@ -8,12 +8,13 @@
         id="ob_payment_table"  style="width:100%">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>SN</th>
                     <th>@lang('purchase.ref_no')</th>
                     <th>@lang('lang_v1.paid_on')</th>
                     <th>@lang('sale.amount')</th>
                     <th>@lang('lang_v1.payment_method')</th>
                     <th>Payment For</th>
+                    <th>Create Date</th>
                     <th>Sell by Username</th>
                     <th>@lang('messages.action')</th>
                 </tr>

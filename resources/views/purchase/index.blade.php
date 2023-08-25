@@ -78,6 +78,7 @@
                             <th>Paid Amount</th>
                             <th>@lang('purchase.payment_due') &nbsp;&nbsp;<i class="fa fa-info-circle text-info" data-toggle="tooltip" data-placement="bottom" data-html="true" data-original-title="{{ __('messages.purchase_due_tooltip')}}" aria-hidden="true"></i></th>
                             <th>Return Amount</th>
+                            <th>Purchase Amount</th>
                             <th>@lang('messages.action')</th>
                         </tr>
                     </thead>

@@ -163,6 +163,7 @@ $(document).ready( function(){
             "searchable": false
         } ],
         columns: [
+            { data: '', name: ''},
             { data: 'transaction_date', name: 'transaction_date'  },
             { data: 'invoice_no', name: 'invoice_no'},
             { data: 'name', name: 'contacts.name'},
@@ -170,6 +171,11 @@ $(document).ready( function(){
             { data: 'final_total', name: 'final_total'},
             { data: 'total_paid', searchable: false},
             { data: 'total_remaining', name: 'total_remaining'},
+            { data: '', name: ''},
+            { data: '', name: ''},
+            { data: '', name: ''},
+            { data: '', name: ''},
+            { data: '', name: ''},
             { data: 'action', name: 'action'}
         ],
         "fnDrawCallback": function (oSettings) {
@@ -213,6 +219,7 @@ $(document).ready( function(){
             { data: 'amount', name: 'transaction_payments.amount'  },
             { data: 'method', name: 'method' },
             { data: 'type', name: 'type' },
+            { data: 'date', name: 'date' },
             { data: 'created_by', name: 'created_by' },
             { data: 'action', "orderable": false, "searchable": false },
         ],

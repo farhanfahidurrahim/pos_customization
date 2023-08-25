@@ -25,6 +25,7 @@
                         <table class="table table-bordered table-striped ajax_view" id="sell_table"  style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>SN</th>
                                     <th>@lang('messages.date')</th>
                                     <th>@lang('sale.invoice_no')</th>
                                     <th>@lang('sale.customer_name')</th>
@@ -32,13 +33,18 @@
                                     <th>@lang('sale.total_amount')</th>
                                     <th>@lang('sale.total_paid')</th>
                                     <th>@lang('sale.total_remaining')</th>
+                                    <th>Sell Amount</th>
+                                    <th>Return Amount</th>
+                                    <th>Total Amount</th>
+                                    <th>Discount Amount</th>
+                                    <th>Due Amount</th>
                                     <th>@lang('messages.action')</th>
                                 </tr>
                             </thead>
-                            
+
                             <tfoot>
                                 <tr class="bg-gray font-17 footer-total text-center">
-                                    <td colspan="3"><strong>@lang('sale.total'):</strong></td>
+                                    <td colspan="4"><strong>@lang('sale.total'):</strong></td>
                                     <td id="footer_payment_status_count"></td>
                                     <td><span class="display_currency" id="footer_sale_total" data-currency_symbol ="true"></span></td>
                                     <td><span class="display_currency" id="footer_total_paid" data-currency_symbol ="true"></span></td>

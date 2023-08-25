@@ -582,6 +582,7 @@ $(document).ready(function() {
             { data: 'amount_paid', name: 'amount_paid' },
             { data: 'payment_due', name: 'payment_due' },
             { data: 'amount_return', name: 'amount_return' },
+            { data: '', name: '' },
             { data: 'action', name: 'action' },
         ],
         fnDrawCallback: function(oSettings) {
