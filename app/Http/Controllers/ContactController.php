@@ -195,7 +195,25 @@ class ContactController extends Controller
             ->where('contacts.business_id', $business_id)
             ->onlyCustomers()
             ->addSelect([
-                'contacts.contact_id', 'supplier_business_name', 'contacts.name', 'cg.name as customer_group', 'city', 'state', 'country', 'landmark', 'mobile', 'contacts.id', 'is_default', 'contacts.balance',
+                DB::raw('(@serial_number := @serial_number + 1) AS serial_number'),
+                'contacts.contact_id', 'supplier_business_name', 'contacts.name', 'cg.name as customer_group', 'city', 'state', 'country', 'landmark', 'mobile', 'contacts.id', 'is_default',
+                'contacts.created_by','contacts.created_at',
+
+                // Modify these columns to set empty or null values
+                DB::raw('IFNULL(cg.name, "") as this_is_sales_amount'),
+                't.tax_amount',
+                // 'contacts.balance',
+                // Modify these columns to set empty or null values
+                DB::raw('IFNULL(cg.name, "") as this_is_retrun_amount'),
+                // Modify these columns to set empty or null values
+                DB::raw('IFNULL(cg.name, "") as this_is_discount_amount'),
+                // Modify these columns to set empty or null values
+                DB::raw('IFNULL(cg.name, "") as this_is_grant_amount'),
+                // Modify these columns to set empty or null values
+                DB::raw('IFNULL(cg.name, "") as this_is_paid_amount'),
+                // Modify these columns to set empty or null values
+                DB::raw('IFNULL(cg.name, "") as this_is_total_sell_due'),
+
                 DB::raw("SUM(IF(t.type = 'sell' AND t.status = 'final', final_total, 0)) as total_invoice"),
                 DB::raw("SUM(IF(t.type = 'sell' AND t.status = 'final', (SELECT SUM(IF(is_return = 1,-1*amount,amount)) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as invoice_received"),
                 DB::raw("SUM(IF(t.type = 'sell_return', final_total, 0)) as total_sell_return"),
@@ -203,9 +221,16 @@ class ContactController extends Controller
                 DB::raw("SUM(IF(t.type = 'opening_balance', final_total, 0)) as opening_balance"),
                 DB::raw("SUM(IF(t.type = 'opening_balance', (SELECT SUM(IF(is_return = 1,-1*amount,amount)) FROM transaction_payments WHERE transaction_payments.transaction_id=t.id), 0)) as opening_balance_paid")
             ])
+            ->crossJoin(DB::raw('(SELECT @serial_number := 0) AS serial_number_counter'))
             ->groupBy('contacts.id');
 
         return Datatables::of($contact)
+            ->addColumn('serial_number', function ($contact) {
+                return $contact->serial_number;
+            })
+            ->editColumn('created_at', function ($contact) {
+                return $contact->created_at->format('Y-m-d'); // Format the date as desired
+            })
             ->editColumn(
                 'landmark',
                 '{{ implode(", ",array_filter([$landmark, $city, $state, $country]))}}'
@@ -269,7 +294,7 @@ class ContactController extends Controller
             ->removeColumn('is_default')
             ->removeColumn('total_sell_return')
             ->removeColumn('sell_return_paid')
-            ->rawColumns([6, 7, 8, 9])
+            ->rawColumns([6, 7, 8, 9,10,11,12,13,14,15,16,17,18])
             ->make(false);
     }
 
