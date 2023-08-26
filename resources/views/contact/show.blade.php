@@ -206,27 +206,28 @@ $(document).ready( function(){
         $('#daterange-btn span').html('<i class="fa fa-calendar"></i> {{ __("messages.filter_by_date") }}');
     });
 
-    //Opening balance payment
+    //Opening balance payment ob_payment_table
     ob_payment_table = $('#ob_payment_table').DataTable({
-        processing: true,
-        serverSide: true,
-        aaSorting: [[0, 'desc']],
-        ajax: '{{ route("payments.getOpeningBalancePayments", $contact->id) }}',
-        columns: [
-            { data: 'serial_number', name: 'serial_number', orderable: false, searchable: false },
-            { data: 'payment_ref_no', name: 'payment_ref_no'  },
-            { data: 'paid_on', name: 'paid_on'  },
-            { data: 'amount', name: 'transaction_payments.amount'  },
-            { data: 'method', name: 'method' },
-            { data: 'type', name: 'type' },
-            { data: 'date', name: 'date' },
-            { data: 'created_by', name: 'created_by' },
-            { data: 'action', "orderable": false, "searchable": false },
-        ],
-        "fnDrawCallback": function (oSettings) {
-            __currency_convert_recursively($('#ob_payment_table'));
-        }
-    });
+    processing: true,
+    serverSide: true,
+    aaSorting: [[0, 'desc']],
+    ajax: '/payments/opening-balance/{{ $contact->id }}',
+    columns: [
+        { data: 'serial_number', name: 'serial_number', orderable: false, searchable: false },
+        { data: 'payment_ref_no', name: 'payment_ref_no'  },
+        { data: 'paid_on', name: 'paid_on'  },
+        { data: 'amount', name: 'transaction_payments.amount'  },
+        { data: 'method', name: 'method' },
+        { data: 'type', name: 'type' },
+        { data: 'date', name: 'date' },
+        { data: 'created_by', name: 'created_by' },
+        { data: 'action', "orderable": false, "searchable": false },
+    ],
+    "fnDrawCallback": function (oSettings) {
+        __currency_convert_recursively($('#ob_payment_table'));
+    }
+});
+
 
     @if( in_array($contact->type, ['supplier', 'both']) )
     //Purchase return table

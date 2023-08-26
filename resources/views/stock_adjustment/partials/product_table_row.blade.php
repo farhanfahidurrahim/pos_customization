@@ -1,6 +1,9 @@
 <tr class="product_row">
     <td>
-        {{$product->sub_sku}}
+        {{$product->product_name}} - {{$product->sub_sku}}
+    </td>
+    <td>
+        {{$product->product_name}} - {{$product->sub_sku}}
 
         @php
             if($product->combo !=Null){
@@ -57,22 +60,22 @@
 
         <input type="hidden" name="products[{{$row_index}}][product_id]" class="form-control product_id" value="{{$product->product_id}}">
 
-        <input type="hidden" value="{{$product->variation_id}}" 
+        <input type="hidden" value="{{$product->variation_id}}"
             name="products[{{$row_index}}][variation_id]">
 
-        <input type="hidden" value="{{$product->enable_stock}}" 
+        <input type="hidden" value="{{$product->enable_stock}}"
             name="products[{{$row_index}}][enable_stock]">
-        
+
         @if(empty($product->quantity_ordered))
             @php
                 $product->quantity_ordered = 1;
             @endphp
         @endif
 
-        <input type="text" class="form-control product_quantity input_number input_quantity" value="{{@format_quantity($product->quantity_ordered)}}" name="products[{{$row_index}}][quantity]" 
+        <input type="text" class="form-control product_quantity input_number input_quantity" value="{{@format_quantity($product->quantity_ordered)}}" name="products[{{$row_index}}][quantity]"
         @if($product->unit_allow_decimal == 1) data-decimal=1 @else data-rule-abs_digit="true" data-msg-abs_digit="@lang('lang_v1.decimal_value_not_allowed')" data-decimal=0 @endif
         data-rule-required="true" data-msg-required="@lang('validation.custom-messages.this_field_is_required')" @if($product->enable_stock) data-rule-max-value="{{$qty}}" data-msg-max-value="@lang('validation.custom-messages.quantity_not_available', ['qty'=> $format_qty, 'unit' => $product->unit  ])"
-        data-qty_available="{{$qty}}" 
+        data-qty_available="{{$qty}}"
         data-msg_max_default="@lang('validation.custom-messages.quantity_not_available', ['qty'=> $format_qty, 'unit' => $product->unit  ])"
          @endif >
         {{$product->unit}}
@@ -84,3 +87,4 @@
         <i class="fa fa-trash remove_product_row cursor-pointer" aria-hidden="true"></i>
     </td>
 </tr>
+

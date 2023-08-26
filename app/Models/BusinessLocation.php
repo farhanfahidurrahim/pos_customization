@@ -57,4 +57,38 @@ class BusinessLocation extends Model
             return $locations;
         }
     }
+
+    public static function forDropdownNull($business_id, $show_all = false, $receipt_printer_type_attribute = false, $append_id = true)
+    {
+        $query = BusinessLocation::whereNot('business_id', $business_id);
+        $permitted_locations = auth()->user()->permitted_locations();
+        if ($permitted_locations != 'all') {
+            $query->whereIn('id', $permitted_locations);
+        }
+
+        if ($append_id) {
+            $query->select(
+                DB::raw("IF(location_id IS NULL OR location_id='', name, CONCAT(name, ' (', location_id, ')')) AS name"),
+                'id', 'receipt_printer_type'
+            );
+        }
+
+        $result = $query->get();
+
+        $locations = $result->pluck('name', 'id');
+
+        if ($show_all) {
+            $locations->prepend(__('report.all_locations'), '');
+        }
+
+        if ($receipt_printer_type_attribute) {
+            $attributes = collect($result)->mapWithKeys(function ($item) {
+                return [$item->id => ['data-receipt_printer_type' => $item->receipt_printer_type]];
+            })->all();
+
+            return ['locations' => $locations, 'attributes' => $attributes];
+        } else {
+            return $locations;
+        }
+    }
 }

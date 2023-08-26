@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BusinessLocation;
-
-use App\Models\PurchaseLine;
-use App\Models\Transaction;
-use App\Models\TransactionSellLinesPurchaseLines;
-use App\Utils\ModuleUtil;
-
-use App\Utils\ProductUtil;
-use App\Utils\TransactionUtil;
-use Datatables;
-
 use DB;
+
+use Datatables;
+use App\Utils\ModuleUtil;
+use App\Utils\ProductUtil;
+use App\Models\Transaction;
+
+use Illuminate\Support\Str;
+use App\Models\PurchaseLine;
 use Illuminate\Http\Request;
+
+use App\Utils\TransactionUtil;
+use App\Models\BusinessLocation;
+use App\Models\TransactionSellLinesPurchaseLines;
 
 class StockTransferController extends Controller
 {
@@ -135,9 +136,12 @@ class StockTransferController extends Controller
         }
 
         $business_locations = BusinessLocation::forDropdown($business_id);
+        $business_locations_to = BusinessLocation::forDropdownNull($business_id);
 
+        // $invoice_number = Str::random(5);
+        $invoice_number = 'INV-' . date('dmY') . '-' . sprintf('%04d', $this->transactionUtil->setAndGetReferenceCount('invoice'));
         return view('stock_transfer.create')
-                ->with(compact('business_locations'));
+                ->with(compact('business_locations','business_locations_to', 'invoice_number'));
     }
 
     /**

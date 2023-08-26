@@ -25,7 +25,7 @@
 	        if(session()->get('business.enable_inline_tax') == 1){
 	            $hide_tax = '';
 	        }
-	        
+
 			$tax_id = $product->tax_id;
 			$item_tax = !empty($product->item_tax) ? $product->item_tax : 0;
 			$unit_price_inc_tax = $product->sell_price_inc_tax;
@@ -125,12 +125,12 @@
 
 		<input type="hidden" name="products[{{$row_count}}][product_id]" class="form-control product_id" value="{{$product->product_id}}">
 
-		<input type="hidden" value="{{$product->variation_id}}" 
+		<input type="hidden" value="{{$product->variation_id}}"
 			name="products[{{$row_count}}][variation_id]" class="row_variation_id">
 
-		<input type="hidden" value="{{$product->enable_stock}}" 
+		<input type="hidden" value="{{$product->enable_stock}}"
 			name="products[{{$row_count}}][enable_stock]">
-		
+
 		@if(empty($product->quantity_ordered))
 			@php
 				$product->quantity_ordered = 1;
@@ -138,13 +138,13 @@
 		@endif
 		<div class="input-group input-number">
 			<span class="input-group-btn"><button type="button" class="btn btn-default btn-flat quantity-down"><i class="fa fa-minus text-danger"></i></button></span>
-		<input type="text" data-min="1" class="form-control pos_quantity input_number mousetrap" value="{{@num_format($product->quantity_ordered)}}" name="products[{{$row_count}}][quantity]" 
+		<input type="text" data-min="1" class="form-control pos_quantity input_number mousetrap" value="{{@num_format($product->quantity_ordered)}}" name="products[{{$row_count}}][quantity]"
 		@if($product->unit_allow_decimal == 1) data-decimal=1 @else data-decimal=0 data-rule-abs_digit="true" data-msg-abs_digit="@lang('lang_v1.decimal_value_not_allowed')" @endif
 		data-rule-required="true" data-msg-required="@lang('validation.custom-messages.this_field_is_required')" @if($product->enable_stock) data-rule-max-value="{{$max_qty_rule}}" data-qty_available="{{$product->qty_available}}" data-msg-max-value="{{$max_qty_msg}}" data-msg_max_default="@lang('validation.custom-messages.quantity_not_available', ['qty'=> $product->formatted_qty_available, 'unit' => $product->unit  ])" @endif >
 		<span class="input-group-btn"><button type="button" class="btn btn-default btn-flat quantity-up"><i class="fa fa-plus text-success"></i></button></span>
 		</div>
 		{{$product->unit}}
-		
+
 	</td>
 	<td class="{{$hide_tax}}">
 		<input type="text" name="products[{{$row_count}}][unit_price_inc_tax]" class="form-control pos_unit_price_inc_tax input_number" value="{{@num_format($unit_price_inc_tax)}}" @if(!auth()->user()->can('edit_product_price_from_sale_screen')) readonly @endif>

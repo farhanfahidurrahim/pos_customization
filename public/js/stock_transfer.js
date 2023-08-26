@@ -40,7 +40,7 @@ $(document).ready(function() {
 
                 var string = '<div>';
 
-                string += ' (' + item.sub_sku + ') </div>';
+                string +=  item.name + ' - ' + item.sub_sku + ' </div>';
                 return $('<li>')
                     .append(string)
                     .appendTo(ul);

@@ -7,6 +7,7 @@ use App\Models\BusinessLocation;
 use App\Models\PurchaseLine;
 
 use App\Models\Transaction;
+use App\Models\Variation;
 use App\Utils\ModuleUtil;
 
 use App\Utils\ProductUtil;
@@ -380,7 +381,7 @@ class StockAdjustmentController extends Controller
 
             $business_id = $request->session()->get('user.business_id');
 
-            $p=\App\Variation::with('product')->find($variation_id);
+            $p=Variation::with('product')->find($variation_id);
             if ($p->product->combo !=Null) {
                $data= $this->productUtil->checkRecipeQty($p->product->id,$location_id);
             }

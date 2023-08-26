@@ -271,8 +271,11 @@
                             <div class="login-buttons">
                                 <button type="submit" class="btn btn-success btn-block btn-lg">@lang('lang_v1.login')</button>
                             </div>
-                            <p class="text-center text-grey-darker mb0"  style="margin-top:10px;">
+                            {{-- <p class="text-center text-grey-darker mb0"  style="margin-top:10px;">
                                 Want to manage another Business? <a href="https://ebusi.rdnetworkbd.com/aipos/business/register">Register</a>
+                            </p> --}}
+                            <p class="text-center text-grey-darker mb0"  style="margin-top:10px;">
+                                Want to manage another Business? <a href="{{ route('business.getRegister') }}">Register</a>
                             </p>
                             <hr />
                             <p class="text-center text-grey-darker">

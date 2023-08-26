@@ -349,6 +349,7 @@ class ProductUtil extends Util
                 $variation_location_d->variation_id = $variation->id;
                 $variation_location_d->product_id = $product_id;
                 $variation_location_d->location_id = $location_id;
+                $variation_location_d->location_id = $location_id;
                 $variation_location_d->product_variation_id = $variation->product_variation_id;
                 $variation_location_d->qty_available = 0;
             }

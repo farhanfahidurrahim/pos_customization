@@ -206,11 +206,15 @@ function stock_adjustment_product_row(variation_id) {
         method: 'POST',
         url: '/stock-adjustments/get_product_row',
         data: { row_index: row_index, variation_id: variation_id, location_id: location_id },
-        dataType: 'html',
+        dataType: 'json',
         success: function(result) {
-            $('table#stock_adjustment_product_table tbody').append(result);
-            update_table_total();
-            $('#product_row_index').val(row_index + 1);
+            if (result.success==true) {
+                $('table#stock_adjustment_product_table tbody').append(result.view);
+                update_table_total();
+                $('#product_row_index').val(row_index + 1);
+            }else{
+                toastr.error(result.msg);
+            }
         },
     });
 }

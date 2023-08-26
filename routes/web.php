@@ -118,7 +118,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'product_recieves' => ProductRecievdController::class,
             'packages' => PackageController::class,
             'package' => PackageDetailsController::class,
-            'products' => ProductController::class,
+            // 'products' => ProductController::class,
             'printers' => PrinterController::class,
             'purchase-return' => PurchaseReturnController::class,
             // 'purchases' => PurchaseController::class,
@@ -128,10 +128,10 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'sells' => SellController::class,
             'pos' => SellPosController::class,
             'sales-commission-agents' => SalesCommissionAgentController::class,
-            'stock-transfers' => StockTransferController::class,
             'sell-return' => SellReturnController::class,
             'supplier_advance' => SupplierAdvanceController::class,
             'selling-price-group' => SellingPriceGroupController::class,
+            // 'stock-transfers' => StockTransferController::class,
             // 'stock-adjustments' => StockAdjustmentController::class,
 
             'payments' => TransactionPaymentController::class,
@@ -150,13 +150,20 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'only' => ['index', 'create', 'store','edit', 'destroy','update']
         ]);
 
-        // Route::resource('stock-transfers', StockTransferController::class, [
-        //     'only' => ['index', 'create', 'store','edit', 'destroy','update']
-        // ]);
+        Route::resource('products', ProductController::class, [
+            'only' => ['index', 'create', 'store','edit','update','destroy']
+        ]);
+        Route::get('products/show/{id}', [ProductController::class, 'show'])->name('products.show');
+
+        Route::resource('stock-transfers', StockTransferController::class, [
+            'only' => ['index', 'create', 'store','edit', 'destroy','update']
+        ]);
+        Route::get('stock-transfers/show/{id}', [StockTransferController::class, 'show'])->name('stock-transfers.show');
 
         Route::resource('stock-adjustments', StockAdjustmentController::class, [
             'only' => ['index', 'create', 'store','edit', 'destroy','update']
         ]);
+        Route::get('stock-adjustments/show/{id}', [StockAdjustmentController::class, 'show'])->name('stock-adjustments.show');
 
         //Route::resource('backup', [BackUpController::class], ['only' => ['index', 'create', 'store']]);
 

@@ -193,8 +193,8 @@
                 line-height: 1.8;
                 border-radius: 6px;
             }
-            
-            
+
+
             @media (max-width: 575.98px) {
             .login.login-with-news-feed .right-content {
                 padding: 30px;
@@ -209,9 +209,9 @@
             .login.login-with-news-feed .right-content {
                 padding: 45px;
             }
-                
+
             }
-            
+
             .page-header {
                 display:none;
             }
@@ -221,7 +221,7 @@
                 <div class="news-feed">
                     <div class="news-image" style="background-image: url(https://ebusi.rdnetworkbd.com/images/banner/05.png);"></div>
                 </div>
-            
+
                 <div class="right-content">
                     <div class="login-header">
                         <div class="brand"><span class="logo"></span> <b>Admin</b> Login</div>
@@ -229,11 +229,11 @@
                             <i class="fa fa-sign-in"></i>
                         </div>
                     </div>
-                    
+
                     <div class="login-content">
                         <form action="{{ route('login') }}" method="POST" class="margin-bottom-0">
                             {{ csrf_field() }}
-                            
+
                             <div class="form-group m-b-15 {{ $errors->has('username') ? ' has-error' : '' }}">
                                 @php $username = old('username'); $password = null; if(config('app.env') == 'demo'){ $username = 'admin'; $password = '123456'; $demo_types = array( 'all_in_one' => 'admin', 'super_market' => 'admin',
                                 'pharmacy' => 'admin-pharmacy', 'electronics' => 'admin-electronics', 'services' => 'admin-services', 'restaurant' => 'admin-restaurant', 'superadmin' => 'superadmin', 'woocommerce' => 'woocommerce_user',
@@ -245,7 +245,7 @@
                                 </span>
                                 @endif
                             </div>
-                            
+
                             <div class="form-group m-b-15 {{ $errors->has('password') ? ' has-error' : '' }}">
                                 <input id="password" type="password" class="form-control form-control-lg" name="password" value="{{ $password }}" placeholder="Password" required />
                                 @if ($errors->has('password'))
@@ -254,7 +254,7 @@
                                 </span>
                                 @endif
                             </div>
-                            
+
                             <div class="checkbox checkbox-css m-b-30">
                                 <input type="checkbox" id="remember_me_checkbox" value="" />
                                 <label for="remember_me_checkbox">
@@ -265,9 +265,9 @@
                                     @lang('lang_v1.forgot_your_password')
                                 </a>
                                 @endif
-                                
+
                             </div>
-                            
+
                             <div class="login-buttons">
                                 <button type="submit" class="btn btn-success btn-block btn-lg">@lang('lang_v1.login')</button>
                             </div>
@@ -284,8 +284,8 @@
             </div>
         </div>
 
-    
-    
+
+
 </div>
 
 

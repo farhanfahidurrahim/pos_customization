@@ -32,6 +32,13 @@
 					</div>
 				</div>
 
+                <div class="col-sm-3">
+					<div class="form-group">
+						{!! Form::label('invoice_number', __('Auto Invoice Number').':') !!}
+						{!! Form::text('invoice_number', $invoice_number, ['class' => 'form-control']); !!}
+					</div>
+				</div>
+
 				<div class="col-sm-3">
 					<div class="form-group">
 						{!! Form::label('location_id', __('lang_v1.location_from').':*') !!}
@@ -42,7 +49,7 @@
 				<div class="col-sm-3">
 					<div class="form-group">
 						{!! Form::label('transfer_location_id', __('To Location').':*') !!}
-						{!! Form::select('transfer_location_id', $business_locations, null, ['class' => 'form-control select2', 'placeholder' => __('messages.please_select'), 'required', 'id' => 'transfer_location_id']); !!}
+						{!! Form::select('transfer_location_id', $business_locations_to, null, ['class' => 'form-control select2', 'placeholder' => __('messages.please_select'), 'required', 'id' => 'transfer_location_id']); !!}
 					</div>
 				</div>
 
@@ -75,6 +82,9 @@
 					id="stock_adjustment_product_table">
 						<thead>
 							<tr>
+                                <th class="col-sm-4 text-center">
+									@lang('Adnan')
+								</th>
 								<th class="col-sm-4 text-center">
 									@lang('sale.product')
 								</th>

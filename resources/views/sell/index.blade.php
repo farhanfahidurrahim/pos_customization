@@ -141,7 +141,8 @@ $(document).ready( function(){
             "searchable": false
         } ],
         columns: [
-            { data: 'mass_delete'  },
+            // { data: 'mass_delete'  },
+            { data: ''  },
             { data: '', name: '' },
             { data: 'transaction_date', name: 'transaction_date'  },
             { data: 'username', name: 'users.username' },
