@@ -129,10 +129,14 @@ $(document).ready(function() {
             },
         ],
         columns: [
+            { data: 'serial_number', name: 'serial_number'  },
             { data: 'transaction_date', name: 'transaction_date' },
+            { data: 'invoice_no', name: 'invoice_no' },
             { data: 'ref_no', name: 'ref_no' },
             { data: 'location_from', name: 'l1.name' },
             { data: 'location_to', name: 'l2.name' },
+            { data: 'final_total', name: 'final_total' },
+            { data: 'created_by', name: 'created_by' },
             { data: 'action', name: 'action' },
         ],
         fnDrawCallback: function(oSettings) {

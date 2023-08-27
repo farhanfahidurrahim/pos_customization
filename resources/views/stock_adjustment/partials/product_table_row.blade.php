@@ -1,7 +1,7 @@
 <tr class="product_row">
-    <td>
+    {{-- <td>
         {{$product->product_name}} - {{$product->sub_sku}}
-    </td>
+    </td> --}}
     <td>
         {{$product->product_name}} - {{$product->sub_sku}}
 
@@ -82,8 +82,12 @@
     </td>
 
     <td class="text-center">
-        <input type="hidden" readonly name="products[{{$row_index}}][price]" class="form-control product_line_total" value="{{@num_format($product->quantity_ordered*$product->sell_price_inc_tax)}}">
-        <input type="hidden" name="products[{{$row_index}}][unit_price]" class="form-control product_unit_price input_number" value="{{@num_format($product->sell_price_inc_tax)}}">
+        <input type="text" name="products[{{$row_index}}][unit_price]" class="form-control product_unit_price input_number" value="{{@num_format($product->sell_price_inc_tax)}}">
+    </td>
+    <td class="text-center">
+        <input type="text" readonly name="products[{{$row_index}}][price]" class="form-control product_line_total" value="{{@num_format($product->quantity_ordered*$product->sell_price_inc_tax)}}">
+    </td>
+    <td class="text-center">
         <i class="fa fa-trash remove_product_row cursor-pointer" aria-hidden="true"></i>
     </td>
 </tr>

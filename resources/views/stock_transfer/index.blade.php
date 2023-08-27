@@ -22,10 +22,14 @@
             <table class="table table-bordered table-striped" id="stock_transfer_table">
                 <thead>
                     <tr>
+                        <th>SN</th>
                         <th>@lang('messages.date')</th>
+                        <th>Auto Invoice Number</th>
                         <th>@lang('purchase.ref_no')</th>
                         <th>@lang('lang_v1.location_from')</th>
                         <th>@lang('lang_v1.location_to')</th>
+                        <th>Price</th>
+                        <th>By Username</th>
                         <th>@lang('messages.action')</th>
                     </tr>
                 </thead>

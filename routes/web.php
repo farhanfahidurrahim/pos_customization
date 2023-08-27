@@ -131,8 +131,6 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'sell-return' => SellReturnController::class,
             'supplier_advance' => SupplierAdvanceController::class,
             'selling-price-group' => SellingPriceGroupController::class,
-            // 'stock-transfers' => StockTransferController::class,
-            // 'stock-adjustments' => StockAdjustmentController::class,
 
             'payments' => TransactionPaymentController::class,
             'tax-rates' => TaxRateController::class,

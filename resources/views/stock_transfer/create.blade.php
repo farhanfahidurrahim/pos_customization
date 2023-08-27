@@ -32,12 +32,12 @@
 					</div>
 				</div>
 
-                <div class="col-sm-3">
+                {{-- <div class="col-sm-3">
 					<div class="form-group">
 						{!! Form::label('invoice_number', __('Auto Invoice Number').':') !!}
 						{!! Form::text('invoice_number', $invoice_number, ['class' => 'form-control']); !!}
 					</div>
-				</div>
+				</div> --}}
 
 				<div class="col-sm-3">
 					<div class="form-group">
@@ -82,9 +82,9 @@
 					id="stock_adjustment_product_table">
 						<thead>
 							<tr>
-                                <th class="col-sm-4 text-center">
+                                {{-- <th class="col-sm-4 text-center">
 									@lang('Adnan')
-								</th>
+								</th> --}}
 								<th class="col-sm-4 text-center">
 									@lang('sale.product')
 								</th>
