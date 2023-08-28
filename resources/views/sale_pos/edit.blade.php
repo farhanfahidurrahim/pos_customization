@@ -21,14 +21,14 @@
 
 				<div class="box-header with-border">
 					<h3 class="box-title">
-						Editing 
-						@if($transaction->status == 'draft' && $transaction->is_quotation == 1) 
+						Editing
+						@if($transaction->status == 'draft' && $transaction->is_quotation == 1)
 							@lang('lang_v1.quotation')
-						@elseif($transaction->status == 'draft') 
-							Draft 
-						@elseif($transaction->status == 'final') 
-							Invoice 
-						@endif 
+						@elseif($transaction->status == 'draft')
+							Draft
+						@elseif($transaction->status == 'final')
+							Invoice
+						@endif
 					<span class="text-success">#{{$transaction->invoice_no}}</span> <i class="fa fa-keyboard-o hover-q text-muted" aria-hidden="true" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@include('sale_pos.partials.keyboard_shortcuts_details')" data-html="true" data-trigger="hover" data-original-title="" title=""></i></h3>
 					<div class="pull-right box-tools">
                 <a class="btn btn-success btn-sm" href="{{action('SellPosController@create')}}">
@@ -69,7 +69,7 @@
 											{!! Form::select('price_group', $price_groups, $transaction->selling_price_group_id, ['class' => 'form-control select2', 'id' => 'price_group', 'style' => 'width: 100%;']); !!}
 											<span class="input-group-addon">
 											@show_tooltip(__('lang_v1.price_group_help_text'))
-										</span> 
+										</span>
 										</div>
 									</div>
 								</div>
@@ -95,11 +95,11 @@
 									<span class="input-group-addon">
 										<i class="fa fa-user"></i>
 									</span>
-									<input type="hidden" id="default_customer_id" 
+									<input type="hidden" id="default_customer_id"
 									value="{{ $transaction->contact->id }}" >
-									<input type="hidden" id="default_customer_name" 
+									<input type="hidden" id="default_customer_name"
 									value="{{ $transaction->contact->name }}" >
-									{!! Form::select('contact_id', 
+									{!! Form::select('contact_id',
 										[], null, ['class' => 'form-control mousetrap', 'id' => 'customer_id', 'placeholder' => 'Enter Customer name / phone', 'required', 'style' => 'width: 100%;']); !!}
 									<span class="input-group-btn">
 										<button type="button" class="btn btn-default bg-white btn-flat add_new_customer" data-name=""><i class="fa fa-plus-circle text-primary fa-lg"></i></button>
@@ -114,7 +114,7 @@
 						@if(!empty($commission_agent))
 						<div class="col-sm-4">
 							<div class="form-group">
-							{!! Form::select('commission_agent', 
+							{!! Form::select('commission_agent',
 										$commission_agent, $transaction->commission_agent, ['class' => 'form-control select2', 'placeholder' => __('lang_v1.commission_agent')]); !!}
 							</div>
 						</div>
@@ -135,7 +135,7 @@
 
 						<!-- Call restaurant module if defined -->
 				        @if(in_array('tables' ,$enabled_modules) || in_array('service_staff' ,$enabled_modules))
-				        	<span id="restaurant_module_span" 
+				        	<span id="restaurant_module_span"
 				        		data-transaction_id="{{$transaction->id}}">
 				          		<div class="col-md-3"></div>
 				        	</span>
@@ -146,7 +146,7 @@
 						<input type="hidden" name="sell_price_tax" id="sell_price_tax" value="{{$business_details->sell_price_tax}}">
 
 						<!-- Keeps count of product rows -->
-						<input type="hidden" id="product_row_count" 
+						<input type="hidden" id="product_row_count"
 							value="{{count($sell_details)}}">
 						@php
 							$hide_tax = '';
@@ -157,7 +157,7 @@
 						<table class="table table-condensed table-bordered table-striped table-responsive" id="pos_table">
 							<thead>
 								<tr>
-									<th class="text-center @if(!empty($pos_settings['inline_service_staff'])) col-md-3 @else col-md-4 @endif">	
+									<th class="text-center @if(!empty($pos_settings['inline_service_staff'])) col-md-3 @else col-md-4 @endif">
 										@lang('sale.product')
 									</th>
 									<th class="text-center col-md-3">
@@ -215,10 +215,10 @@
 	@include('contact.create', ['quick_add' => true])
 </div>
 <!-- /.content -->
-<div class="modal fade register_details_modal" tabindex="-1" role="dialog" 
+<div class="modal fade register_details_modal" tabindex="-1" role="dialog"
 	aria-labelledby="gridSystemModalLabel">
 </div>
-<div class="modal fade close_register_modal" tabindex="-1" role="dialog" 
+<div class="modal fade close_register_modal" tabindex="-1" role="dialog"
 	aria-labelledby="gridSystemModalLabel">
 </div>
 <!-- quick product modal -->

@@ -51,7 +51,7 @@ class DiscountController extends Controller
                         ->leftjoin('brands as b', 'discounts.brand_id', '=', 'b.id')
                         ->leftjoin('categories as c', 'discounts.category_id', '=', 'c.id')
                         ->leftjoin('business_locations as l', 'discounts.location_id', '=', 'l.id')
-                        ->select(['discounts.id', 'discounts.name', 'starts_at', 'ends_at',
+                        ->select(['discounts.id', 'discounts.name', 'starts_at', 'ends_at', 'discounts.created_by', 'discounts.created_at',
                             'priority', 'b.name as brand', 'c.name as category', 'l.name as location', 'discounts.is_active']);
 
             return Datatables::of($discounts)
@@ -75,13 +75,14 @@ class DiscountController extends Controller
                     return $name;
                 })
                 ->editColumn('starts_at', function ($row) {
-                    $starts_at = !empty($row->starts_at) ? $this->commonUtil->format_date($row->starts_at->toDateTimeString(), true) : '';
+                    $starts_at = !empty($row->starts_at) ? $this->commonUtil->format_date($row->starts_at, true) : '';
                     return $starts_at;
                 })
                 ->editColumn('ends_at', function ($row) {
-                    $ends_at = !empty($row->ends_at) ? $this->commonUtil->format_date($row->ends_at->toDateTimeString(), true) : '';
+                    $ends_at = !empty($row->ends_at) ? $this->commonUtil->format_date($row->ends_at, true) : '';
                     return $ends_at;
                 })
+
                 ->rawColumns(['name', 'action', 'row_select'])
                 ->make(true);
         }
@@ -140,6 +141,8 @@ class DiscountController extends Controller
                 $input[$checkbox] = $request->has($checkbox) ? 1 : 0;
             }
 
+            $input['created_by'] = auth()->user()->username;
+
             $discount = Discount::create($input);
             $output = ['success' => true,
                             'msg' => __("lang_v1.added_success")
@@ -170,8 +173,11 @@ class DiscountController extends Controller
         if (request()->ajax()) {
             $business_id = request()->session()->get('user.business_id');
             $discount = Discount::where('business_id', $business_id)->find($id);
-            $starts_at = $this->commonUtil->format_date($discount->starts_at->toDateTimeString(), true);
-            $ends_at = $this->commonUtil->format_date($discount->ends_at->toDateTimeString(), true);
+            // $starts_at = $this->commonUtil->format_date($discount->starts_at->toDateTimeString(), true);
+            $starts_at = $this->commonUtil->format_date($discount->starts_at, true);
+            // $ends_at = $this->commonUtil->format_date($discount->ends_at->toDateTimeString(), true);
+            $ends_at = $this->commonUtil->format_date($discount->ends_at, true);
+
 
             $categories = Category::where('business_id', $business_id)
                             ->where('parent_id', 0)

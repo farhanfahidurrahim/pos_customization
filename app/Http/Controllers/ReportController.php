@@ -1699,7 +1699,7 @@ class ReportController extends Controller
                     return $product_name;
                 })
                 ->editColumn('invoice_no', function ($row) {
-                    return '<a data-href="' . action('SellController@show', [$row->transaction_id])
+                    return '<a data-href="' . route('sells.show', [$row->transaction_id])
                         . '" href="#" data-container=".view_modal" class="btn-modal">' . $row->invoice_no . '</a>';
                 })
                 ->editColumn('transaction_date', '{{@format_date($transaction_date)}}')
@@ -2076,7 +2076,7 @@ class ReportController extends Controller
             return Datatables::of($query)
                 ->editColumn('invoice_no', function ($row) {
                     if (!empty($row->transaction_id)) {
-                        return '<a data-href="' . action('SellController@show', [$row->transaction_id])
+                        return '<a data-href="' . route('sells.show', [$row->transaction_id])
                             . '" href="#" data-container=".view_modal" class="btn-modal">' . $row->invoice_no . '</a>';
                     } else {
                         return '';
@@ -2663,7 +2663,7 @@ class ReportController extends Controller
         $row_columns = ['gross_profit'];
         if ($by == 'invoice') {
             $datatable->editColumn('invoice_no', function ($row) {
-                return '<a data-href="' . action('SellController@show', [$row->transaction_id])
+                return '<a data-href="' . route('sells.show', [$row->transaction_id])
                     . '" href="#" data-container=".view_modal" class="btn-modal">' . $row->invoice_no . '</a>';
             });
             $row_columns[] = 'invoice_no';

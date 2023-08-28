@@ -18,8 +18,8 @@
 	@include('layouts.partials.error')
 
 	@if(count($business_locations) == 1)
-		@php 
-			$default_location = current(array_keys($business_locations->toArray())) 
+		@php
+			$default_location = current(array_keys($business_locations->toArray()))
 		@endphp
 	@else
 		@php $default_location = null; @endphp
@@ -28,15 +28,15 @@
 		<div class="col-sm-3">
 			<div class="form-group">
 				{!! Form::label('location_id', __('purchase.business_location').':*') !!}
-				{!! Form::select('location_id', $business_locations, $default_location, ['class' => 'form-control', 'placeholder' => __('messages.please_select'), 'required', 
+				{!! Form::select('location_id', $business_locations, $default_location, ['class' => 'form-control', 'placeholder' => __('messages.please_select'), 'required',
 				'id' => 'select_location_id']); !!}
 			</div>
 		</div>
 	</div>
 	<input type="hidden" id="product_row_count" value="0">
-	
-	{!! Form::open(['url' => action('SellReturnController@store'), 'method' => 'post', 'id' => 'sell_return_form' ]) !!}
-	
+
+	{!! Form::open(['url' => route('sell-return.store'), 'method' => 'post', 'id' => 'sell_return_form' ]) !!}
+
 	<div class="box box-solid">
 		<div class="box-body">
 			<div class="row">
@@ -71,8 +71,8 @@
 						</div>
 					</div>
 				</div>
-				
-				
+
+
 			</div>
 		</div>
 	</div> <!--box end-->
@@ -86,7 +86,7 @@
 							<span class="input-group-addon">
 								<i class="fa fa-search"></i>
 							</span>
-							{!! Form::text('search_product', null, ['class' => 'form-control', 'id' => 'search_product', 
+							{!! Form::text('search_product', null, ['class' => 'form-control', 'id' => 'search_product',
 								'placeholder' => __('lang_v1.search_product_placeholder'),
 								'disabled' => is_null($default_location)? true : false,
 								'autofocus' => is_null($default_location)? false : true,
@@ -108,7 +108,7 @@
 						<table class="table table-condensed table-bordered table-th-green text-center table-striped" id="purchase_entry_table">
 							<thead>
 								<tr>
-									<th class="text-center">	
+									<th class="text-center">
 										@lang('sale.product')
 									</th>
 									<th class="text-center">
@@ -193,7 +193,7 @@
 							&nbsp;
 						</td>
 						<td class="col-md-3">
-							<b>@lang( 'purchase.discount' ):</b>(-) 
+							<b>@lang( 'purchase.discount' ):</b>(-)
 							<span id="total_discount" class="display_currency">0</span>
 						</td>
 					</tr>

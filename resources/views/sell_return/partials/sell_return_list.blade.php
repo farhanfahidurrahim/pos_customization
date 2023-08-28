@@ -12,11 +12,9 @@
                 <th>@lang('purchase.payment_status')</th>
                 <th>@lang('sale.total_amount')</th>
                 <th>@lang('purchase.payment_due')</th>
-                <th>Create By</th>
                 <th>Vat Amount</th>
-                <th>Granty Amount</th>
                 <th>Paid Amount</th>
-                <th>Due Amount</th>
+                <th>Created By</th>
                 <th>@lang('messages.action')</th>
             </tr>
         </thead>

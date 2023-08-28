@@ -18,7 +18,7 @@
             @else
             	<div class="small-box-footer bg-gray">&nbsp;</div>
             @endif
-            	<a href="#" class="btn btn-flat small-box-footer bg-info btn-modal" data-href="{{ action('SellController@show', [$order->id])}}" data-container=".view_modal">@lang('restaurant.order_details') <i class="fa fa-arrow-circle-right"></i></a>
+            	<a href="#" class="btn btn-flat small-box-footer bg-info btn-modal" data-href="{{ route('sells.show', [$order->id]) }}" data-container=".view_modal">@lang('restaurant.order_details') <i class="fa fa-arrow-circle-right"></i></a>
          </div>
 	</div>
 	@if($loop->iteration % 4 == 0)

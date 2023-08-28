@@ -13,6 +13,11 @@ class Transaction extends Model
      */
     protected $guarded = ['id'];
 
+    public function createdByUser()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
     public function product_recieves()
     {
         return $this->hasmany(ProductRecievd::class,'transaction_id');

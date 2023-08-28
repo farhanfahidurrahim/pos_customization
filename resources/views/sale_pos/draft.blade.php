@@ -13,7 +13,7 @@
     @component('components.widget', ['class' => 'box-primary'])
         @slot('tool')
             <div class="box-tools">
-                <a class="btn btn-block btn-primary" href="{{action('SellPosController@create')}}">
+                <a class="btn btn-block btn-primary" href="{{ route('pos.create') }}">
                 <i class="fa fa-plus"></i> @lang('messages.add')</a>
             </div>
         @endslot
@@ -83,5 +83,5 @@ $(document).ready( function(){
     });
 });
 </script>
-	
+
 @endsection

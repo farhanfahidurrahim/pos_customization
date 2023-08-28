@@ -100,7 +100,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'backup' => BackUpController::class,
             'cash-register' => CashRegisterController::class,
             'customer-group' => CustomerGroupController::class,
-            'contacts' => ContactController::class,
+
             'categories' => CategoryController::class,
             'customer_advance' => CustomerAdvanceController::class,
             'discount' => DiscountController::class,
@@ -121,8 +121,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
             // 'products' => ProductController::class,
             'printers' => PrinterController::class,
             'purchase-return' => PurchaseReturnController::class,
-            // 'purchases' => PurchaseController::class,
-            /*  'payment-account' => AccountController::class, */
+
             'quotations' => QuatationController::class,
             'roles' => RoleController::class,
             'sells' => SellController::class,
@@ -136,17 +135,22 @@ Route::middleware(['BusinessSetting'])->group(function () {
             'tax-rates' => TaxRateController::class,
             'units' => UnitController::class,
             'variation-templates' => VariationTemplateController::class,
-
-            // 'account' => AccountController::class,
-
         ]);
+
         Route::resource('account', AccountController::class, [
-            'only' => ['index', 'create', 'edit', 'update', 'store', 'show']
+            'only' => ['index', 'create', 'edit', 'update', 'store', 'destroy']
         ]);
+        Route::get('account/show/{id}', [AccountController::class, 'show'])->name('account.show');
+
+        Route::resource('contacts', ContactController::class, [
+            'only' => ['index', 'create', 'store', 'edit', 'update','destroy']
+        ]);
+        Route::get('contacts/show/{id}', [ContactController::class, 'show'])->name('contacts.show');
 
         Route::resource('purchases', PurchaseController::class, [
-            'only' => ['index', 'create', 'store','edit', 'destroy','update']
+            'only' => ['index', 'create', 'store', 'edit', 'update', 'destroy']
         ]);
+        Route::get('purchases/show/{id}', [PurchaseController::class, 'show'])->name('purchases.show');
 
         Route::resource('products', ProductController::class, [
             'only' => ['index', 'create', 'store','edit','update','destroy']
@@ -214,7 +218,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
         Route::get('/purchases/status/{id}', [PurchaseController::class, 'getStatus']);
         Route::post('/purchases/status-update/{id}', [PurchaseController::class, 'statusUpdate']);
 
-        Route::get('/toggle-subscription/{id}', [SellPosController::class, 'toggleRecurringInvoices']);
+        Route::get('/toggle-subscription/{id}', [SellPosController::class, 'toggleRecurringInvoices'])->name('sellpos.toggleRecurringInvoices');
         Route::get('/sells/subscriptions', [SellPosController::class, 'listSubscriptions'])->name('pso.listSubscriptions');
         Route::get('/sells/invoice-url/{id}', [SellPosController::class, 'showInvoiceUrl'])->name('sells.showInvoiceUrl');
         Route::get('/sells/duplicate/{id}', [SellController::class, 'duplicateSell'])->name('sells.duplicateSell');
@@ -341,7 +345,7 @@ Route::middleware(['BusinessSetting'])->group(function () {
         Route::get('/purchase-return/create', [CombinedPurchaseReturnController::class, 'create'])->name('purchase.return.create');
         Route::get('/purchase-return/add/{id}', [PurchaseReturnController::class, 'add'])->name('purchase.return.add');
 
-        Route::get('/discount/activate/{id}', [DiscountController::class, 'activate']);
+        Route::get('/discount/activate/{id}', [DiscountController::class, 'activate'])->name('discount.activate');
         Route::post('/discount/mass-deactivate', [DiscountController::class, 'massDeactivate'])->name('discount.massDeactivate');
 
         Route::group(['prefix' => 'account'], function () {

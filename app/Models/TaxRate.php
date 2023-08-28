@@ -14,7 +14,7 @@ class TaxRate extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
-    
+
     /**
      * The attributes that aren't mass assignable.
      *

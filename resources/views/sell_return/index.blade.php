@@ -74,7 +74,7 @@
             } ],
             columns: [
                 { data: 'mass_delete'  },
-                { data: '', name: '' },
+                { data: 'serial_number', name: 'serial_number' },
                 { data: 'transaction_date', name: 'transaction_date'  },
                 { data: 'invoice_no', name: 'invoice_no'},
                 { data: 'parent_sale', name: 'T1.invoice_no'},
@@ -83,12 +83,9 @@
                 { data: 'payment_status', name: 'payment_status'},
                 { data: 'final_total', name: 'final_total'},
                 { data: 'payment_due', name: 'payment_due'},
-                { data: 'payment_due', name: 'payment_due'},
-                { data: '', name: '' },
-                { data: '', name: '' },
-                { data: '', name: '' },
-                { data: '', name: '' },
-                { data: '', name: '' },
+                { data: 'tax_amount', name: 'tax_amount' },
+                { data: 'amount_paid', name: 'amount_paid' },
+                { data: 'created_by', name: 'created_by' },
                 { data: 'action', name: 'action'}
             ],
             "fnDrawCallback": function (oSettings) {

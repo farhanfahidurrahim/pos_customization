@@ -75,7 +75,6 @@
                                 <br>{{ $transaction->business->tax_label_2 }}:
                                 {{ $transaction->business->tax_number_2 }}
                             @endif
-
                             @if (!empty($transaction->location->mobile))
                                 <br>@lang('contact.mobile'): {{ $transaction->location->mobile }}
                             @endif
@@ -164,6 +163,7 @@
                     </div>
                 </div>
             @else
+                {{-- Sells -> View Payments -> Customer --}}
                 <div class="row invoice-info">
                     <div class="col-sm-4 invoice-col">
                         @lang('contact.customer'):
@@ -179,17 +179,25 @@
                                     !empty($transaction->contact->country))
                                 <br>{{ implode(',', array_filter([$transaction->contact->city, $transaction->contact->state, $transaction->contact->country])) }}
                             @endif
-                            @if (!empty($transaction->contact->tax_number))
-                                <br>@lang('contact.tax_no'): {{ $transaction->contact->tax_number }}
-                            @endif
                             @if (!empty($transaction->contact->mobile))
                                 <br>@lang('contact.mobile'): {{ $transaction->contact->mobile }}
                             @endif
                             @if (!empty($transaction->contact->email))
                                 <br>Email: {{ $transaction->contact->email }}
                             @endif
+
+                            @if (!empty($transaction->contact->vat_number))
+                                <br>Vat Number: {{ $transaction->contact->vat_number }}
+                            @endif
+                            @if (!empty($transaction->contact->tax_number))
+                                <br>@lang('contact.tax_no'): {{ $transaction->contact->tax_number }}
+                            @endif
+                            @if (!empty($transaction->contact->gst_number))
+                                <br>GST Number: {{ $transaction->contact->gst_number }}
+                            @endif
                         </address>
                     </div>
+                    {{-- Sells -> View Payments -> Business --}}
                     <div class="col-md-4 invoice-col">
                         @lang('business.business'):
                         <address>
@@ -220,6 +228,15 @@
                             @endif
                             @if (!empty($transaction->location->email))
                                 <br>@lang('business.email'): {{ $transaction->location->email }}
+                            @endif
+                            @if (!empty($transaction->location->vat_number))
+                                <br>Vat Number: {{ $transaction->location->vat_number }}
+                            @endif
+                            @if (!empty($transaction->location->tax_no))
+                                <br>Tax Number: {{ $transaction->location->tax_no }}
+                            @endif
+                            @if (!empty($transaction->location->gst_number))
+                                <br>GST Number: {{ $transaction->location->gst_number }}
                             @endif
                         </address>
                     </div>
@@ -292,6 +309,7 @@
                                 <th>@lang('lang_v1.payment_account')</th>
                             @endif
                             <th>Payment Received By</th>
+                            <th>Upload Docu</th>
                             <th class="no-print">@lang('messages.actions')</th>
                         </tr>
                         @forelse ($payments as $payment)
@@ -310,6 +328,9 @@
                                     <td>{{ $payment->payment_account->name or '' }}</td>
                                 @endif
                                 <td>Received by user</td>
+                                <td>
+                                    <input type="file" name="payment_document" class="payment_document">
+                                </td>
                                 <td class="no-print" style="display: flex;">
                                     @if (
                                         (auth()->user()->can('purchase.payments') &&

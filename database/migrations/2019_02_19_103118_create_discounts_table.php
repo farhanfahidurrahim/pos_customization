@@ -28,6 +28,7 @@ class CreateDiscountsTable extends Migration
             $table->boolean('is_active')->default(1);
             $table->boolean('applicable_in_spg')->default(0)->nullable();
             $table->boolean('applicable_in_cg')->default(0)->nullable();
+            $table->string('created_by');
             $table->timestamps();
         });
     }

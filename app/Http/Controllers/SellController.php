@@ -92,6 +92,7 @@ class SellController extends Controller
                     'transactions.transaction_date',
                     'transactions.is_direct_sale',
                     'transactions.invoice_no',
+                    'transactions.ref_no',
                     'contacts.name',
                     'users.username',
                     'contacts.mobile',
@@ -230,6 +231,13 @@ class SellController extends Controller
             }
 
             $datatable = Datatables::of($sells)
+                ->addColumn('serial_number', function ($user) {
+                    static $index = 0;
+                    return ++$index;
+                })
+                ->addColumn('mass_delete', function ($row) {
+                    return  '<input type="checkbox" class="row-select" value="' . $row->id .'">' ;
+                })
                 ->addColumn(
                     'action',
                     function ($row) {
@@ -312,7 +320,7 @@ class SellController extends Controller
                     '<span class="display_currency sell_return_due" data-currency_symbol="true" data-orig-value="{{$amount_return -$return_paid}}">{{$amount_return -$return_paid}}</span>'
                 )
 
-                ->editColumn('tax_amount',
+                ->editColumn('payemnt_method',
                     function ($row) {
                         $items=DB::table('transaction_payments')->where('transaction_id', $row->id)->select('method')->get();
                         $v='';
@@ -322,8 +330,6 @@ class SellController extends Controller
                         return $v;
                     }
                 )
-
-
 
                 ->editColumn(
                     'discount_amount',
@@ -379,7 +385,7 @@ class SellController extends Controller
                         }
                     }]);
 
-            $rawColumns = ['final_total', 'action', 'total_paid', 'total_remaining', 'payment_status', 'invoice_no', 'discount_amount', 'tax_amount', 'total_before_tax','amount_return'];
+            $rawColumns = ['mass_delete','final_total', 'action', 'total_paid', 'total_remaining', 'payment_status', 'payemnt_method', 'invoice_no', 'discount_amount', 'tax_amount', 'total_before_tax','amount_return'];
 
             return $datatable->rawColumns($rawColumns)
                       ->make(true);
@@ -527,11 +533,45 @@ class SellController extends Controller
             }
         }
 
-
-
         return view('sale_pos.show')
             ->with(compact('sell'));
     }
+
+//     public function show($id)
+// {
+//     try {
+//         // Your existing code to fetch $sell
+//         if (!auth()->user()->can('sell.view')) {
+//             abort(403, 'Unauthorized action.');
+//         }
+
+//         $business_id = request()->session()->get('user.business_id');
+//         $taxes = TaxRate::where('business_id', $business_id)
+//                             ->pluck('name', 'id');
+//         $sell = Transaction::where('business_id', $business_id)
+//                     ->where('id', $id)
+//                     ->with(['contact', 'sell_lines' => function ($q) {
+//                         $q->whereNull('parent_sell_line_id');
+//                     },'sell_lines.product', 'sell_lines.product.unit','payment_lines'])
+//                     ->first();
+
+//         if (!$sell) {
+//             throw new \Exception("Transaction not found");
+//         }
+
+//         foreach ($sell->sell_lines as $key => $value) {
+//             if (!empty($value->sub_unit_id)) {
+//                 $formated_sell_line = $this->transactionUtil->recalculateSellLineTotals($business_id, $value);
+//                 $sell->sell_lines[$key] = $formated_sell_line;
+//             }
+//         }
+
+//         return view('sale_pos.show')->with(compact('sell'));
+//     } catch (\Exception $e) {
+//         return redirect()->route('sells.index')->with('error', $e->getMessage());
+//     }
+// }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -802,7 +842,6 @@ class SellController extends Controller
                 ->addColumn(
                     'action',
                     '<a href="#" data-href="{{ route(\'sells.show\', [$id]) }}" class="btn btn-xs btn-success btn-modal" data-container=".view_modal"><i class="fa fa-external-link" aria-hidden="true"></i> @lang("messages.view")</a>
-                    &nbsp;
                     @if($is_direct_sale == 1)
                         <a target="_blank" href="{{ route(\'sells.edit\', [$id]) }}" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i>  @lang("messages.edit")</a>
                     @else

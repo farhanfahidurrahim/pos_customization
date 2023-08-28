@@ -1880,6 +1880,13 @@ discounts_table = $('#discounts_table').DataTable({
         { data: 'brand', name: 'b.name' },
         { data: 'category', name: 'c.name' },
         { data: 'location', name: 'l.name' },
+        { data: 'created_by', name: 'created_by' },
+        {
+        "data": "created_at",
+            "render": function (data) {
+                return moment(data).format('MMMM D, YYYY h:mm A');
+            }
+        },
         { data: 'action', name: 'action' },
     ],
 });

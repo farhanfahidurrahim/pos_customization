@@ -233,10 +233,10 @@ class AccountReportsController extends Controller
                         $html = $row->ref_no;
                         if ($row->type == 'sell') {
                             $html = '<button type="button" class="btn btn-link btn-modal"
-                                    data-href="' . action('SellController@show', [$row->transaction_id]) .'" data-container=".view_modal">' . $row->invoice_no . '</button>';
+                                    data-href="' . route('sells.show', [$row->transaction_id]) .'" data-container=".view_modal">' . $row->invoice_no . '</button>';
                         } elseif ($row->type == 'purchase') {
                             $html = '<button type="button" class="btn btn-link btn-modal"
-                                    data-href="' . action('PurchaseController@show', [$row->transaction_id]) .'" data-container=".view_modal">' . $row->ref_no . '</button>';
+                                    data-href="' . route('purchases.show', [$row->transaction_id]) .'" data-container=".view_modal">' . $row->ref_no . '</button>';
                         }
                         return $html;
                     })

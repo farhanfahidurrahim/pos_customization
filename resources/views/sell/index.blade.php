@@ -46,6 +46,7 @@
                             <th>@lang('messages.date')</th>
                             <th>User</th>
                             <th>@lang('sale.invoice_no')</th>
+                            <th>Reference No</th>
                             <th>@lang('sale.customer_name')</th>
                             <th>Order Status</th>
                             <th>@lang('sale.payment_status')</th>
@@ -55,7 +56,7 @@
                             <th>Sell Due</th>
                             <th>Return Due</th>
                             <th>Total Item</th>
-                            <th>Reference No</th>
+
                             <th>Discount Amount</th>
                             <th>Vat Amount</th>
                             <th>@lang('messages.action')</th>
@@ -63,13 +64,16 @@
                     </thead>
                     <tfoot>
                         <tr class="bg-gray font-17 footer-total text-center">
-                            <td colspan="5"><strong>@lang('sale.total'):</strong></td>
+                            <td colspan="8"><strong>@lang('sale.total'):</strong></td>
                             <td id="footer_payment_status_count"></td>
                             <td></td>
                             <td><span class="display_currency" id="footer_sale_total" data-currency_symbol ="true"></span></td>
                             <td><span class="display_currency" id="footer_total_paid" data-currency_symbol ="true"></span></td>
                             <td class="text-left"><small>@lang('lang_v1.sell_due') - <span class="display_currency" id="footer_total_remaining" data-currency_symbol ="true"></span></small></td>
                             <td class="text-left"><small>@lang('lang_v1.sell_return_due') - <span class="display_currency" id="footer_total_sell_return_due" data-currency_symbol ="true"></span></small></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -141,25 +145,23 @@ $(document).ready( function(){
             "searchable": false
         } ],
         columns: [
-            // { data: 'mass_delete'  },
-            { data: ''  },
-            { data: '', name: '' },
+            { data: 'mass_delete'  },
+            { data: 'serial_number', name: 'serial_number'  },
             { data: 'transaction_date', name: 'transaction_date'  },
             { data: 'username', name: 'users.username' },
             { data: 'invoice_no', name: 'invoice_no'},
-
+            { data: 'ref_no', name: 'ref_no'},
             { data: 'name', name: 'contacts.name'},
             { data: 'sell_status', name: 'sell_status'},
             { data: 'payment_status', name: 'payment_status',"searchable": false},
-            { data: 'tax_amount', name: 'tax_amount',"searchable": false},
+            { data: 'payemnt_method', name: 'payemnt_method',"searchable": false},
             { data: 'final_total', name: 'final_total'},
             { data: 'total_paid', name: 'total_paid', "searchable": false},
             { data: 'total_remaining', name: 'total_remaining',"searchable": false},
             { data: 'amount_return', name: 'amount_return',"searchable": false},
             { data: 'total_item', name: 'total_item',"searchable": false},
-            { data: '', name: '' },
-            { data: '', name: '' },
-            { data: '', name: '' },
+            { data: 'discount_amount', name: 'discount_amount' },
+            { data: 'tax_amount', name: 'tax_amount' },
             { data: 'action', name: 'action'}
         ],
         "fnDrawCallback": function (oSettings) {

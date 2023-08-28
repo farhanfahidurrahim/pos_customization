@@ -78,6 +78,7 @@ class SellReturnController extends Controller
                         '=',
                         'TP.transaction_id'
                     )
+                    ->leftJoin('users', 'transactions.created_by', '=', 'users.id')
                     ->where('transactions.business_id', $business_id)
                     ->where('transactions.type', 'sell_return')
                     ->where('transactions.status', 'final')
@@ -88,10 +89,14 @@ class SellReturnController extends Controller
                         'contacts.name',
                         'transactions.final_total',
                         'transactions.payment_status',
+                        'transactions.tax_amount',
+                        'transactions.created_by',
                         'bl.name as business_location',
                         'T1.invoice_no as parent_sale',
                         'T1.id as parent_sale_id',
-                        DB::raw('SUM(TP.amount) as amount_paid')
+
+                        DB::raw('SUM(TP.amount) as amount_paid'),
+                        'users.username as created_by_name'
                     );
             $role_name = $this->moduleUtil->getUserRoleName(auth()->user()->id);
             $permitted_locations = auth()->user()->permitted_locations();
@@ -134,6 +139,10 @@ class SellReturnController extends Controller
             $sells->groupBy('transactions.id');
 
             return Datatables::of($sells)
+                ->addColumn('serial_number', function ($user) {
+                    static $index = 0;
+                    return ++$index;
+                })
                 ->addColumn(
                     'action',
                     '<div class="btn-group">
@@ -156,6 +165,12 @@ class SellReturnController extends Controller
                     </div>'
                 )
                 ->removeColumn('id')
+                ->addColumn('mass_delete', function ($row) {
+                    return  '<input type="checkbox" class="row-select" value="' . $row->id .'">' ;
+                })
+                ->addColumn('created_by', function ($row) {
+                    return $row->created_by_name;
+                })
                 ->editColumn(
                     'final_total',
                     '<span class="display_currency final_total" data-currency_symbol="true" data-orig-value="{{$final_total}}">{{$final_total}}</span>'
@@ -180,7 +195,7 @@ class SellReturnController extends Controller
                             return '';
                         }
                     }])
-                ->rawColumns(['final_total', 'action', 'parent_sale', 'payment_status', 'payment_due'])
+                ->rawColumns(['mass_delete', 'final_total', 'action', 'parent_sale', 'payment_status', 'payment_due'])
                 ->make(true);
         }
 

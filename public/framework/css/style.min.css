@@ -1,4 +1,4 @@
-@import url("../../fonts/google-fonts/google-fonts.css"); 
+@import url("../../fonts/google-fonts/google-fonts.css");
 
 html,
 body {
@@ -1954,6 +1954,9 @@ a:focus {
 }
 .modal .panel-body {
     color: #444;
+}
+.modal-content {
+    width: fit-content;
 }
 .info-box {
     display: block;

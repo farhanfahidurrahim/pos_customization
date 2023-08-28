@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('title', __('sale.discount'))
 
+@php
+    use Carbon\Carbon;
+@endphp
 @section('content')
 
 <!-- Content Header (Page header) -->
@@ -40,7 +43,7 @@
                             <th>@lang( 'product.category' )</th>
                             <th>@lang( 'sale.location' )</th>
                             <th>Create by Username</th>
-                            <th>Create Date & Time</th>
+                            <th>Create Date Time</th>
                             <th>@lang( 'messages.action' )</th>
             			</tr>
             		</thead>
